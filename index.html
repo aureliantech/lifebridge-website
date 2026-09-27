@@ -990,7 +990,7 @@ body.menu-open header .brand::after{background:linear-gradient(90deg, var(--sol)
 
 /* the rotating quote — every quote occupies the same grid cell, so the
    block is always as tall as the longest one and never shifts */
-.quotes{display:grid; margin-top:22px;}
+.quotes{display:grid; margin-top:22px; touch-action:pan-y; -webkit-user-select:none; user-select:none;}
 .quotes blockquote{
   grid-area:1 / 1;
   opacity:0; visibility:hidden; transform:translateY(8px);
@@ -1411,7 +1411,12 @@ header{animation-delay:.02s;}
   padding:10px 16px calc(10px + env(safe-area-inset-bottom));
   gap:12px; align-items:center;
 }
-.sticky-bar .when{font-size:12px; font-weight:700; letter-spacing:.06em; color:var(--pacifico); white-space:nowrap;}
+.sticky-bar .when{
+  display:flex; flex-direction:column; justify-content:center; gap:1px;
+  font-weight:700; letter-spacing:.05em; color:var(--pacifico); white-space:nowrap; line-height:1.15;
+}
+.sticky-bar .when b{font-size:13px; font-weight:700;}
+.sticky-bar .when span{font-size:12.5px; font-weight:600; color:var(--ink-mute); letter-spacing:.03em;}
 .sticky-bar .btn{flex:1; min-height:48px;}
 
 /* reveal */
@@ -1793,7 +1798,7 @@ header{animation-delay:.02s;}
 
 <!-- sticky mobile bar -->
 <div class="sticky-bar" role="region" aria-label="Quick actions">
-  <span class="when">SUN · 10:00</span>
+  <span class="when"><b>Sundays</b><span>10:00 AM</span></span>
   <a class="btn btn-dark" href="#"><span>Plan your visit</span></a>
 </div>
 
@@ -1870,6 +1875,47 @@ header{animation-delay:.02s;}
 
     document.addEventListener('visibilitychange', function(){
       if (document.hidden) stop(); else restart();
+    });
+
+    // swipe: drag the quote left or right with a thumb
+    var sx = 0, sy = 0, dx = 0, dragging = false;
+    var stage = box.closest('.proof') || box;
+    function current(){ return quotes[i]; }
+
+    stage.addEventListener('touchstart', function(e){
+      if (e.touches.length !== 1) return;
+      sx = e.touches[0].clientX; sy = e.touches[0].clientY;
+      dx = 0; dragging = true; stop();
+      current().style.transition = 'none';
+    }, {passive:true});
+
+    stage.addEventListener('touchmove', function(e){
+      if (!dragging) return;
+      var x = e.touches[0].clientX - sx;
+      var y = e.touches[0].clientY - sy;
+      // a mostly-vertical drag is the page scrolling, so let it go
+      if (Math.abs(y) > Math.abs(x)){ dragging = false; current().style.transition = ''; return; }
+      dx = x;
+      current().style.transform = 'translateX(' + (dx * 0.6) + 'px)';
+      current().style.opacity = String(Math.max(.35, 1 - Math.abs(dx) / 320));
+    }, {passive:true});
+
+    function release(){
+      if (!dragging) return;
+      dragging = false;
+      var q = current();
+      q.style.transition = ''; q.style.transform = ''; q.style.opacity = '';
+      if (Math.abs(dx) > 48) show(i + (dx < 0 ? 1 : -1));
+      dx = 0;
+      restart();
+    }
+    stage.addEventListener('touchend', release);
+    stage.addEventListener('touchcancel', release);
+
+    // and the arrow keys, once a dot has focus
+    nav.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowRight'){ show(i + 1); restart(); }
+      if (e.key === 'ArrowLeft'){ show(i - 1); restart(); }
     });
 
     show(0);
