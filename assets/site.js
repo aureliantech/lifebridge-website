@@ -12,14 +12,23 @@
     });
   }
 
-  // Next service. Panama is UTC-5 all year, so Sunday 10:00 AM is always 15:00 UTC.
-  var LEN=90*60000;
-  function nextService(now){
+  // Settings the pastor publishes from /admin: the latest message, and any Sundays with no service
+  var S={latestMessage:'',closed:[]};
+  var LEN=90*60000, DAY=86400000;
+  var MON=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var MO=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function z(n){return (n<10?'0':'')+n}
+  // Panama is UTC-5 all year, so Sunday 10:00 AM is always 15:00 UTC.
+  function pan(t){return new Date(t.getTime()-5*3600000)}
+  function ymd(t){var p=pan(t);return p.getUTCFullYear()+'-'+z(p.getUTCMonth()+1)+'-'+z(p.getUTCDate())}
+  function closed(t){return S.closed.indexOf(ymd(t))>-1}
+  function firstSunday(now){
     var t=new Date(Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate(),15,0,0));
     t.setUTCDate(t.getUTCDate()+((7-t.getUTCDay())%7));
     if(now-t>=LEN) t.setUTCDate(t.getUTCDate()+7);
     return t;
   }
+  function nextOpen(from){var t=from,i=0;while(closed(t)&&i++<52)t=new Date(t.getTime()+7*DAY);return t}
   function away(ms){
     if(ms<=0) return 'happening now';
     var m=Math.round(ms/60000), h=Math.floor(m/60), dd=Math.floor(h/24);
@@ -28,33 +37,42 @@
     if(h>=1) return 'in '+h+' hr '+(m%60)+' min';
     return 'in '+Math.max(m,1)+' min';
   }
-  var MON=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  function long(t){var p=pan(t);return MON[p.getUTCMonth()]+' '+p.getUTCDate()}
   function tick(){
-    var now=new Date(), s=nextService(now), txt=away(s-now);
-    // date as it reads in Panama
-    var p=new Date(s.getTime()-5*3600000), date=MON[p.getUTCMonth()]+' '+p.getUTCDate();
-    $$('[data-count]').forEach(function(e){e.textContent=txt});
-    $$('[data-date]').forEach(function(e){e.textContent='Sunday, '+date});
-    $$('[data-live]').forEach(function(e){e.hidden=!(s-now<=0)});
+    var now=new Date(), first=firstSunday(now), s=nextOpen(first);
+    $$('[data-count]').forEach(function(e){e.textContent=away(s-now)});
+    $$('[data-date]').forEach(function(e){e.textContent='Sunday, '+long(s)});
+    $$('[data-skip]').forEach(function(e){
+      var off=closed(first); e.hidden=!off; e.textContent=off?'No service Sunday, '+long(first)+'.':'';
+      e.parentNode.classList.toggle('has-skip',off);
+    });
+    $$('[data-weeks]').forEach(function(box){
+      $$('li',box).forEach(function(li,i){
+        var t=new Date(first.getTime()+i*7*DAY), p=pan(t), off=closed(t);
+        $('.mo',li).textContent=MO[p.getUTCMonth()]; $('.day',li).textContent=p.getUTCDate();
+        $('.at',li).textContent=off?'No service':'10:00 AM';
+        li.className=off?'off':(t.getTime()===s.getTime()?'next':'');
+      });
+    });
+  }
+  function videoId(u){var m=/(?:youtu\.be\/|[?&]v=|\/(?:embed|live|shorts)\/)([\w-]{11})/.exec(u||'');return m?m[1]:''}
+  function latest(){
+    var id=videoId(S.latestMessage); if(!id) return;
+    $$('[data-latest]').forEach(function(box){
+      box.setAttribute('data-yt','https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0&modestbranding=1');
+      box.setAttribute('data-page','https://www.youtube.com/watch?v='+id);
+    });
   }
   tick(); setInterval(tick,30000);
-
-  // Add this Sunday to a calendar
-  function z(n){return (n<10?'0':'')+n}
-  function stamp(t){return t.getUTCFullYear()+z(t.getUTCMonth()+1)+z(t.getUTCDate())+'T'+z(t.getUTCHours())+z(t.getUTCMinutes())+'00Z'}
-  $$('[data-ics]').forEach(function(b){
-    b.addEventListener('click',function(){
-      var s=nextService(new Date()), e=new Date(s.getTime()+LEN);
-      var ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//LifeBridge International Church//EN','BEGIN:VEVENT',
-        'UID:'+stamp(s)+'@lifebridgeic.com','DTSTAMP:'+stamp(new Date()),'DTSTART:'+stamp(s),'DTEND:'+stamp(e),
-        'SUMMARY:Sunday at LifeBridge','LOCATION:World Trade Center\\, Floor 2\\, Calle 53 Este\\, Marbella\\, Panama City',
-        'DESCRIPTION:Service starts at 10:00 AM\\, about 90 minutes\\, entirely in English. Take the lobby elevator to Floor 2. Directions: https://maps.app.goo.gl/PTKHtnqcWMbLNssR7',
-        'URL:https://lifebridgeic.com/visit','END:VEVENT','END:VCALENDAR'].join('\r\n');
-      var a=d.createElement('a'); a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));
-      a.download='lifebridge-sunday.ics'; d.body.appendChild(a); a.click(); a.remove();
-      var was=b.textContent; b.textContent='Added — check your downloads'; setTimeout(function(){b.textContent=was},2600);
-    });
-  });
+  var me=d.currentScript&&d.currentScript.src;
+  if(me&&window.fetch&&location.protocol!=='file:'){
+    fetch(me.replace(/assets\/site\.js.*$/,'settings.json'),{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){
+      if(!j) return;
+      if(typeof j.latestMessage==='string') S.latestMessage=j.latestMessage;
+      if(Array.isArray(j.closed)) S.closed=j.closed;
+      tick(); latest();
+    }).catch(function(){});
+  }
 
   // Videos load only when asked for
   $$('[data-yt]').forEach(function(box){

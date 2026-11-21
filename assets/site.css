@@ -49,11 +49,13 @@ h3{font-size:20px;line-height:1.25;letter-spacing:-.012em;font-stretch:94%}
 /* sign strip + header */
 .strip{background:var(--ink);color:#fff;font-size:14.5px}
 .strip .wrap{display:flex;justify-content:space-between;gap:20px;padding-top:9px;padding-bottom:9px}
-.strip a{text-underline-offset:3px}
+.strip a{text-underline-offset:3px;margin-left:10px}
 .strip b{font-weight:600}
 .strip .next{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .strip .where{white-space:nowrap}
 .strip [data-count]{color:var(--lamp)}
+.strip .nosvc{margin-right:.5em;color:var(--lamp);font-weight:600}
+.strip .next.has-skip{white-space:normal}
 .head{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.94);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--rule)}
 .head .wrap{display:flex;align-items:center;gap:28px;height:72px}
 .brand{display:flex;align-items:center;gap:11px;text-decoration:none;margin-right:auto}
@@ -183,9 +185,50 @@ h3{font-size:20px;line-height:1.25;letter-spacing:-.012em;font-stretch:94%}
 .rows dd a{color:var(--ink)}
 @media (max-width:560px){.rows > div{grid-template-columns:1fr}}
 
-/* callout */
-.callout{margin-top:28px;padding:18px 22px;border-left:4px solid var(--lamp);background:var(--mist);border-radius:0 8px 8px 0;max-width:46em}
-.tint .callout{background:#fff}
+/* levels: the building in section, the way an elevator panel reads */
+.levels{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--rule)}
+.levels > li{position:relative;display:grid;grid-template-columns:clamp(64px,9vw,104px) minmax(0,1fr);align-items:center;border-top:1px solid var(--rule);background:#fff}
+.levels > li:first-child{border-top:0}
+.levels > li::before{content:"";position:absolute;left:calc(clamp(64px,9vw,104px)/2 - 1px);top:0;bottom:0;width:2px;background:repeating-linear-gradient(180deg,currentColor 0 6px,transparent 6px 12px);opacity:.35}
+.levels > li:first-child::before{top:50%}
+.levels > li:last-child::before{bottom:50%}
+.levels .key{position:relative;z-index:2;justify-self:center;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:#fff;box-shadow:inset 0 0 0 2px var(--ink);font-weight:700;font-stretch:76%;font-size:26px;line-height:1}
+.levels .body{padding:24px clamp(18px,2.6vw,32px) 26px 0}
+.levels .where{display:block;font-size:14.5px;color:var(--ink-2);margin-bottom:3px}
+.levels p{color:var(--ink-2);margin-top:4px;max-width:36em}
+.levels .ways{display:grid;grid-template-columns:1fr 1fr;gap:16px 32px}
+.levels li.top{background:var(--canal);color:#fff}
+.levels li.top .key{background:var(--lamp);color:var(--ink);box-shadow:0 0 0 6px rgba(255,194,61,.22),0 0 30px rgba(255,194,61,.5)}
+.levels li.top .where,.levels li.top p{color:rgba(255,255,255,.86)}
+.levels li.under{background:var(--mist)}
+.levels li.under .key{background:var(--mist)}
+.levels-title{margin:clamp(36px,4vw,52px) 0 18px}
+@media (max-width:560px){.levels .ways{grid-template-columns:1fr}.levels .key{width:44px;height:44px;font-size:22px}}
+
+/* weeks: every Sunday is the same Sunday */
+.weeks{margin-top:clamp(36px,4.5vw,60px);background:var(--ink);color:#fff;border-radius:14px;padding:clamp(24px,3.6vw,48px)}
+.weeks .say{font-family:var(--serif);font-size:clamp(24px,2.8vw,36px);line-height:1.2;letter-spacing:-.015em;max-width:20em;text-wrap:balance}
+.weeks ol{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(6px,1vw,14px);margin-top:clamp(24px,3vw,36px)}
+.weeks ol li{border-radius:10px;padding:16px 8px 15px;text-align:center;box-shadow:inset 0 0 0 1px rgba(255,255,255,.24)}
+.weeks .mo{display:block;font-size:14.5px;color:rgba(255,255,255,.75)}
+.weeks .day{display:block;font-weight:700;font-stretch:76%;font-size:clamp(34px,4.6vw,60px);line-height:1;margin:4px 0 8px}
+.weeks .at{display:block;font-size:clamp(12.5px,1.3vw,15.5px);font-weight:600;white-space:nowrap}
+.weeks ol li.next{background:var(--lamp);color:var(--ink);box-shadow:0 0 0 6px rgba(255,194,61,.18)}
+.weeks ol li.next .mo{color:var(--ink)}
+.weeks ol li.off{box-shadow:inset 0 0 0 1px rgba(255,255,255,.14)}
+.weeks ol li.off .mo,.weeks ol li.off .day{opacity:.4}
+.weeks ol li.off .day{text-decoration:line-through;text-decoration-thickness:3px}
+.weeks ol li.off .at{color:rgba(255,255,255,.7);font-weight:500}
+.weeks .also{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:18px 32px;margin-top:clamp(24px,3vw,36px);padding-top:clamp(20px,2.4vw,28px);border-top:1px solid rgba(255,255,255,.2)}
+.weeks .also p{max-width:30em;color:rgba(255,255,255,.88)}
+.weeks .also b{color:#fff;font-weight:650}
+
+/* yappy: the second way to give in Panama */
+.alt{margin-top:28px;background:var(--mist);border-radius:14px;padding:clamp(22px,3vw,34px);display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:18px 32px;align-items:center}
+.alt p{color:var(--ink-2);margin-top:6px}
+.alt ul{display:flex;flex-wrap:wrap;gap:8px}
+.alt li{background:#fff;border-radius:999px;padding:9px 16px;font-weight:600;font-size:15.5px;box-shadow:inset 0 0 0 1px var(--rule)}
+@media (max-width:700px){.alt{grid-template-columns:1fr}}
 
 /* split */
 .split{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(28px,5vw,72px);align-items:center}
@@ -297,7 +340,6 @@ h3{font-size:20px;line-height:1.25;letter-spacing:-.012em;font-stretch:94%}
 .close h2 span{display:block;color:var(--lamp)}
 .close address{font-style:normal;margin-top:24px;font-size:19px;line-height:1.45}
 .close address b{display:block;font-weight:650}
-.close .mapl{display:flex;gap:22px;margin-top:22px;flex-wrap:wrap}
 .close .map{border-radius:12px;overflow:hidden;aspect-ratio:5/4;background:var(--ink)}
 .close .map iframe{width:100%;height:100%;border:0;display:block}
 @media (max-width:860px){.close .wrap{grid-template-columns:1fr}.close .map{aspect-ratio:4/3}}
@@ -324,6 +366,8 @@ h3{font-size:20px;line-height:1.25;letter-spacing:-.012em;font-stretch:94%}
 .bar.show{transform:none}
 .bar span{font-size:14.5px;line-height:1.25}
 .bar b{display:block;font-size:16px}
+.bar.two{justify-content:stretch}
+.bar.two .btn{flex:1}
 @media (min-width:761px){.bar{display:none}}
 
 /* 404 */
@@ -341,3 +385,4 @@ h3{font-size:20px;line-height:1.25;letter-spacing:-.012em;font-stretch:94%}
   .route li{display:grid;grid-template-columns:112px 1fr;gap:16px;align-items:center}
   .route .cap{margin-top:0}
 }
+@media (max-width:560px){.weeks ol li{padding:12px 2px 11px}.weeks .at{font-size:11.5px;font-stretch:75%;white-space:normal}.weeks .mo{font-size:13px}}
