@@ -110,6 +110,7 @@
     if(pn||ps) $$('[data-mapframe]').forEach(function(f){
       f.src='https://www.google.com/maps?q='+encodeURIComponent((pn||'World Trade Center')+' '+(ps||'Calle 53 Este Marbella')+' Panama City')+'&z=14&output=embed';
     });
+    var fe=get('forms.email',120); if(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fe)) TO=fe;
     var w=videoId(get('welcomeVideo',300));
     if(w){
       $$('[data-video=welcome]').forEach(function(box){
@@ -185,6 +186,32 @@
         if(m&&m.event==='onError'&&[100,101,150,153].indexOf(+m.info)>-1){window.removeEventListener('message',on);blocked(box,f,look)}
       });
       box.appendChild(f); btn.remove();
+    });
+  });
+
+  // Contact form and LifeGroup sign-up: emailed to the pastor through FormSubmit (formsubmit.co)
+  var TO='pastor@lifebridgeic.com';
+  $$('form[data-form]').forEach(function(f){
+    var err=$('.form-err',f), btn=$('button[type=submit]',f), label=btn.textContent, done=f.nextElementSibling;
+    function fail(){
+      btn.disabled=false; btn.textContent=label; err.hidden=false; err.textContent='That did not send. Please try again, or email us at ';
+      var a=d.createElement('a'); a.href='mailto:'+TO; a.textContent=TO; err.appendChild(a); err.appendChild(d.createTextNode('.'));
+    }
+    f.addEventListener('submit',function(e){
+      e.preventDefault(); err.hidden=true;
+      if(!f.checkValidity()){f.reportValidity();return}
+      var data={_subject:f.getAttribute('data-subject'),_template:'table',_captcha:'false'}, bot=false;
+      [].forEach.call(f.elements,function(el){
+        if(!el.name||((el.type==='radio')&&!el.checked)) return;
+        var v=String(el.value).trim(); if(el.name==='_honey'){bot=!!v;return}
+        if(v) data[el.name]=v.slice(0,1000);
+      });
+      var ok=function(){f.hidden=true; done.hidden=false; done.setAttribute('tabindex','-1'); done.focus()};
+      if(bot){ok();return}
+      data._replyto=data.email;
+      btn.disabled=true; btn.textContent='Sending\u2026';
+      fetch('https://formsubmit.co/ajax/'+encodeURIComponent(TO),{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})
+        .then(function(r){return r.json()}).then(function(j){ if(j&&String(j.success)==='true') ok(); else fail(); }).catch(fail);
     });
   });
 

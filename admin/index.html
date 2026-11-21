@@ -34,28 +34,33 @@
   .row-btns{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:18px;align-items:center}
   .txt{background:none;border:0;padding:0;font-weight:600;font-size:15.5px;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:5px;text-decoration-color:var(--lamp-deep);cursor:pointer;color:var(--ink)}
   .sundays{margin-top:18px;border-top:1px solid var(--rule)}
-  .sundays > li{border-bottom:1px solid var(--rule);padding:16px 0 18px}
+  .sundays > li{border-bottom:1px solid var(--rule);padding:14px 0}
+  .sundays .line{display:flex;align-items:center;gap:16px}
+  .sundays .top{flex:1;min-width:0}
   .sundays .top b{display:block;font-weight:650;font-stretch:94%;font-size:19px;letter-spacing:-.01em}
   .sundays .sum{font-size:15px;color:var(--ink-2)}
+  .sundays li.off .top b{text-decoration:line-through;text-decoration-thickness:2px;color:var(--ink-2)}
   .sundays li.off .sum{color:#A32A1B;font-weight:600}
   .sundays li.chg .sum{color:var(--canal);font-weight:600}
-  .seg{display:inline-flex;margin-top:12px;border-radius:999px;box-shadow:inset 0 0 0 1.5px rgba(11,39,51,.3);padding:3px;max-width:100%}
+  .seg{flex:none;display:inline-flex;border-radius:999px;background:rgba(11,39,51,.1);padding:3px}
   .seg label{position:relative;cursor:pointer}
   .seg input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer}
-  .seg span{display:block;padding:8px 15px;border-radius:999px;font-size:15px;font-weight:600;white-space:nowrap}
-  .seg input:checked + span{background:var(--ink);color:#fff}
+  .seg span{display:block;min-width:46px;text-align:center;padding:7px 12px;border-radius:999px;font-size:14.5px;font-weight:600;color:var(--ink-2);white-space:nowrap}
+  .seg input:checked + span{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(11,39,51,.25)}
+  .seg label:nth-child(1) input:checked + span{background:var(--canal);color:#fff}
+  .seg label:nth-child(2) input:checked + span{background:#A32A1B;color:#fff}
+  .seg label:nth-child(3) input:checked + span{background:var(--lamp);color:var(--ink)}
   .seg input:focus-visible + span{outline:3px solid var(--bridge);outline-offset:2px}
-  .chgbox{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:12px;margin-top:14px}
+  .more{margin-top:14px;padding:16px;border-radius:12px;background:var(--mist)}
+  .chgbox{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:12px;margin-bottom:14px}
   .chgbox label,.notebox label{display:block;font-size:14.5px;font-weight:600;margin-bottom:6px}
   select{width:100%;height:48px;border-radius:10px;border:1.5px solid rgba(11,39,51,.3);padding:0 12px;font:inherit;color:var(--ink);background:#fff}
   select:focus{outline:3px solid var(--bridge);outline-offset:1px}
-  .notebox{margin-top:14px}
   .notebox .row{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
   .notebox .cnt{font-size:14.5px;color:var(--ink-2);font-variant-numeric:tabular-nums}
   .notebox .cnt.full{color:#A32A1B;font-weight:600}
   .notebox input{height:48px}
-  .addnote{margin-top:12px;display:inline-block}
-  @media (max-width:520px){.chgbox{grid-template-columns:1fr}.seg span{padding:8px 11px;font-size:14.5px}}
+  @media (max-width:520px){.chgbox{grid-template-columns:1fr}.sundays .top b{font-size:17.5px}.seg span{min-width:0;padding:7px 10px}}
   .see{margin-top:20px;background:var(--ink);color:#fff;border-radius:14px;padding:20px clamp(20px,2.6vw,32px);display:flex;flex-wrap:wrap;gap:8px 40px}
   .see div{min-width:0}
   .see dt{font-size:14.5px;color:rgba(255,255,255,.72)}
@@ -174,7 +179,7 @@
 
       <div class="card">
         <h2>Upcoming services</h2>
-        <p class="hint">Every week is Sunday at 10:00 AM unless you change it here. You can move a service to another day or time that week, cancel it, or add a short note for visitors.</p>
+        <p class="hint">Every Sunday is on unless you switch it off. Choose Change only if a service moves to another day or time.</p>
         <ol class="sundays" id="sundays"></ol>
       </div>
     </div>
@@ -210,7 +215,8 @@
     'give.yappy':'Banco General, St. Georges Bank, Davivienda, Credicorp Bank, Banisi',
     'give.online':'https://ibcmworld.com/donate','give.church':'LifeBridge International Church Panama City, Panama',
     'give.check':'Payable to IBCM, mailed to PO Box 833276, Richardson, TX 75083. Write LifeBridge in the memo.',
-    'give.billpay':'Pay IBCM through your bank, with LifeBridge as the account number.','give.email':'karen@ibcmworld.org'
+    'give.billpay':'Pay IBCM through your bank, with LifeBridge as the account number.','give.email':'karen@ibcmworld.org',
+    'forms.email':'pastor@lifebridgeic.com'
   };
   var GROUPS=[
     {id:'welcome',title:'Welcome video',about:'The short video from the pastor on the home page.',fields:[
@@ -222,6 +228,9 @@
       note:'The photos and walking directions on the Visit and Sundays pages describe the current building. If the church moves, those need to be redone by whoever looks after the website.'},
     {id:'email',title:'Weekly email',about:'Where the weekly email links on the site lead.',fields:[
       {k:'links.email',label:'Sign-up link',type:'url',max:500,wide:1}]},
+    {id:'forms',title:'Messages from the website',about:'The contact form and the LifeGroup sign-up are emailed to this address.',fields:[
+      {k:'forms.email',label:'Send messages to',type:'email',max:120,wide:1}],
+      note:'After changing this address, send one test message from the Contact page. The new inbox then receives a one-time email with a link that switches delivery on.'},
     {id:'give',title:'Giving details',about:'Everything shown on the Give page.',fields:[
       {h:'Bank transfer in Panama'},
       {k:'give.bank',label:'Bank',max:40},{k:'give.type',label:'Account type',max:50},
@@ -283,7 +292,7 @@
       var v=w[k]||{}, o={}, n=tidy(v.note);
       if(v.off) o.off=true;
       else { if(v.date&&v.date!==k) o.date=v.date; if(v.time&&v.time!==base()) o.time=v.time; }
-      if(n) o.note=n;
+      if(n&&!v.off) o.note=n;
       if(Object.keys(o).length) out[k]=o;
     });
     return out;
@@ -359,14 +368,12 @@
     var next=null, now=new Date();
     weeks.forEach(function(sun,i){
       var li=$('sundays').children[i], k=ymd(sun), v=cur.weeks[k]||{}, s=svc(sun);
-      var mode=v.off?'off':((s.moved||ui[k]==='chg')?'chg':'on');
+      var mode=v.off?'off':((s.moved||v.note||ui[k]==='chg')?'chg':'on');
       li.className=mode==='on'?'':mode;
       li.querySelector('input[value='+mode+']').checked=true;
-      li.querySelector('.chgbox').hidden=mode!=='chg';
+      li.querySelector('.more').hidden=mode!=='chg';
       li.querySelector('.day').value=(!v.off&&v.date)||k; li.querySelector('.time').value=s.time;
-      li.querySelector('.sum').textContent=s.off?'No service this week':(s.moved?'Changed: '+long(s.t)+' at '+clock(s.time):'Sunday at '+clock(base())+', as usual');
-      var has=typeof v.note==='string'&&(v.note!==''||ui[k+'n']);
-      li.querySelector('.notebox').hidden=!has; li.querySelector('.addnote').hidden=has;
+      li.querySelector('.sum').textContent=s.off?'No service. The site will say so.':(s.moved?'Moved to '+long(s.t)+' at '+clock(s.time):'Meeting at '+clock(base()));
       var inp=li.querySelector('.note'); if(inp.value!==(v.note||'')) inp.value=v.note||'';
       var c=li.querySelector('.cnt'); c.textContent=inp.value.length+' / '+NOTE; c.className='cnt'+(inp.value.length>=NOTE?' full':'');
       if(!next&&!s.off&&now-s.t<LEN) next=s;
@@ -393,6 +400,7 @@
       if(g.id==='welcome') now2=('welcomeVideo' in cleanSite(cur.site))?'A video you linked':'The original welcome video';
       if(g.id==='place') now2='Sundays at '+clock(base())+', '+eff('place.name')+', '+eff('place.floor');
       if(g.id==='email') now2=eff('links.email').replace(/^https?:\/\//,'');
+      if(g.id==='forms') now2=eff('forms.email');
       if(g.id==='give') now2=eff('give.bank')+', account '+eff('give.number');
       box.querySelector('.now').textContent=now2;
     });
@@ -457,25 +465,22 @@
       var li=d.createElement('li'), k=ymd(sun), days='', times='';
       for(var n=6;n>=0;n--){var t=new Date(sun.getTime()-n*DAY);days+='<option value="'+ymd(t)+'">'+long(t)+(n?'':' (usual)')+'</option>'}
       TIMES.forEach(function(hm){times+='<option value="'+hm+'">'+clock(hm)+(hm===base()?' (usual)':'')+'</option>'});
-      li.innerHTML='<div class="top"><b></b><span class="sum"></span></div>'+
-        '<div class="seg" role="radiogroup"><label><input type="radio" name="m'+i+'" value="on"><span>As usual</span></label><label><input type="radio" name="m'+i+'" value="chg"><span>Change day or time</span></label><label><input type="radio" name="m'+i+'" value="off"><span>No service</span></label></div>'+
-        '<div class="chgbox" hidden><div><label for="d'+i+'">Day</label><select class="day" id="d'+i+'">'+days+'</select></div><div><label for="t'+i+'">Start time</label><select class="time" id="t'+i+'">'+times+'</select></div></div>'+
-        '<div><button class="txt addnote" type="button">Add a note for visitors</button></div>'+
-        '<div class="notebox" hidden><div class="row"><label for="n'+i+'">Note shown on the site</label><span class="cnt"></span></div><input class="note" id="n'+i+'" type="text" maxlength="'+NOTE+'" autocomplete="off" placeholder="One short sentence"><div><button class="txt rmnote" type="button" style="margin-top:10px">Remove the note</button></div></div>';
-      li.querySelector('b').textContent='Week of '+long(sun);
-      li.querySelector('.seg').setAttribute('aria-label','Service for the week of '+long(sun));
+      li.innerHTML='<div class="line"><div class="top"><b></b><span class="sum"></span></div>'+
+        '<div class="seg" role="radiogroup"><label><input type="radio" name="m'+i+'" value="on"><span>On</span></label><label><input type="radio" name="m'+i+'" value="off"><span>Off</span></label><label><input type="radio" name="m'+i+'" value="chg"><span>Change</span></label></div></div>'+
+        '<div class="more" hidden><div class="chgbox"><div><label for="d'+i+'">Day</label><select class="day" id="d'+i+'">'+days+'</select></div><div><label for="t'+i+'">Start time</label><select class="time" id="t'+i+'">'+times+'</select></div></div>'+
+        '<div class="notebox"><div class="row"><label for="n'+i+'">Note for visitors, if you want one</label><span class="cnt"></span></div><input class="note" id="n'+i+'" type="text" maxlength="'+NOTE+'" autocomplete="off" placeholder="One short sentence"></div></div>';
+      li.querySelector('b').textContent=long(sun);
+      li.querySelector('.seg').setAttribute('aria-label','Service on '+long(sun));
       function get(){return cur.weeks[k]||(cur.weeks[k]={})}
       [].forEach.call(li.querySelectorAll('.seg input'),function(r){r.addEventListener('change',function(){
         var v=get(); ui[k]=r.value;
-        if(r.value==='off'){v.off=true}
-        else{delete v.off; if(r.value==='on'){delete v.date;delete v.time}}
+        if(r.value==='off'){v.off=true;delete v.note}
+        else{delete v.off; if(r.value==='on'){delete v.date;delete v.time;delete v.note}}
         render();
       })});
       li.querySelector('.day').addEventListener('change',function(e){var v=get();if(e.target.value===k)delete v.date;else v.date=e.target.value;render()});
       li.querySelector('.time').addEventListener('change',function(e){var v=get();if(e.target.value===base())delete v.time;else v.time=e.target.value;render()});
-      li.querySelector('.addnote').addEventListener('click',function(){var v=get();v.note=v.note||'';ui[k+'n']=1;render();li.querySelector('.note').focus()});
-      li.querySelector('.rmnote').addEventListener('click',function(){var v=get();delete v.note;delete ui[k+'n'];render()});
-      li.querySelector('.note').addEventListener('input',function(e){var v=get();v.note=e.target.value.replace(/[\r\n]+/g,' ').slice(0,NOTE);render()});
+      li.querySelector('.note').addEventListener('input',function(e){var v=get(),n=e.target.value.replace(/[\r\n]+/g,' ').slice(0,NOTE);if(n)v.note=n;else delete v.note;render()});
       ol.appendChild(li);
     });
   }

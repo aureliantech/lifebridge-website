@@ -34,3 +34,11 @@ Good to know
 - Some streams cannot be played outside YouTube because of music rights. The site
   detects this and offers a "Watch on YouTube" button instead.
 - If no YouTube link is set, the site plays the newest upload on the channel automatically.
+
+Contact form and LifeGroup sign-up
+- Both forms email pastor@lifebridgeic.com through FormSubmit (formsubmit.co), a free
+  form-to-email service. No account is needed.
+- One-time activation: the first message sent from the live site makes FormSubmit email
+  that inbox a link. Until the pastor clicks it, messages are not delivered.
+- The receiving address can be changed under Site details > Messages from the website.
+  A new address needs the same one-time activation.
