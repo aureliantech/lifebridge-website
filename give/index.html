@@ -19,9 +19,9 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="strip"><div class="wrap">
-  <span class="next"><span class="nosvc" data-skip hidden></span>Next service: <b><span data-date>Every Sunday</span>, 10:00 AM</b> <span data-count></span></span>
-  <span class="where">World Trade Center, Floor 2 <a href="https://maps.app.goo.gl/PTKHtnqcWMbLNssR7" target="_blank" rel="noopener noreferrer">Google Maps</a><a href="https://maps.apple.com/?q=World+Trade+Center+Panama&amp;address=Calle+53+Este,+Marbella,+Panama+City,+Panama" target="_blank" rel="noopener noreferrer">Apple Maps</a></span>
-</div></div>
+  <span class="next"><span class="nosvc" data-skip hidden></span>Next service: <b><span data-date>Every Sunday</span>, <span data-time>10:00 AM</span></b> <span data-count></span></span>
+  <span class="where"><span data-s="place.name">World Trade Center</span>, <span data-s="place.floor">Floor 2</span> <a data-link="maps.google" href="https://maps.app.goo.gl/PTKHtnqcWMbLNssR7" target="_blank" rel="noopener noreferrer">Google Maps</a><a data-link="maps.apple" href="https://maps.apple.com/?q=World+Trade+Center+Panama&amp;address=Calle+53+Este,+Marbella,+Panama+City,+Panama" target="_blank" rel="noopener noreferrer">Apple Maps</a></span>
+</div><p class="notice wrap" data-notice hidden></p></div>
 <header class="head"><div class="wrap">
   <a class="brand" href="../" aria-label="LifeBridge International Church, home"><img src="../assets/img/logo.png" width="40" height="40" alt=""><span><b>LifeBridge</b><span>International Church</span></span></a>
   <nav class="nav" aria-label="Main"><a href="../visit/">Visit</a><a href="../sundays/">Sundays</a><a href="../kids/">Kids</a><a href="../community/">Community</a><a href="../about/">About</a><a href="../watch/">Watch</a></nav>
@@ -32,40 +32,40 @@
   <button class="close" type="button">Close</button>
   <nav aria-label="All pages"><a href="../visit/">Plan your visit</a><a href="../sundays/">Times and location</a><a href="../kids/">BridgeKids</a><a href="../community/">Community</a><a href="../about/">About us</a><a href="../watch/">Watch a message</a><a href="../new-to-panama/">New to Panama</a><a href="../give/">Give</a><a href="../contact/">Contact</a></nav>
   <a class="btn" href="../visit/">Plan your visit</a>
-  <p>Sundays, 10:00 AM. World Trade Center, Floor 2, Calle 53 Este, Marbella.</p>
+  <p>Sundays, <span data-s="time">10:00 AM</span>. <span data-s="place.name">World Trade Center</span>, <span data-s="place.floor">Floor 2</span>, <span data-s="place.street">Calle 53 Este, Marbella</span>.</p>
 </div>
 <main id="main">
 <section class="hero "><div class="wrap hero-grid">
   <div><h1>Giving is part of how we worship.</h1><p class="lede">It pays for Sunday mornings, BridgeKids, and everything that keeps running the rest of the week.</p><div class="actions"><a class="btn" href="#panama">Give from Panama</a><a class="link" href="#abroad">Give from outside Panama</a></div></div>
   <figure class="hero-photo "><img src="../assets/img/give-hero.jpg" width="640" height="800" alt="Members greeting each other warmly before a Sunday service" fetchpriority="high"></figure>
-</div><div class="wrap" style="margin-top:clamp(32px,4vw,56px)"><dl class="board plain" style="--n:3"><div><dt>In Panama</dt><dd><b>Bank or Yappy</b><span>Transfer to Banco General</span></dd></div><div><dt>Outside Panama</dt><dd><b>Online by card</b><span>Through IBC Ministries</span></dd></div><div class="wide"><dt>In person</dt><dd><b>On Sunday</b><span>An offering is taken during the service</span></dd></div></dl></div></section><section class="sec " id="panama"><div class="wrap cols">
-  <div class="sec-head"><h2>If you bank in Panama</h2><p>A transfer to our Banco General account, or Yappy.</p></div>
+</div><div class="wrap" style="margin-top:clamp(32px,4vw,56px)"><dl class="board plain" style="--n:3"><div><dt>In Panama</dt><dd><b>Bank or Yappy</b><span>Transfer to <span data-s="give.bank">Banco General</span></span></dd></div><div><dt>Outside Panama</dt><dd><b>Online by card</b><span>Through IBC Ministries</span></dd></div><div class="wide"><dt>In person</dt><dd><b>On Sunday</b><span>An offering is taken during the service</span></dd></div></dl></div></section><section class="sec " id="panama"><div class="wrap cols">
+  <div class="sec-head"><h2>If you bank in Panama</h2><p>A transfer to our <span data-s="give.bank">Banco General</span> account, or Yappy.</p></div>
   <div class="sec-body"><dl class="account">
-  <div><div><dt>Bank</dt><dd>Banco General</dd></div></div>
-  <div><div><dt>Account name</dt><dd>Asociacion LifeBridge International Church</dd></div><button class="copy" type="button" data-copy="Asociacion LifeBridge International Church" aria-label="Copy account name">Copy</button></div>
-  <div><div><dt>Account type</dt><dd>Savings (Cuenta de Ahorros)</dd></div></div>
-  <div><div><dt>Account number</dt><dd class="num">04-10-00-000442-3</dd></div><button class="copy" type="button" data-copy="04-10-00-000442-3" aria-label="Copy account number">Copy</button></div>
-</dl><div class="alt"><div><h3>Yappy also works</h3><p>Through any of these banks.</p></div><ul><li>Banco General</li><li>St. Georges Bank</li><li>Davivienda</li><li>Credicorp Bank</li><li>Banisi</li></ul></div></div>
+  <div><div><dt>Bank</dt><dd data-s="give.bank">Banco General</dd></div></div>
+  <div><div><dt>Account name</dt><dd data-s="give.name">Asociacion LifeBridge International Church</dd></div><button class="copy" type="button" data-copy-s="give.name" data-copy="Asociacion LifeBridge International Church" aria-label="Copy account name">Copy</button></div>
+  <div><div><dt>Account type</dt><dd data-s="give.type">Savings (Cuenta de Ahorros)</dd></div></div>
+  <div><div><dt>Account number</dt><dd class="num" data-s="give.number">04-10-00-000442-3</dd></div><button class="copy" type="button" data-copy-s="give.number" data-copy="04-10-00-000442-3" aria-label="Copy account number">Copy</button></div>
+</dl><div class="alt"><div><h3>Yappy also works</h3><p>Through any of these banks.</p></div><ul data-yappy><li>Banco General</li><li>St. Georges Bank</li><li>Davivienda</li><li>Credicorp Bank</li><li>Banisi</li></ul></div></div>
 </div></section><section class="sec rule" id="abroad"><div class="wrap cols">
   <div class="sec-head"><h2>If you bank outside Panama</h2><p>Give by card through IBC Ministries.</p></div>
-  <div class="sec-body"><div class="invite"><p class="lede" style="margin-top:0">Under designated church, choose <b>LifeBridge International Church Panama City, Panama</b>.</p><a class="btn" href="https://ibcmworld.com/donate" target="_blank" rel="noopener noreferrer">Give online through IBC Ministries</a></div><div style="margin-top:40px"><dl class="rows"><div><dt>By check</dt><dd>Payable to IBCM, mailed to PO Box 833276, Richardson, TX 75083. Write LifeBridge in the memo.</dd></div><div><dt>Bank bill pay</dt><dd>Pay IBCM through your bank, with LifeBridge as the account number.</dd></div><div><dt>Questions</dt><dd>Banking or card questions: <a href="mailto:karen@ibcmworld.org">karen@ibcmworld.org</a></dd></div></dl></div></div>
+  <div class="sec-body"><div class="invite"><p class="lede" style="margin-top:0">Under designated church, choose <b data-s="give.church">LifeBridge International Church Panama City, Panama</b>.</p><a class="btn" data-link="give.online" href="https://ibcmworld.com/donate" target="_blank" rel="noopener noreferrer">Give online through IBC Ministries</a></div><div style="margin-top:40px"><dl class="rows"><div><dt>By check</dt><dd><span data-s="give.check">Payable to IBCM, mailed to PO Box 833276, Richardson, TX 75083. Write LifeBridge in the memo.</span></dd></div><div><dt>Bank bill pay</dt><dd><span data-s="give.billpay">Pay IBCM through your bank, with LifeBridge as the account number.</span></dd></div><div><dt>Questions</dt><dd>Banking or card questions: <a data-mail="give.email" href="mailto:karen@ibcmworld.org">karen@ibcmworld.org</a></dd></div></dl></div></div>
 </div></section><section class="sec tint"><div class="wrap"><blockquote class="bigquote"><p>There&rsquo;s an offering during the service. Visitors are never expected to give.</p></blockquote></div></section><section class="sec blue close on-dark" aria-labelledby="close-h"><div class="wrap">
   <div>
-    <h2 id="close-h">See you Sunday. <span>10:00 AM</span></h2>
-    <address><b>World Trade Center, Floor 2</b>Calle 53 Este, Marbella, Panama City</address>
-    <div class="actions"><a class="btn" href="https://maps.app.goo.gl/PTKHtnqcWMbLNssR7" target="_blank" rel="noopener noreferrer">Open in Google Maps</a><a class="btn line" href="https://maps.apple.com/?q=World+Trade+Center+Panama&amp;address=Calle+53+Este,+Marbella,+Panama+City,+Panama" target="_blank" rel="noopener noreferrer">Open in Apple Maps</a></div>
+    <h2 id="close-h">See you <span data-day>Sunday</span>. <span class="y" data-time>10:00 AM</span></h2>
+    <address><b><span data-s="place.name">World Trade Center</span>, <span data-s="place.floor">Floor 2</span></b><span data-s="place.street">Calle 53 Este, Marbella</span>, Panama City</address>
+    <div class="actions"><a class="btn" data-link="maps.google" href="https://maps.app.goo.gl/PTKHtnqcWMbLNssR7" target="_blank" rel="noopener noreferrer">Open in Google Maps</a><a class="btn line" data-link="maps.apple" href="https://maps.apple.com/?q=World+Trade+Center+Panama&amp;address=Calle+53+Este,+Marbella,+Panama+City,+Panama" target="_blank" rel="noopener noreferrer">Open in Apple Maps</a></div>
   </div>
-  <div class="map"><iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map to LifeBridge International Church" src="https://www.google.com/maps?q=World+Trade+Center+Panama+Calle+53+Este+Marbella&amp;z=14&amp;output=embed"></iframe></div>
+  <div class="map"><iframe data-mapframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map to LifeBridge International Church" src="https://www.google.com/maps?q=World+Trade+Center+Panama+Calle+53+Este+Marbella&amp;z=14&amp;output=embed"></iframe></div>
 </div></section>
 </main>
 <footer class="foot"><div class="wrap">
-  <div><a class="brand" href="../" aria-label="LifeBridge International Church, home"><img src="../assets/img/logo.png" width="40" height="40" alt=""><span><b>LifeBridge</b><span>International Church</span></span></a><p>An English-speaking church in Panama City. Sundays at 10:00 AM, World Trade Center, Floor 2.</p></div>
+  <div><a class="brand" href="../" aria-label="LifeBridge International Church, home"><img src="../assets/img/logo.png" width="40" height="40" alt=""><span><b>LifeBridge</b><span>International Church</span></span></a><p>An English-speaking church in Panama City. Sundays at <span data-s="time">10:00 AM</span>, <span data-s="place.name">World Trade Center</span>, <span data-s="place.floor">Floor 2</span>.</p></div>
   <div><h3>Start here</h3><ul><li><a href="../visit/">Plan your visit</a></li><li><a href="../sundays/">Times and location</a></li><li><a href="../kids/">BridgeKids</a></li><li><a href="../community/">Community</a></li><li><a href="../about/">About us</a></li></ul></div>
   <div><h3>More</h3><ul><li><a href="../watch/">Watch a message</a></li><li><a href="../new-to-panama/">New to Panama</a></li><li><a href="../give/">Give</a></li><li><a href="../contact/">Contact</a></li></ul></div>
-  <div><h3>Follow</h3><ul><li><a href="https://www.instagram.com/lifebridgeic" target="_blank" rel="noopener noreferrer">Instagram</a></li><li><a href="https://www.facebook.com/lifebridgeic" target="_blank" rel="noopener noreferrer">Facebook</a></li><li><a href="https://www.youtube.com/channel/UC1uYoyE02tunZLR449S-I2g" target="_blank" rel="noopener noreferrer">YouTube</a></li><li><a href="http://eepurl.com/djqE1j" target="_blank" rel="noopener noreferrer">Weekly email</a></li></ul></div>
+  <div><h3>Follow</h3><ul><li><a href="https://www.instagram.com/lifebridgeic" target="_blank" rel="noopener noreferrer">Instagram</a></li><li><a href="https://www.facebook.com/lifebridgeic" target="_blank" rel="noopener noreferrer">Facebook</a></li><li><a href="https://www.youtube.com/channel/UC1uYoyE02tunZLR449S-I2g" target="_blank" rel="noopener noreferrer">YouTube</a></li><li><a data-link="links.email" href="http://eepurl.com/djqE1j" target="_blank" rel="noopener noreferrer">Weekly email</a></li></ul></div>
   <p class="legal">© LifeBridge International Church, Panama City</p>
 </div></footer>
-<div class="bar"><span><b>Sundays, 10:00 AM</b>World Trade Center, Floor 2</span><a class="btn small" href="../visit/">Plan your visit</a></div>
+<div class="bar"><span><b>Sundays, <span data-s="time">10:00 AM</span></b><span data-s="place.name">World Trade Center</span>, <span data-s="place.floor">Floor 2</span></span><a class="btn small" href="../visit/">Plan your visit</a></div>
 <script src="../assets/site.js" defer></script>
 </body>
 </html>

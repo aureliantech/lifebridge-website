@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Weekly update — LifeBridge</title>
+<title>Update the website — LifeBridge</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/jpeg" href="../favicon.jpg">
 <link rel="stylesheet" href="../assets/site.css">
@@ -24,7 +24,7 @@
   .card h2{font-size:26px}
   .card .hint{color:var(--ink-2);margin-top:8px;font-size:15.5px}
   label.f{display:block;font-weight:600;font-size:15.5px;margin:22px 0 8px}
-  input[type=text],input[type=url],input[type=password]{width:100%;height:52px;border-radius:10px;border:1.5px solid rgba(11,39,51,.3);padding:0 14px;font:inherit;color:var(--ink);background:#fff}
+  input[type=text],input[type=url],input[type=email],input[type=password]{width:100%;height:52px;border-radius:10px;border:1.5px solid rgba(11,39,51,.3);padding:0 14px;font:inherit;color:var(--ink);background:#fff}
   input:focus{outline:3px solid var(--bridge);outline-offset:1px;border-color:var(--ink)}
   .state{margin-top:14px;font-size:15.5px;color:var(--ink-2)}
   .state.bad{color:#A32A1B;font-weight:600}
@@ -34,20 +34,28 @@
   .row-btns{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:18px;align-items:center}
   .txt{background:none;border:0;padding:0;font-weight:600;font-size:15.5px;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:5px;text-decoration-color:var(--lamp-deep);cursor:pointer;color:var(--ink)}
   .sundays{margin-top:18px;border-top:1px solid var(--rule)}
-  .sundays li{border-bottom:1px solid var(--rule)}
-  .sundays label{display:flex;align-items:center;gap:16px;padding:14px 0;cursor:pointer}
-  .sundays .d{flex:1;min-width:0}
-  .sundays .d b{display:block;font-weight:650;font-stretch:94%;font-size:19px;letter-spacing:-.01em}
-  .sundays .d span{font-size:15px;color:var(--ink-2)}
-  .sundays li.off .d b{text-decoration:line-through;text-decoration-thickness:2px;color:var(--ink-2)}
-  .sundays li.off .d span{color:#A32A1B;font-weight:600}
-  .sw{position:relative;flex:none;width:58px;height:34px}
-  .sw input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer}
-  .sw i{position:absolute;inset:0;border-radius:999px;background:rgba(11,39,51,.25);transition:background .15s}
-  .sw i::after{content:"";position:absolute;top:4px;left:4px;width:26px;height:26px;border-radius:50%;background:#fff;transition:transform .15s var(--ease)}
-  .sw input:checked + i{background:var(--canal)}
-  .sw input:checked + i::after{transform:translateX(24px)}
-  .sw input:focus-visible + i{outline:3px solid var(--bridge);outline-offset:3px}
+  .sundays > li{border-bottom:1px solid var(--rule);padding:16px 0 18px}
+  .sundays .top b{display:block;font-weight:650;font-stretch:94%;font-size:19px;letter-spacing:-.01em}
+  .sundays .sum{font-size:15px;color:var(--ink-2)}
+  .sundays li.off .sum{color:#A32A1B;font-weight:600}
+  .sundays li.chg .sum{color:var(--canal);font-weight:600}
+  .seg{display:inline-flex;margin-top:12px;border-radius:999px;box-shadow:inset 0 0 0 1.5px rgba(11,39,51,.3);padding:3px;max-width:100%}
+  .seg label{position:relative;cursor:pointer}
+  .seg input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer}
+  .seg span{display:block;padding:8px 15px;border-radius:999px;font-size:15px;font-weight:600;white-space:nowrap}
+  .seg input:checked + span{background:var(--ink);color:#fff}
+  .seg input:focus-visible + span{outline:3px solid var(--bridge);outline-offset:2px}
+  .chgbox{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:12px;margin-top:14px}
+  .chgbox label,.notebox label{display:block;font-size:14.5px;font-weight:600;margin-bottom:6px}
+  select{width:100%;height:48px;border-radius:10px;border:1.5px solid rgba(11,39,51,.3);padding:0 12px;font:inherit;color:var(--ink);background:#fff}
+  select:focus{outline:3px solid var(--bridge);outline-offset:1px}
+  .notebox{margin-top:14px}
+  .notebox .row{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+  .notebox .cnt{font-size:14.5px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+  .notebox .cnt.full{color:#A32A1B;font-weight:600}
+  .notebox input{height:48px}
+  .addnote{margin-top:12px;display:inline-block}
+  @media (max-width:520px){.chgbox{grid-template-columns:1fr}.seg span{padding:8px 11px;font-size:14.5px}}
   .see{margin-top:20px;background:var(--ink);color:#fff;border-radius:14px;padding:20px clamp(20px,2.6vw,32px);display:flex;flex-wrap:wrap;gap:8px 40px}
   .see div{min-width:0}
   .see dt{font-size:14.5px;color:rgba(255,255,255,.72)}
@@ -64,12 +72,42 @@
   .setup summary{cursor:pointer;font-weight:600;color:var(--ink)}
   .setup ol{list-style:decimal;padding-left:1.3em;margin-top:10px}
   .setup ol li{margin-top:6px}
+  .tabs{display:inline-flex;margin-top:22px;border-radius:999px;background:#fff;padding:4px;box-shadow:0 1px 0 var(--rule)}
+  .tabs button{border:0;background:none;border-radius:999px;padding:10px 20px;font-weight:650;font-size:16px;cursor:pointer;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .tabs button[aria-selected=true]{background:var(--ink);color:#fff}
+  .tabs .dot{width:9px;height:9px;border-radius:50%;background:var(--lamp-deep)}
+  .groups{display:grid;gap:14px;margin-top:22px;max-width:860px}
+  .grp{padding:0}
+  .grp summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:16px;padding:20px clamp(20px,2.6vw,32px)}
+  .grp summary::-webkit-details-marker{display:none}
+  .grp summary .t{flex:1;min-width:0}
+  .grp summary b{display:block;font-size:21px;font-weight:650;font-stretch:92%;letter-spacing:-.015em}
+  .grp summary .now{display:block;color:var(--ink-2);font-size:15.5px;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .grp summary::after{content:"";flex:none;width:11px;height:11px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(45deg) translate(-3px,-3px);transition:transform .2s var(--ease)}
+  .grp[open] summary::after{transform:rotate(225deg) translate(-3px,-3px)}
+  .tag{flex:none;font-size:13.5px;font-weight:650;border-radius:999px;padding:4px 11px;background:var(--lamp);color:var(--ink)}
+  .tag.bad{background:#A32A1B;color:#fff}
+  .grp .in{padding:0 clamp(20px,2.6vw,32px) clamp(22px,2.6vw,30px);border-top:1px solid var(--rule)}
+  .grp .about{color:var(--ink-2);font-size:15.5px;margin-top:16px}
+  .grp h3{font-size:16px;font-stretch:100%;letter-spacing:0;font-weight:650;margin-top:28px;padding-top:20px;border-top:1px solid var(--rule)}
+  .fields{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+  .fields .fld.wide{grid-column:1/-1}
+  @media (max-width:640px){.fields{grid-template-columns:1fr}}
+  .fld label{display:block;font-weight:600;font-size:15px;margin:18px 0 7px}
+  .fld .hint2{font-size:14.5px;color:var(--ink-2);margin-top:6px}
+  .fld .err{font-size:14.5px;color:#A32A1B;font-weight:600;margin-top:6px}
+  .fld.bad input,.fld.bad textarea{border-color:#A32A1B}
+  .fld.set label::after{content:"Changed";margin-left:8px;font-size:12.5px;font-weight:650;background:var(--lamp);border-radius:999px;padding:2px 8px}
+  textarea{width:100%;min-height:84px;border-radius:10px;border:1.5px solid rgba(11,39,51,.3);padding:12px 14px;font:inherit;color:var(--ink);background:#fff;resize:vertical}
+  textarea:focus{outline:3px solid var(--bridge);outline-offset:1px;border-color:var(--ink)}
+  .caution{margin-top:20px;padding:14px 16px;border-radius:10px;background:var(--mist);font-size:15px;color:var(--ink)}
+  .undo{margin-top:20px}
   [hidden]{display:none!important}
 </style>
 </head>
 <body>
 <header class="a-head"><div class="wrap">
-  <a class="brand" href="../" aria-label="LifeBridge International Church, home"><img src="../assets/img/logo.png" width="40" height="40" alt=""><span><b>LifeBridge</b><span>Weekly update</span></span></a>
+  <a class="brand" href="../" aria-label="LifeBridge International Church, home"><img src="../assets/img/logo.png" width="40" height="40" alt=""><span><b>LifeBridge</b><span>Website updates</span></span></a>
   <a class="q" href="../" target="_blank" rel="noopener">View the site</a>
   <button class="q" type="button" id="signout" hidden>Sign out</button>
 </div></header>
@@ -106,9 +144,15 @@
 
   <!-- The weekly panel -->
   <section id="panel" hidden>
-    <h1>This week's update</h1>
-    <p class="sub">Two things to check each week. Nothing changes on the website until you press Publish.</p>
+    <h1>Update the website</h1>
+    <p class="sub">Nothing changes on the website until you press Publish.</p>
 
+    <div class="tabs" role="tablist" aria-label="What to update">
+      <button type="button" role="tab" id="tab-week" aria-controls="view-week" aria-selected="true">This week</button>
+      <button type="button" role="tab" id="tab-site" aria-controls="view-site" aria-selected="false">Site details<span class="dot" id="site-dot" hidden></span></button>
+    </div>
+
+    <div id="view-week" role="tabpanel" aria-labelledby="tab-week">
     <dl class="see" aria-live="polite">
       <div><dt>The site will show as the next service</dt><dd id="see-next">…</dd></div>
       <div><dt>Latest message</dt><dd id="see-msg">…</dd></div>
@@ -129,10 +173,16 @@
       </div>
 
       <div class="card">
-        <h2>Upcoming Sundays</h2>
-        <p class="hint">Every Sunday is on unless you switch it off. If one is off, the site says so and counts down to the next Sunday that is on.</p>
+        <h2>Upcoming services</h2>
+        <p class="hint">Every week is Sunday at 10:00 AM unless you change it here. You can move a service to another day or time that week, cancel it, or add a short note for visitors.</p>
         <ol class="sundays" id="sundays"></ol>
       </div>
+    </div>
+    </div>
+
+    <div id="view-site" role="tabpanel" aria-labelledby="tab-site" hidden>
+      <p class="sub" style="margin-top:22px">These rarely change. Open one to see what the site shows now and edit it. Clearing a field puts the original back.</p>
+      <div class="groups" id="groups"></div>
     </div>
   </section>
 
@@ -146,27 +196,107 @@
 <script>
 (function(){
   var d=document, $=function(id){return d.getElementById(id)};
-  var KEY='lifebridge-admin', API='https://api.github.com/repos/', FILE='settings.json';
-  var cfg=null, sha=null, saved={latestMessage:'',closed:[]}, cur={latestMessage:'',closed:[]};
+  var KEY='lifebridge-admin', API='https://api.github.com/repos/', FILE='settings.json', NOTE=90;
+  var cfg=null, sha=null, saved={latestMessage:'',weeks:{},site:{}}, cur={latestMessage:'',weeks:{},site:{}}, ui={};
+
+  // ---- site details: what the site says today, and the fields that can change it
+  var DEF={
+    'welcomeVideo':'https://www.youtube.com/watch?v=Gqqq2FBiNDA',
+    'time':'10:00','place.name':'World Trade Center','place.floor':'Floor 2','place.street':'Calle 53 Este, Marbella',
+    'maps.google':'https://maps.app.goo.gl/PTKHtnqcWMbLNssR7',
+    'maps.apple':'https://maps.apple.com/?q=World+Trade+Center+Panama&address=Calle+53+Este,+Marbella,+Panama+City,+Panama',
+    'links.email':'http://eepurl.com/djqE1j',
+    'give.bank':'Banco General','give.name':'Asociacion LifeBridge International Church','give.type':'Savings (Cuenta de Ahorros)','give.number':'04-10-00-000442-3',
+    'give.yappy':'Banco General, St. Georges Bank, Davivienda, Credicorp Bank, Banisi',
+    'give.online':'https://ibcmworld.com/donate','give.church':'LifeBridge International Church Panama City, Panama',
+    'give.check':'Payable to IBCM, mailed to PO Box 833276, Richardson, TX 75083. Write LifeBridge in the memo.',
+    'give.billpay':'Pay IBCM through your bank, with LifeBridge as the account number.','give.email':'karen@ibcmworld.org'
+  };
+  var GROUPS=[
+    {id:'welcome',title:'Welcome video',about:'The short video from the pastor on the home page.',fields:[
+      {k:'welcomeVideo',label:'YouTube link',type:'yt',max:300,wide:1}]},
+    {id:'place',title:'Service time and address',about:'These appear on every page.',fields:[
+      {k:'time',label:'Usual Sunday start time',type:'time'},{k:'place.name',label:'Building or venue',max:60},
+      {k:'place.floor',label:'Floor or room',max:30},{k:'place.street',label:'Street and neighborhood',max:80},
+      {k:'maps.google',label:'Google Maps link',type:'url',max:500},{k:'maps.apple',label:'Apple Maps link',type:'url',max:500}],
+      note:'The photos and walking directions on the Visit and Sundays pages describe the current building. If the church moves, those need to be redone by whoever looks after the website.'},
+    {id:'email',title:'Weekly email',about:'Where the weekly email links on the site lead.',fields:[
+      {k:'links.email',label:'Sign-up link',type:'url',max:500,wide:1}]},
+    {id:'give',title:'Giving details',about:'Everything shown on the Give page.',fields:[
+      {h:'Bank transfer in Panama'},
+      {k:'give.bank',label:'Bank',max:40},{k:'give.type',label:'Account type',max:50},
+      {k:'give.name',label:'Account name',max:80},{k:'give.number',label:'Account number',max:40},
+      {k:'give.yappy',label:'Banks that work with Yappy',max:200,wide:1,hint:'Separate the banks with commas.'},
+      {h:'From outside Panama'},
+      {k:'give.online',label:'Online giving link',type:'url',max:500,wide:1},
+      {k:'give.church',label:'Name to choose under "designated church"',max:100,wide:1},
+      {k:'give.check',label:'Giving by check',max:200,wide:1,area:1},{k:'give.billpay',label:'Bank bill pay',max:160,wide:1,area:1},
+      {k:'give.email',label:'Email for questions',type:'email',max:120,wide:1}]}
+  ];
+  var FIELDS={}; GROUPS.forEach(function(g){g.fields.forEach(function(f){if(f.k)FIELDS[f.k]=f})});
+  function eff(k){return (k in cur.site)?cur.site[k]:DEF[k]}
+  function base(){var t=eff('time');return /^\d\d:\d\d$/.test(t)?t:'10:00'}
+  function problem(k,v){
+    var f=FIELDS[k]; v=String(v).trim();
+    if(f.type==='yt'&&!videoId(v)) return 'That does not look like a YouTube video link.';
+    if(f.type==='url'&&!/^https?:\/\/\S+$/.test(v)) return 'A link starts with https:// and has no spaces.';
+    if(f.type==='email'&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return 'That does not look like an email address.';
+    return '';
+  }
+  function cleanSite(x){
+    var out={};
+    Object.keys(FIELDS).sort().forEach(function(k){
+      if(!(k in x)) return;
+      var v=String(x[k]).replace(/\s+/g,' ').trim().slice(0,FIELDS[k].max||240);
+      if(v&&v!==DEF[k]) out[k]=v;
+    });
+    return out;
+  }
+  function siteErrors(){var n=0;Object.keys(cur.site).forEach(function(k){if(FIELDS[k]&&cur.site[k].trim()&&problem(k,cur.site[k]))n++});return n}
   try{cfg=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){}
 
-  // ---- dates, in Panama time (UTC-5 all year); a service is Sunday 10:00 AM = 15:00 UTC
+  // ---- dates, in Panama time (UTC-5 all year). The usual service is Sunday 10:00 AM = 15:00 UTC.
   var MON=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var DOW=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   var DAY=86400000, LEN=90*60000;
   function z(n){return (n<10?'0':'')+n}
   function pan(t){return new Date(t.getTime()-5*3600000)}
   function ymd(t){var p=pan(t);return p.getUTCFullYear()+'-'+z(p.getUTCMonth()+1)+'-'+z(p.getUTCDate())}
-  function long(t){var p=pan(t);return 'Sunday, '+MON[p.getUTCMonth()]+' '+p.getUTCDate()}
+  function long(t){var p=pan(t);return DOW[p.getUTCDay()]+', '+MON[p.getUTCMonth()]+' '+p.getUTCDate()}
+  function clock(hm){var h=+hm.slice(0,2);return ((h+11)%12+1)+':'+hm.slice(3)+' '+(h<12?'AM':'PM')}
   function firstSunday(){
-    var now=new Date(), t=new Date(Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate(),15,0,0));
-    t.setUTCDate(t.getUTCDate()+((7-t.getUTCDay())%7));
-    if(now-t>=LEN) t.setUTCDate(t.getUTCDate()+7);
+    var now=new Date(), p=pan(now), b=base(), t=new Date(Date.UTC(p.getUTCFullYear(),p.getUTCMonth(),p.getUTCDate(),+b.slice(0,2)+5,+b.slice(3),0));
+    t=new Date(t.getTime()+((7-p.getUTCDay())%7)*DAY);
+    if(now-t>=LEN) t=new Date(t.getTime()+7*DAY);
     return t;
   }
-  var weeks=[]; (function(){var f=firstSunday();for(var i=0;i<8;i++)weeks.push(new Date(f.getTime()+i*7*DAY))})();
+  var weeks=[];
+  function setWeeks(){var f=firstSunday();weeks=[];for(var i=0;i<8;i++)weeks.push(new Date(f.getTime()+i*7*DAY))}
+  var TIMES=[]; (function(){for(var m=6*60;m<=21*60;m+=30)TIMES.push(z(Math.floor(m/60))+':'+z(m%60))})();
 
+  function tidy(n){return String(n||'').replace(/\s+/g,' ').trim().slice(0,NOTE)}
+  // Keep only what differs from the usual Sunday 10:00 AM
+  function clean(w,keep){
+    var out={};
+    Object.keys(w).sort().forEach(function(k){
+      if(keep&&k<keep) return;
+      var v=w[k]||{}, o={}, n=tidy(v.note);
+      if(v.off) o.off=true;
+      else { if(v.date&&v.date!==k) o.date=v.date; if(v.time&&v.time!==base()) o.time=v.time; }
+      if(n) o.note=n;
+      if(Object.keys(o).length) out[k]=o;
+    });
+    return out;
+  }
+  function snap(x){return JSON.stringify({m:x.latestMessage.trim(),w:clean(x.weeks),s:cleanSite(x.site)})}
+  function dirty(){return snap(cur)!==snap(saved)}
   function videoId(u){var m=/(?:youtu\.be\/|[?&]v=|\/(?:embed|live|shorts)\/)([\w-]{11})/.exec(u||'');return m?m[1]:''}
-  function same(a,b){return a.latestMessage===b.latestMessage&&a.closed.slice().sort().join()===b.closed.slice().sort().join()}
+  // When and whether a given week meets, from the current edits
+  function svc(sun){
+    var k=ymd(sun), v=cur.weeks[k]||{}, date=(!v.off&&v.date)||k, time=(!v.off&&v.time)||base();
+    var t=new Date(Date.UTC(+date.slice(0,4),+date.slice(5,7)-1,+date.slice(8,10),+time.slice(0,2)+5,+time.slice(3)));
+    return {off:!!v.off,t:t,time:time,moved:date!==k||time!==base()};
+  }
 
   // ---- GitHub
   function gh(path,opt){
@@ -186,22 +316,29 @@
       if(!r.ok) throw new Error('The settings file could not be read ('+r.status+'). Check the branch name.');
       return r.json();
     }).then(function(j){
-      var data={latestMessage:'',closed:[]};
-      if(j){ sha=j.sha; try{var p=JSON.parse(b64d(j.content)); if(typeof p.latestMessage==='string')data.latestMessage=p.latestMessage; if(Array.isArray(p.closed))data.closed=p.closed.filter(function(x){return /^\d{4}-\d\d-\d\d$/.test(x)})}catch(e){} }
-      saved=data; cur={latestMessage:data.latestMessage,closed:data.closed.slice()};
+      var data={latestMessage:'',weeks:{},site:{}};
+      if(j){ sha=j.sha; try{
+        var p=JSON.parse(b64d(j.content));
+        if(typeof p.latestMessage==='string') data.latestMessage=p.latestMessage;
+        if(p.weeks&&typeof p.weeks==='object') Object.keys(p.weeks).forEach(function(k){ if(/^\d{4}-\d\d-\d\d$/.test(k)&&p.weeks[k]) data.weeks[k]=p.weeks[k]; });
+        if(p.site&&typeof p.site==='object') Object.keys(p.site).forEach(function(k){ if(FIELDS[k]&&typeof p.site[k]==='string') data.site[k]=p.site[k]; });
+        if(Array.isArray(p.closed)) p.closed.forEach(function(k){ if(/^\d{4}-\d\d-\d\d$/.test(k)&&!data.weeks[k]) data.weeks[k]={off:true}; });
+      }catch(e){} }
+      cur.site=cleanSite(data.site);   // so the usual time is known before weeks are tidied
+      saved={latestMessage:data.latestMessage,weeks:clean(data.weeks),site:cleanSite(data.site)};
+      cur={latestMessage:data.latestMessage,weeks:JSON.parse(JSON.stringify(saved.weeks)),site:cleanSite(data.site)}; ui={};
     });
   }
   function publish(){
-    var today=ymd(new Date(Date.now()-LEN));
-    var out={latestMessage:cur.latestMessage.trim(),closed:cur.closed.filter(function(x){return x>=today}).sort()};
-    var body={message:'Weekly update: latest message and Sunday schedule',content:b64e(JSON.stringify(out,null,2)+'\n'),branch:cfg.branch};
+    var out={latestMessage:cur.latestMessage.trim(),weeks:clean(cur.weeks,ymd(weeks[0])),site:cleanSite(cur.site)};
+    var body={message:'Website update from the admin page',content:b64e(JSON.stringify(out,null,2)+'\n'),branch:cfg.branch};
     if(sha) body.sha=sha;
     return gh('/contents/'+FILE,{method:'PUT',body:JSON.stringify(body)}).then(function(r){
       if(r.status===409||r.status===422) throw new Error('The settings were changed somewhere else since this page opened. Reload the page and try again.');
       if(r.status===401||r.status===403) throw new Error('The access token can no longer save. It may have expired, or it lacks permission to write. Sign out and sign in with a new one.');
       if(!r.ok) throw new Error('Publishing did not go through ('+r.status+'). Nothing was changed. Try again.');
       return r.json();
-    }).then(function(j){ sha=j.content.sha; saved={latestMessage:out.latestMessage,closed:out.closed.slice()}; cur={latestMessage:out.latestMessage,closed:out.closed.slice()}; });
+    }).then(function(j){ sha=j.content.sha; saved={latestMessage:out.latestMessage,weeks:out.weeks,site:out.site}; cur={latestMessage:out.latestMessage,weeks:JSON.parse(JSON.stringify(out.weeks)),site:JSON.parse(JSON.stringify(out.site))}; });
   }
 
   // ---- screens
@@ -218,62 +355,157 @@
     else { st.textContent=''; $('msg-img').src='https://i.ytimg.com/vi/'+id+'/hqdefault.jpg'; $('msg-open').href='https://www.youtube.com/watch?v='+id; }
     $('see-msg').textContent=!u?'Newest upload on the channel (automatic)':(id?'The video you linked':'Link needs fixing');
     $('see-msg').className=(u&&!id)?'warn':'';
-    // sundays
-    var open=null;
-    weeks.forEach(function(t,i){
-      var li=$('sundays').children[i], off=cur.closed.indexOf(ymd(t))>-1;
-      li.className=off?'off':''; li.querySelector('input').checked=!off;
-      li.querySelector('.d span').textContent=off?'No service. The site will say so.':'Meeting at 10:00 AM';
-      if(!off&&!open) open=t;
+    // weeks
+    var next=null, now=new Date();
+    weeks.forEach(function(sun,i){
+      var li=$('sundays').children[i], k=ymd(sun), v=cur.weeks[k]||{}, s=svc(sun);
+      var mode=v.off?'off':((s.moved||ui[k]==='chg')?'chg':'on');
+      li.className=mode==='on'?'':mode;
+      li.querySelector('input[value='+mode+']').checked=true;
+      li.querySelector('.chgbox').hidden=mode!=='chg';
+      li.querySelector('.day').value=(!v.off&&v.date)||k; li.querySelector('.time').value=s.time;
+      li.querySelector('.sum').textContent=s.off?'No service this week':(s.moved?'Changed: '+long(s.t)+' at '+clock(s.time):'Sunday at '+clock(base())+', as usual');
+      var has=typeof v.note==='string'&&(v.note!==''||ui[k+'n']);
+      li.querySelector('.notebox').hidden=!has; li.querySelector('.addnote').hidden=has;
+      var inp=li.querySelector('.note'); if(inp.value!==(v.note||'')) inp.value=v.note||'';
+      var c=li.querySelector('.cnt'); c.textContent=inp.value.length+' / '+NOTE; c.className='cnt'+(inp.value.length>=NOTE?' full':'');
+      if(!next&&!s.off&&now-s.t<LEN) next=s;
     });
-    var firstOff=cur.closed.indexOf(ymd(weeks[0]))>-1;
-    $('see-next').textContent=open?long(open)+', 10:00 AM'+(firstOff?' (no service '+long(weeks[0]).replace('Sunday, ','')+')':''):'No Sunday in the next eight weeks';
-    $('see-next').className=(firstOff||!open)?'warn':'';
+    var f=svc(weeks[0]);
+    $('see-next').textContent=next?long(next.t)+', '+clock(next.time)+(f.off?' (no service '+long(weeks[0])+')':''):'No service in the next eight weeks';
+    $('see-next').className=(!next||f.off||next.moved)?'warn':'';
+    // site details
+    var errs=siteErrors(), changed=Object.keys(cleanSite(cur.site)).length;
+    GROUPS.forEach(function(g){
+      var box=$('g-'+g.id), nset=0, nbad=0;
+      g.fields.forEach(function(f){
+        if(!f.k) return;
+        var el=$('f-'+f.k), wrap=el.parentNode, raw=(f.k in cur.site)?cur.site[f.k]:null, e=raw&&raw.trim()?problem(f.k,raw):'';
+        if(d.activeElement!==el) el.value=eff(f.k);
+        var isSet=raw!==null&&raw.trim()!==''&&raw.trim()!==DEF[f.k];
+        wrap.classList.toggle('set',isSet&&!e); wrap.classList.toggle('bad',!!e);
+        wrap.querySelector('.err').textContent=e; wrap.querySelector('.err').hidden=!e;
+        if(isSet) nset++; if(e) nbad++;
+      });
+      var tag=box.querySelector('.tag'); tag.hidden=!nset&&!nbad; tag.textContent=nbad?'Needs fixing':'Changed'; tag.className='tag'+(nbad?' bad':'');
+      box.querySelector('.undo').hidden=!nset&&!nbad;
+      var now2='';
+      if(g.id==='welcome') now2=('welcomeVideo' in cleanSite(cur.site))?'A video you linked':'The original welcome video';
+      if(g.id==='place') now2='Sundays at '+clock(base())+', '+eff('place.name')+', '+eff('place.floor');
+      if(g.id==='email') now2=eff('links.email').replace(/^https?:\/\//,'');
+      if(g.id==='give') now2=eff('give.bank')+', account '+eff('give.number');
+      box.querySelector('.now').textContent=now2;
+    });
+    var wv=videoId(eff('welcomeVideo')); $('wv-thumb').hidden=!wv;
+    if(wv){ $('wv-img').src='https://i.ytimg.com/vi/'+wv+'/hqdefault.jpg'; $('wv-open').href='https://www.youtube.com/watch?v='+wv; }
+    $('site-dot').hidden=!changed&&!errs;
     // publish
-    var dirty=!same(cur,saved), bad=!!u&&!id;
-    $('publish').disabled=!dirty||bad;
-    if(dirty&&!$('status').classList.contains('busy')) status(bad?'Fix the YouTube link before publishing.':'You have changes that are not on the site yet.',bad?'bad':'');
+    var ch=dirty(), bad=(!!u&&!id)||errs>0;
+    $('publish').disabled=!ch||bad;
+    if(!$('status').classList.contains('busy')){
+      if(ch||errs) status(errs?'Fix the highlighted field in Site details before publishing.':(bad?'Fix the YouTube link before publishing.':'You have changes that are not on the site yet.'),bad?'bad':'');
+      else if(!$('status').classList.contains('ok')) status('No changes yet.');
+    }
+  }
+  function field(f){
+    var id='f-'+f.k, h='<div class="fld'+(f.wide?' wide':'')+'"><label for="'+id+'">'+f.label+'</label>';
+    if(f.type==='time'){h+='<select id="'+id+'">';TIMES.forEach(function(hm){h+='<option value="'+hm+'">'+clock(hm)+'</option>'});h+='</select>'}
+    else if(f.area) h+='<textarea id="'+id+'" maxlength="'+f.max+'" rows="2"></textarea>';
+    else h+='<input id="'+id+'" type="'+(f.type==='url'||f.type==='yt'?'url':(f.type==='email'?'email':'text'))+'" maxlength="'+(f.max||240)+'" autocomplete="off">';
+    return h+(f.hint?'<p class="hint2">'+f.hint+'</p>':'')+'<p class="err" hidden></p></div>';
+  }
+  function buildGroups(){
+    var box=$('groups'); box.innerHTML='';
+    GROUPS.forEach(function(g){
+      var el=d.createElement('details'); el.className='card grp'; el.id='g-'+g.id;
+      var h='<summary><span class="t"><b>'+g.title+'</b><span class="now"></span></span><span class="tag" hidden></span></summary><div class="in"><p class="about">'+g.about+'</p>', open=false;
+      g.fields.forEach(function(f){
+        if(f.h){ h+=(open?'</div>':'')+'<h3>'+f.h+'</h3>'; open=false; return; }
+        if(!open){ h+='<div class="fields">'; open=true; }
+        h+=field(f);
+      });
+      h+=(open?'</div>':'');
+      if(g.id==='welcome') h+='<div class="thumb" id="wv-thumb" hidden><img id="wv-img" alt="Thumbnail of the welcome video"><div><b>This is the video on the home page.</b><a class="txt" id="wv-open" target="_blank" rel="noopener">Check it on YouTube</a></div></div>';
+      if(g.note) h+='<p class="caution">'+g.note+'</p>';
+      h+='<div class="undo" hidden><button class="txt" type="button">Put this section back to the original</button></div></div>';
+      el.innerHTML=h; box.appendChild(el);
+      g.fields.forEach(function(f){
+        if(!f.k) return;
+        var inp=$('f-'+f.k), on=function(){
+          var v=inp.value.replace(/[\r\n]+/g,' ');
+          if(v.trim()===''||v.trim()===DEF[f.k]) delete cur.site[f.k]; else cur.site[f.k]=v;
+          if(f.k==='time'){ setWeeks(); build(); }
+          render();
+        };
+        inp.addEventListener(f.type==='time'?'change':'input',on);
+        inp.addEventListener('blur',function(){render()});
+      });
+      el.querySelector('.undo button').addEventListener('click',function(){
+        g.fields.forEach(function(f){ if(f.k) delete cur.site[f.k]; });
+        if(g.id==='place'){ setWeeks(); build(); }
+        render();
+      });
+    });
+  }
+  function tab(which){
+    $('view-week').hidden=which!=='week'; $('view-site').hidden=which!=='site';
+    $('tab-week').setAttribute('aria-selected',which==='week'); $('tab-site').setAttribute('aria-selected',which==='site');
   }
   function build(){
     var ol=$('sundays'); ol.innerHTML='';
-    weeks.forEach(function(t){
-      var li=d.createElement('li'), key=ymd(t);
-      li.innerHTML='<label><span class="d"><b></b><span></span></span><span class="sw"><input type="checkbox"><i></i></span></label>';
-      li.querySelector('b').textContent=long(t);
-      var inp=li.querySelector('input'); inp.setAttribute('aria-label',long(t)+': service is on');
-      inp.addEventListener('change',function(){
-        var i=cur.closed.indexOf(key);
-        if(inp.checked&&i>-1) cur.closed.splice(i,1); if(!inp.checked&&i<0) cur.closed.push(key);
+    weeks.forEach(function(sun,i){
+      var li=d.createElement('li'), k=ymd(sun), days='', times='';
+      for(var n=6;n>=0;n--){var t=new Date(sun.getTime()-n*DAY);days+='<option value="'+ymd(t)+'">'+long(t)+(n?'':' (usual)')+'</option>'}
+      TIMES.forEach(function(hm){times+='<option value="'+hm+'">'+clock(hm)+(hm===base()?' (usual)':'')+'</option>'});
+      li.innerHTML='<div class="top"><b></b><span class="sum"></span></div>'+
+        '<div class="seg" role="radiogroup"><label><input type="radio" name="m'+i+'" value="on"><span>As usual</span></label><label><input type="radio" name="m'+i+'" value="chg"><span>Change day or time</span></label><label><input type="radio" name="m'+i+'" value="off"><span>No service</span></label></div>'+
+        '<div class="chgbox" hidden><div><label for="d'+i+'">Day</label><select class="day" id="d'+i+'">'+days+'</select></div><div><label for="t'+i+'">Start time</label><select class="time" id="t'+i+'">'+times+'</select></div></div>'+
+        '<div><button class="txt addnote" type="button">Add a note for visitors</button></div>'+
+        '<div class="notebox" hidden><div class="row"><label for="n'+i+'">Note shown on the site</label><span class="cnt"></span></div><input class="note" id="n'+i+'" type="text" maxlength="'+NOTE+'" autocomplete="off" placeholder="One short sentence"><div><button class="txt rmnote" type="button" style="margin-top:10px">Remove the note</button></div></div>';
+      li.querySelector('b').textContent='Week of '+long(sun);
+      li.querySelector('.seg').setAttribute('aria-label','Service for the week of '+long(sun));
+      function get(){return cur.weeks[k]||(cur.weeks[k]={})}
+      [].forEach.call(li.querySelectorAll('.seg input'),function(r){r.addEventListener('change',function(){
+        var v=get(); ui[k]=r.value;
+        if(r.value==='off'){v.off=true}
+        else{delete v.off; if(r.value==='on'){delete v.date;delete v.time}}
         render();
-      });
+      })});
+      li.querySelector('.day').addEventListener('change',function(e){var v=get();if(e.target.value===k)delete v.date;else v.date=e.target.value;render()});
+      li.querySelector('.time').addEventListener('change',function(e){var v=get();if(e.target.value===base())delete v.time;else v.time=e.target.value;render()});
+      li.querySelector('.addnote').addEventListener('click',function(){var v=get();v.note=v.note||'';ui[k+'n']=1;render();li.querySelector('.note').focus()});
+      li.querySelector('.rmnote').addEventListener('click',function(){var v=get();delete v.note;delete ui[k+'n'];render()});
+      li.querySelector('.note').addEventListener('input',function(e){var v=get();v.note=e.target.value.replace(/[\r\n]+/g,' ').slice(0,NOTE);render()});
       ol.appendChild(li);
     });
   }
   function enter(){
-    show('panel'); build(); status('Loading the current settings…','busy'); $('publish').disabled=true;
-    return load().then(function(){ status('No changes yet.'); render(); });
+    show('panel'); status('Loading the current settings…','busy'); $('publish').disabled=true;
+    return load().then(function(){ setWeeks(); build(); buildGroups(); status('No changes yet.'); render(); });
   }
 
+  $('tab-week').addEventListener('click',function(){tab('week')});
+  $('tab-site').addEventListener('click',function(){tab('site')});
   $('msg').addEventListener('input',function(){cur.latestMessage=$('msg').value;render()});
   $('msg-clear').addEventListener('click',function(){cur.latestMessage='';render();$('msg').focus()});
   $('publish').addEventListener('click',function(){
     $('publish').disabled=true; status('Publishing…','busy');
     publish().then(function(){
-      var n=new Date(); status('Published at '+n.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})+'. The website catches up within a few minutes.','ok'); render();
+      var n=new Date(); status('Published at '+n.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})+'. The website catches up within a few minutes.','ok'); ui={}; render();
     }).catch(function(e){ status(e.message,'bad'); $('publish').disabled=false; });
   });
   $('signout').addEventListener('click',function(){
-    if(!same(cur,saved)&&!confirm('You have changes that are not published. Sign out anyway?')) return;
+    if(dirty()&&!confirm('You have changes that are not published. Sign out anyway?')) return;
     localStorage.removeItem(KEY); cfg=null; show('setup'); $('token').value='';
   });
   $('setup-form').addEventListener('submit',function(e){
     e.preventDefault();
     cfg={owner:$('owner').value.trim(),repo:$('repo').value.trim(),branch:$('branch').value.trim()||'main',token:$('token').value.trim()};
     var st=$('setup-state'); st.className='state'; st.textContent='Checking…';
-    load().then(function(){ localStorage.setItem(KEY,JSON.stringify(cfg)); st.textContent=''; show('panel'); build(); status('No changes yet.'); render(); })
+    load().then(function(){ localStorage.setItem(KEY,JSON.stringify(cfg)); st.textContent=''; show('panel'); setWeeks(); build(); buildGroups(); status('No changes yet.'); render(); })
       .catch(function(err){ st.textContent=err.message; st.className='state bad'; });
   });
-  window.addEventListener('beforeunload',function(e){ if(cfg&&!$('panel').hidden&&!same(cur,saved)){e.preventDefault();e.returnValue='';} });
+  window.addEventListener('beforeunload',function(e){ if(cfg&&!$('panel').hidden&&dirty()){e.preventDefault();e.returnValue='';} });
 
   if(cfg&&cfg.token){
     enter().catch(function(e){ show('setup'); $('owner').value=cfg.owner||''; $('repo').value=cfg.repo||''; $('branch').value=cfg.branch||'main'; var st=$('setup-state'); st.textContent=e.message; st.className='state bad'; });

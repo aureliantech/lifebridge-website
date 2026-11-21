@@ -56,6 +56,7 @@ h3{font-size:20px;line-height:1.25;letter-spacing:-.012em;font-stretch:94%}
 .strip [data-count]{color:var(--lamp)}
 .strip .nosvc{margin-right:.5em;color:var(--lamp);font-weight:600}
 .strip .next.has-skip{white-space:normal}
+.strip .notice{margin:0 auto;padding-top:8px;padding-bottom:9px;border-top:1px solid rgba(255,255,255,.16);color:var(--lamp);font-weight:600}
 .head{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.94);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--rule)}
 .head .wrap{display:flex;align-items:center;gap:28px;height:72px}
 .brand{display:flex;align-items:center;gap:11px;text-decoration:none;margin-right:auto}
@@ -219,6 +220,10 @@ h3{font-size:20px;line-height:1.25;letter-spacing:-.012em;font-stretch:94%}
 .weeks ol li.off .mo,.weeks ol li.off .day{opacity:.4}
 .weeks ol li.off .day{text-decoration:line-through;text-decoration-thickness:3px}
 .weeks ol li.off .at{color:rgba(255,255,255,.7);font-weight:500}
+.weeks ol li.moved .at{color:var(--lamp)}
+.weeks .notes{margin-top:18px;font-size:15.5px;color:rgba(255,255,255,.88)}
+.weeks .notes li{margin-top:6px}
+.weeks .notes b{color:#fff;font-weight:650}
 .weeks .also{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:18px 32px;margin-top:clamp(24px,3vw,36px);padding-top:clamp(20px,2.4vw,28px);border-top:1px solid rgba(255,255,255,.2)}
 .weeks .also p{max-width:30em;color:rgba(255,255,255,.88)}
 .weeks .also b{color:#fff;font-weight:650}
@@ -296,6 +301,9 @@ h3{font-size:20px;line-height:1.25;letter-spacing:-.012em;font-stretch:94%}
 .poster i{width:54px;height:54px;border-radius:50%;background:var(--lamp);display:grid;place-items:center;transition:transform .15s var(--ease)}
 .poster i::before{content:"";border-left:15px solid var(--ink);border-top:9px solid transparent;border-bottom:9px solid transparent;margin-left:4px}
 .poster:hover i{transform:scale(1.07)}
+.poster.thumb b{display:none}
+.poster.blocked{cursor:default}
+.poster.blocked p{margin-top:12px;max-width:30em;color:rgba(255,255,255,.9)}
 .under{margin-top:16px}
 
 /* kids ruler */
@@ -337,7 +345,7 @@ h3{font-size:20px;line-height:1.25;letter-spacing:-.012em;font-stretch:94%}
 .sec.blue{background:var(--canal);color:#fff}
 .close .wrap{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);gap:clamp(28px,5vw,72px);align-items:center}
 .close h2{font-size:clamp(44px,6.6vw,92px);line-height:.95;letter-spacing:-.03em;font-stretch:80%;font-weight:700}
-.close h2 span{display:block;color:var(--lamp)}
+.close h2 .y{display:block;color:var(--lamp)}
 .close address{font-style:normal;margin-top:24px;font-size:19px;line-height:1.45}
 .close address b{display:block;font-weight:650}
 .close .map{border-radius:12px;overflow:hidden;aspect-ratio:5/4;background:var(--ink)}

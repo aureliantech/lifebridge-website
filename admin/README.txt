@@ -1,12 +1,17 @@
-LifeBridge weekly update page
-=============================
+LifeBridge website update page
+==============================
 
 Address: https://lifebridgeic.com/admin/
 
 What it does
 - Sets the YouTube link for the latest Sunday message (plays on the Visit and Watch pages).
-- Switches individual Sundays off when there is no service. The site then says
-  "No service Sunday, <date>" and counts down to the next Sunday that is on.
+- Sets each upcoming week: as usual (Sunday 10:00 AM), a different day or start time
+  that week, or no service. The site's countdown, dates and "See you ..." line follow.
+- Adds an optional note for visitors on any week, limited to 90 characters.
+- Under "Site details" (rarely needed): the welcome video, the usual service time,
+  the address and map links, the weekly email link, and the giving details.
+  The photos and walking directions on the Visit and Sundays pages describe the
+  current building and do not change from this page.
 - Pressing Publish saves both to settings.json at the top of the website's files.
   The website reads that file on every page load.
 
@@ -24,6 +29,8 @@ Good to know
 - Tokens expire on the date chosen when they were created. When that happens the page
   asks for a new one.
 - After Publish, the public site catches up within a few minutes.
-- If you re-upload the whole website later, keep the existing settings.json
-  or the latest message and switched-off Sundays reset.
+- settings.json is created by the first Publish and is not part of the website's
+  own files, so re-uploading the website does not reset it. Do not delete it.
+- Some streams cannot be played outside YouTube because of music rights. The site
+  detects this and offers a "Watch on YouTube" button instead.
 - If no YouTube link is set, the site plays the newest upload on the channel automatically.
