@@ -61,11 +61,17 @@
   .notebox .cnt.full{color:#A32A1B;font-weight:600}
   .notebox input{height:48px}
   @media (max-width:520px){.chgbox{grid-template-columns:1fr}.sundays .top b{font-size:17.5px}.seg span{min-width:0;padding:7px 10px}}
-  .see{margin-top:20px;background:var(--ink);color:#fff;border-radius:14px;padding:20px clamp(20px,2.6vw,32px);display:flex;flex-wrap:wrap;gap:8px 40px}
-  .see div{min-width:0}
-  .see dt{font-size:14.5px;color:rgba(255,255,255,.72)}
-  .see dd{font-weight:650;font-size:19px;margin-top:2px;overflow-wrap:anywhere}
-  .see dd.warn{color:var(--lamp)}
+  .pv{margin-top:20px}
+  .pv-l{display:block;font-size:14.5px;font-weight:600;color:var(--ink-2);margin-bottom:8px}
+  .pv-bar{background:var(--ink);color:#fff;border-radius:12px;padding:14px clamp(16px,2.4vw,24px);font-size:15.5px}
+  .pv-bar b{font-weight:650}
+  .pv-skip{color:var(--lamp);font-weight:600;margin-right:.5em}
+  .pv-note{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.18);color:var(--lamp);font-weight:600;overflow-wrap:anywhere}
+  .pv-m{margin-top:10px;font-size:15px;color:var(--ink-2)}
+  .pv-m b{color:var(--ink);font-weight:650}
+  .pv-m b.warn{color:#A32A1B}
+  .past{margin-bottom:14px;color:#A32A1B;font-weight:600;font-size:15px}
+  .notebox .when{font-size:14.5px;color:var(--ink-2);margin-top:8px}
   .dock{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--rule);z-index:20}
   .dock .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom))}
   .dock p{font-size:15.5px;color:var(--ink-2);min-width:0}
@@ -94,7 +100,9 @@
   .tag.bad{background:#A32A1B;color:#fff}
   .grp .in{padding:0 clamp(20px,2.6vw,32px) clamp(22px,2.6vw,30px);border-top:1px solid var(--rule)}
   .grp .about{color:var(--ink-2);font-size:15.5px;margin-top:16px}
-  .grp h3{font-size:16px;font-stretch:100%;letter-spacing:0;font-weight:650;margin-top:28px;padding-top:20px;border-top:1px solid var(--rule)}
+  .grp h3{font-size:15px;font-stretch:100%;letter-spacing:0;font-weight:650;color:var(--ink-2);margin-top:22px}
+  .grp .in > h3:first-child{margin-top:16px}
+  .grp .in > .fields:first-child{margin-top:-2px}
   .fields{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
   .fields .fld.wide{grid-column:1/-1}
   @media (max-width:640px){.fields{grid-template-columns:1fr}}
@@ -102,10 +110,9 @@
   .fld .hint2{font-size:14.5px;color:var(--ink-2);margin-top:6px}
   .fld .err{font-size:14.5px;color:#A32A1B;font-weight:600;margin-top:6px}
   .fld.bad input,.fld.bad textarea{border-color:#A32A1B}
-  .fld.set label::after{content:"Changed";margin-left:8px;font-size:12.5px;font-weight:650;background:var(--lamp);border-radius:999px;padding:2px 8px}
   textarea{width:100%;min-height:84px;border-radius:10px;border:1.5px solid rgba(11,39,51,.3);padding:12px 14px;font:inherit;color:var(--ink);background:#fff;resize:vertical}
   textarea:focus{outline:3px solid var(--bridge);outline-offset:1px;border-color:var(--ink)}
-  .caution{margin-top:20px;padding:14px 16px;border-radius:10px;background:var(--mist);font-size:15px;color:var(--ink)}
+  .caution{margin-top:16px;font-size:14.5px;color:var(--ink-2)}
   .undo{margin-top:20px}
   [hidden]{display:none!important}
 </style>
@@ -158,10 +165,11 @@
     </div>
 
     <div id="view-week" role="tabpanel" aria-labelledby="tab-week">
-    <dl class="see" aria-live="polite">
-      <div><dt>The site will show as the next service</dt><dd id="see-next">…</dd></div>
-      <div><dt>Latest message</dt><dd id="see-msg">…</dd></div>
-    </dl>
+    <div class="pv" aria-live="polite">
+      <span class="pv-l">Preview of the banner at the top of every page</span>
+      <div class="pv-bar"><p><span class="pv-skip" id="pv-skip" hidden></span>Next service: <b id="pv-next">…</b></p><p class="pv-note" id="pv-note" hidden></p></div>
+      <p class="pv-m">Latest message: <b id="see-msg">…</b></p>
+    </div>
 
     <div class="panel">
       <div class="card">
@@ -186,7 +194,7 @@
     </div>
 
     <div id="view-site" role="tabpanel" aria-labelledby="tab-site" hidden>
-      <p class="sub" style="margin-top:22px">These rarely change. Open one to see what the site shows now and edit it. Clearing a field puts the original back.</p>
+      <p class="sub" style="margin-top:22px">Clear a field to restore the original.</p>
       <div class="groups" id="groups"></div>
     </div>
   </section>
@@ -219,28 +227,27 @@
     'forms.email':'pastor@lifebridgeic.com'
   };
   var GROUPS=[
-    {id:'welcome',title:'Welcome video',about:'The short video from the pastor on the home page.',fields:[
+    {id:'welcome',title:'Welcome video',fields:[
       {k:'welcomeVideo',label:'YouTube link',type:'yt',max:300,wide:1}]},
-    {id:'place',title:'Service time and address',about:'These appear on every page.',fields:[
-      {k:'time',label:'Usual Sunday start time',type:'time'},{k:'place.name',label:'Building or venue',max:60},
-      {k:'place.floor',label:'Floor or room',max:30},{k:'place.street',label:'Street and neighborhood',max:80},
+    {id:'place',title:'Time and address',fields:[
+      {k:'time',label:'Sunday start time',type:'time'},{k:'place.name',label:'Building',max:60},
+      {k:'place.floor',label:'Floor or room',max:30},{k:'place.street',label:'Street',max:80},
       {k:'maps.google',label:'Google Maps link',type:'url',max:500},{k:'maps.apple',label:'Apple Maps link',type:'url',max:500}],
-      note:'The photos and walking directions on the Visit and Sundays pages describe the current building. If the church moves, those need to be redone by whoever looks after the website.'},
-    {id:'email',title:'Weekly email',about:'Where the weekly email links on the site lead.',fields:[
+      note:'Photos and walking directions on the site do not change.'},
+    {id:'email',title:'Weekly email',fields:[
       {k:'links.email',label:'Sign-up link',type:'url',max:500,wide:1}]},
-    {id:'forms',title:'Messages from the website',about:'The contact form and the LifeGroup sign-up are emailed to this address.',fields:[
-      {k:'forms.email',label:'Send messages to',type:'email',max:120,wide:1}],
-      note:'After changing this address, send one test message from the Contact page. The new inbox then receives a one-time email with a link that switches delivery on.'},
-    {id:'give',title:'Giving details',about:'Everything shown on the Give page.',fields:[
-      {h:'Bank transfer in Panama'},
+    {id:'forms',title:'Form messages',fields:[
+      {k:'forms.email',label:'Email address',type:'email',max:120,wide:1}],
+      note:'A new address must confirm by email before messages arrive.'},
+    {id:'give',title:'Giving',fields:[
+      {h:'In Panama'},
       {k:'give.bank',label:'Bank',max:40},{k:'give.type',label:'Account type',max:50},
       {k:'give.name',label:'Account name',max:80},{k:'give.number',label:'Account number',max:40},
-      {k:'give.yappy',label:'Banks that work with Yappy',max:200,wide:1,hint:'Separate the banks with commas.'},
-      {h:'From outside Panama'},
-      {k:'give.online',label:'Online giving link',type:'url',max:500,wide:1},
-      {k:'give.church',label:'Name to choose under "designated church"',max:100,wide:1},
-      {k:'give.check',label:'Giving by check',max:200,wide:1,area:1},{k:'give.billpay',label:'Bank bill pay',max:160,wide:1,area:1},
-      {k:'give.email',label:'Email for questions',type:'email',max:120,wide:1}]}
+      {k:'give.yappy',label:'Yappy banks, separated by commas',max:200,wide:1},
+      {h:'Outside Panama'},
+      {k:'give.online',label:'Online giving link',type:'url',max:500},{k:'give.church',label:'Designated church name',max:100},
+      {k:'give.check',label:'By check',max:200,wide:1,area:1},{k:'give.billpay',label:'Bank bill pay',max:160,wide:1,area:1},
+      {k:'give.email',label:'Questions email',type:'email',max:120,wide:1}]}
   ];
   var FIELDS={}; GROUPS.forEach(function(g){g.fields.forEach(function(f){if(f.k)FIELDS[f.k]=f})});
   function eff(k){return (k in cur.site)?cur.site[k]:DEF[k]}
@@ -365,7 +372,7 @@
     $('see-msg').textContent=!u?'Newest upload on the channel (automatic)':(id?'The video you linked':'Link needs fixing');
     $('see-msg').className=(u&&!id)?'warn':'';
     // weeks
-    var next=null, now=new Date();
+    var next=null, now=new Date(), list=[];
     weeks.forEach(function(sun,i){
       var li=$('sundays').children[i], k=ymd(sun), v=cur.weeks[k]||{}, s=svc(sun);
       var mode=v.off?'off':((s.moved||v.note||ui[k]==='chg')?'chg':'on');
@@ -376,11 +383,20 @@
       li.querySelector('.sum').textContent=s.off?'No service. The site will say so.':(s.moved?'Moved to '+long(s.t)+' at '+clock(s.time):'Meeting at '+clock(base()));
       var inp=li.querySelector('.note'); if(inp.value!==(v.note||'')) inp.value=v.note||'';
       var c=li.querySelector('.cnt'); c.textContent=inp.value.length+' / '+NOTE; c.className='cnt'+(inp.value.length>=NOTE?' full':'');
-      if(!next&&!s.off&&now-s.t<LEN) next=s;
+      var gone=!s.off&&now-s.t>=LEN;
+      li.querySelector('.past').hidden=!(gone&&mode==='chg');
+      list.push({sun:sun,off:s.off,t:s.t,time:s.time,gone:gone,note:(!s.off&&v.note)?tidy(v.note):''});
     });
-    var f=svc(weeks[0]);
-    $('see-next').textContent=next?long(next.t)+', '+clock(next.time)+(f.off?' (no service '+long(weeks[0])+')':''):'No service in the next eight weeks';
-    $('see-next').className=(!next||f.off||next.moved)?'warn':'';
+    while(list.length&&list[0].gone) list.shift();
+    var first=list[0]; list.forEach(function(x){ if(!next&&!x.off) next=x; });
+    weeks.forEach(function(sun,i){
+      var w=$('sundays').children[i].querySelector('.when'), v=cur.weeks[ymd(sun)]||{};
+      var sv=svc(sun); if(!sv.off&&now-sv.t>=LEN){w.textContent='';return}
+      w.textContent=!tidy(v.note)?'':((next&&next.sun===sun)?'Showing in the banner now. See the preview above.':'Appears in the banner once this is the next service.');
+    });
+    $('pv-next').textContent=next?long(next.t)+', '+clock(next.time):'none in the next eight weeks';
+    $('pv-skip').hidden=!(first&&first.off); $('pv-skip').textContent=(first&&first.off)?'No service '+long(first.sun)+'.':'';
+    $('pv-note').hidden=!(next&&next.note); $('pv-note').textContent=(next&&next.note)?long(next.t)+': '+next.note:'';
     // site details
     var errs=siteErrors(), changed=Object.keys(cleanSite(cur.site)).length;
     GROUPS.forEach(function(g){
@@ -397,11 +413,11 @@
       var tag=box.querySelector('.tag'); tag.hidden=!nset&&!nbad; tag.textContent=nbad?'Needs fixing':'Changed'; tag.className='tag'+(nbad?' bad':'');
       box.querySelector('.undo').hidden=!nset&&!nbad;
       var now2='';
-      if(g.id==='welcome') now2=('welcomeVideo' in cleanSite(cur.site))?'A video you linked':'The original welcome video';
-      if(g.id==='place') now2='Sundays at '+clock(base())+', '+eff('place.name')+', '+eff('place.floor');
+      if(g.id==='welcome') now2=('welcomeVideo' in cleanSite(cur.site))?'Your video':'Original video';
+      if(g.id==='place') now2=clock(base())+', '+eff('place.name')+', '+eff('place.floor');
       if(g.id==='email') now2=eff('links.email').replace(/^https?:\/\//,'');
       if(g.id==='forms') now2=eff('forms.email');
-      if(g.id==='give') now2=eff('give.bank')+', account '+eff('give.number');
+      if(g.id==='give') now2=eff('give.bank')+', '+eff('give.number');
       box.querySelector('.now').textContent=now2;
     });
     var wv=videoId(eff('welcomeVideo')); $('wv-thumb').hidden=!wv;
@@ -426,16 +442,16 @@
     var box=$('groups'); box.innerHTML='';
     GROUPS.forEach(function(g){
       var el=d.createElement('details'); el.className='card grp'; el.id='g-'+g.id;
-      var h='<summary><span class="t"><b>'+g.title+'</b><span class="now"></span></span><span class="tag" hidden></span></summary><div class="in"><p class="about">'+g.about+'</p>', open=false;
+      var h='<summary><span class="t"><b>'+g.title+'</b><span class="now"></span></span><span class="tag" hidden></span></summary><div class="in">', open=false;
       g.fields.forEach(function(f){
         if(f.h){ h+=(open?'</div>':'')+'<h3>'+f.h+'</h3>'; open=false; return; }
         if(!open){ h+='<div class="fields">'; open=true; }
         h+=field(f);
       });
       h+=(open?'</div>':'');
-      if(g.id==='welcome') h+='<div class="thumb" id="wv-thumb" hidden><img id="wv-img" alt="Thumbnail of the welcome video"><div><b>This is the video on the home page.</b><a class="txt" id="wv-open" target="_blank" rel="noopener">Check it on YouTube</a></div></div>';
+      if(g.id==='welcome') h+='<div class="thumb" id="wv-thumb" hidden><img id="wv-img" alt="Thumbnail of the welcome video"><div><a class="txt" id="wv-open" target="_blank" rel="noopener">Check it on YouTube</a></div></div>';
       if(g.note) h+='<p class="caution">'+g.note+'</p>';
-      h+='<div class="undo" hidden><button class="txt" type="button">Put this section back to the original</button></div></div>';
+      h+='<div class="undo" hidden><button class="txt" type="button">Reset this section</button></div></div>';
       el.innerHTML=h; box.appendChild(el);
       g.fields.forEach(function(f){
         if(!f.k) return;
@@ -463,12 +479,13 @@
     var ol=$('sundays'); ol.innerHTML='';
     weeks.forEach(function(sun,i){
       var li=d.createElement('li'), k=ymd(sun), days='', times='';
-      for(var n=6;n>=0;n--){var t=new Date(sun.getTime()-n*DAY);days+='<option value="'+ymd(t)+'">'+long(t)+(n?'':' (usual)')+'</option>'}
+      var today=ymd(new Date());
+      for(var n=6;n>=0;n--){var t=new Date(sun.getTime()-n*DAY);days+='<option value="'+ymd(t)+'"'+(ymd(t)<today?' disabled':'')+'>'+long(t)+(n?'':' (usual)')+'</option>'}
       TIMES.forEach(function(hm){times+='<option value="'+hm+'">'+clock(hm)+(hm===base()?' (usual)':'')+'</option>'});
       li.innerHTML='<div class="line"><div class="top"><b></b><span class="sum"></span></div>'+
         '<div class="seg" role="radiogroup"><label><input type="radio" name="m'+i+'" value="on"><span>On</span></label><label><input type="radio" name="m'+i+'" value="off"><span>Off</span></label><label><input type="radio" name="m'+i+'" value="chg"><span>Change</span></label></div></div>'+
-        '<div class="more" hidden><div class="chgbox"><div><label for="d'+i+'">Day</label><select class="day" id="d'+i+'">'+days+'</select></div><div><label for="t'+i+'">Start time</label><select class="time" id="t'+i+'">'+times+'</select></div></div>'+
-        '<div class="notebox"><div class="row"><label for="n'+i+'">Note for visitors, if you want one</label><span class="cnt"></span></div><input class="note" id="n'+i+'" type="text" maxlength="'+NOTE+'" autocomplete="off" placeholder="One short sentence"></div></div>';
+        '<div class="more" hidden><p class="past" hidden>That day and time have already passed, so the site skips to the next service.</p><div class="chgbox"><div><label for="d'+i+'">Day</label><select class="day" id="d'+i+'">'+days+'</select></div><div><label for="t'+i+'">Start time</label><select class="time" id="t'+i+'">'+times+'</select></div></div>'+
+        '<div class="notebox"><div class="row"><label for="n'+i+'">Note for visitors, if you want one</label><span class="cnt"></span></div><input class="note" id="n'+i+'" type="text" maxlength="'+NOTE+'" autocomplete="off" placeholder="One short sentence"><p class="when"></p></div></div>';
       li.querySelector('b').textContent=long(sun);
       li.querySelector('.seg').setAttribute('aria-label','Service on '+long(sun));
       function get(){return cur.weeks[k]||(cur.weeks[k]={})}

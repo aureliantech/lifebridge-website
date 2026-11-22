@@ -42,12 +42,14 @@
     return {sun:sun,off:!!w.off,t:t,moved:t.getTime()!==sun.getTime(),note:String(w.note||'').replace(/\s+/g,' ').trim().slice(0,NOTE)};
   }
   function plan(now){
-    var f=firstSunday(now), list=[], next=null;
+    var f=firstSunday(now), list=[], next=null, started=false;
     for(var i=0;i<60;i++){
       var v=svc(new Date(f.getTime()+i*7*DAY));
-      if(i<5) list.push(v);
-      if(!next&&!v.off&&now-v.t<LEN) next=v;
-      if(next&&i>=4) break;
+      if(!started&&!v.off&&now-v.t>=LEN) continue;   // moved earlier in its week and already over
+      started=true;
+      if(list.length<5) list.push(v);
+      if(!next&&!v.off) next=v;
+      if(next&&list.length>=5) break;
     }
     return {list:list,next:next};
   }
