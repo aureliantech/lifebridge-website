@@ -1,6 +1,10 @@
 {
   "latestMessage": "https://www.youtube.com/live/WEhWzv0P7wI?si=_Y90HpxxPrTRC5gy",
-  "weeks": {},
+  "weeks": {
+    "2026-11-22": {
+      "off": true
+    }
+  },
   "site": {
     "welcomeVideo": "https://youtu.be/-ZrROtMAyMg?si=zy5N2FofpOKFjSFl"
   }
