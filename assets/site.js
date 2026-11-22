@@ -219,6 +219,21 @@
     });
   });
 
+  // Guide photos open larger
+  var zs=$$('figure[data-zoom]');
+  if(zs.length&&window.HTMLDialogElement){
+    var dg=d.createElement('dialog'); dg.className='zoom'; dg.innerHTML='<img alt=""><p></p><button type="button">Close</button>';
+    d.body.appendChild(dg);
+    dg.addEventListener('click',function(e){ if(e.target===dg||e.target.tagName==='BUTTON') dg.close(); });
+    zs.forEach(function(f){
+      var im=$('img',f), cap=f.parentNode.querySelector('h3');
+      f.setAttribute('tabindex','0'); f.setAttribute('role','button'); f.setAttribute('aria-label','See this photo larger: '+im.alt);
+      var open=function(){ $('img',dg).src=im.currentSrc||im.src; $('img',dg).alt=im.alt; $('p',dg).textContent=cap?cap.textContent:''; dg.showModal(); };
+      f.addEventListener('click',open);
+      f.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){e.preventDefault();open()} });
+    });
+  }
+
   // Copy account details
   $$('[data-copy]').forEach(function(b){
     b.addEventListener('click',function(){
