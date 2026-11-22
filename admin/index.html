@@ -180,7 +180,7 @@
         <p class="state" id="msg-state" role="status"></p>
         <div class="thumb" id="msg-thumb" hidden>
           <img id="msg-img" alt="Thumbnail of the linked video">
-          <div><b>This is the video visitors will see.</b><a class="txt" id="msg-open" target="_blank" rel="noopener">Check it on YouTube</a></div>
+          <div><b>Visitors see this thumbnail on the player.</b><a class="txt" id="msg-open" target="_blank" rel="noopener">Check it on YouTube</a></div>
         </div>
         <div class="row-btns"><button class="txt" type="button" id="msg-clear">Clear the link</button></div>
       </div>
@@ -449,7 +449,7 @@
         h+=field(f);
       });
       h+=(open?'</div>':'');
-      if(g.id==='welcome') h+='<div class="thumb" id="wv-thumb" hidden><img id="wv-img" alt="Thumbnail of the welcome video"><div><a class="txt" id="wv-open" target="_blank" rel="noopener">Check it on YouTube</a></div></div>';
+      if(g.id==='welcome') h+='<div class="thumb" id="wv-thumb" hidden><img id="wv-img" alt="Thumbnail of the welcome video"><div><b>The home page shows this video and its thumbnail.</b><a class="txt" id="wv-open" target="_blank" rel="noopener">Check it on YouTube</a></div></div>';
       if(g.note) h+='<p class="caution">'+g.note+'</p>';
       h+='<div class="undo" hidden><button class="txt" type="button">Reset this section</button></div></div>';
       el.innerHTML=h; box.appendChild(el);

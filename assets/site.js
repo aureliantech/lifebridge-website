@@ -113,14 +113,6 @@
       f.src='https://www.google.com/maps?q='+encodeURIComponent((pn||'World Trade Center')+' '+(ps||'Calle 53 Este Marbella')+' Panama City')+'&z=14&output=embed';
     });
     var fe=get('forms.email',120); if(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fe)) TO=fe;
-    var w=videoId(get('welcomeVideo',300));
-    if(w){
-      $$('[data-video=welcome]').forEach(function(box){
-        box.setAttribute('data-yt','https://www.youtube.com/embed/'+w+'?autoplay=1&rel=0&modestbranding=1');
-        box.setAttribute('data-page','https://www.youtube.com/watch?v='+w);
-      });
-      $$('[data-link=welcome]').forEach(function(e){e.setAttribute('href','https://www.youtube.com/watch?v='+w)});
-    }
   }
   function videoId(u){var m=/(?:youtu\.be\/|[?&]v=|\/(?:embed|live|shorts)\/)([\w-]{11})/.exec(u||'');return m?m[1]:''}
   // The linked video's own thumbnail: the largest size YouTube has for it
@@ -133,31 +125,41 @@
       im.src='https://i.ytimg.com/vi/'+id+'/'+names[i]+'.jpg';
     })();
   }
+  function point(box,id){
+    if(box.getAttribute('data-vid')===id) return;
+    box.setAttribute('data-vid',id);
+    box.setAttribute('data-yt','https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0&modestbranding=1');
+    box.setAttribute('data-page','https://www.youtube.com/watch?v='+id);
+    thumb(id,function(url){
+      if(box.getAttribute('data-vid')!==id) return;
+      box.setAttribute('data-thumb',url);
+      var btn=$('button.poster',box); if(!btn) return;
+      btn.classList.add('thumb');
+      btn.setAttribute('style','background-image:linear-gradient(180deg,rgba(11,39,51,0) 50%,rgba(11,39,51,.85)),url('+url+');background-position:center');
+    });
+  }
   function latest(){
     var id=videoId(S.latestMessage); if(!id) return;
-    $$('[data-latest]').forEach(function(box){
-      box.setAttribute('data-yt','https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0&modestbranding=1');
-      box.setAttribute('data-page','https://www.youtube.com/watch?v='+id);
-      thumb(id,function(url){
-        box.setAttribute('data-thumb',url);
-        var btn=$('button.poster',box); if(!btn) return;
-        btn.classList.add('thumb');
-        btn.setAttribute('style','background-image:linear-gradient(180deg,rgba(11,39,51,0) 50%,rgba(11,39,51,.85)),url('+url+');background-position:center');
-      });
-    });
+    $$('[data-latest]').forEach(function(box){point(box,id)});
+  }
+  var WELCOME='Gqqq2FBiNDA';
+  function welcome(){
+    var w=videoId(String((S.site||{}).welcomeVideo||''))||WELCOME;
+    $$('[data-video=welcome]').forEach(function(box){point(box,w)});
+    $$('[data-link=welcome]').forEach(function(e){e.setAttribute('href','https://www.youtube.com/watch?v='+w)});
   }
   tick(); setInterval(tick,30000);
   var me=d.currentScript&&d.currentScript.src;
   if(me&&window.fetch&&location.protocol!=='file:'){
     fetch(me.replace(/assets\/site\.js.*$/,'settings.json'),{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){
-      if(!j) return;
+      if(!j){welcome();return}
       if(typeof j.latestMessage==='string') S.latestMessage=j.latestMessage;
       if(j.weeks&&typeof j.weeks==='object') S.weeks=j.weeks;
       if(Array.isArray(j.closed)) j.closed.forEach(function(k){if(!S.weeks[k])S.weeks[k]={off:true}});
       if(j.site&&typeof j.site==='object') S.site=j.site;
-      apply(); tick(); latest();
-    }).catch(function(){});
-  }
+      apply(); tick(); latest(); welcome();
+    }).catch(function(){welcome()});
+  } else welcome();
 
   // Videos load only when asked for. Some streams can't be shown outside YouTube
   // (a music rights holder blocks it); when YouTube reports that, offer the video on YouTube instead.
