@@ -7,5 +7,7 @@
       "note": "hey guys"
     }
   },
-  "site": {}
+  "site": {
+    "welcomeVideo": "https://youtu.be/-ZrROtMAyMg?si=bjUILt2ZPEmg9g7L"
+  }
 }
