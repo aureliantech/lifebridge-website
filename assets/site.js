@@ -234,6 +234,23 @@
     });
   }
 
+  // Reviews: one at a time. A new one appears every 8 seconds; it waits while the pointer or keyboard
+  // is on the section, and stops for good once the visitor uses the arrows.
+  $$('[data-reviews]').forEach(function(box){
+    var qs=$$('blockquote',box), i=0, timer=null, hold=false, taken=false, EVERY=8000;
+    if(qs.length<2) return;
+    function show(n){ qs[i].classList.remove('on'); i=(n+qs.length)%qs.length; qs[i].classList.add('on'); }
+    function stop(){clearInterval(timer);timer=null}
+    function start(){stop(); if(!hold&&!taken) timer=setInterval(function(){show(i+1)},EVERY)}
+    $('.rev2-quotes',box).setAttribute('aria-live','polite');
+    $$('button[data-d]',box).forEach(function(b){b.addEventListener('click',function(){taken=true;stop();show(i+ +b.getAttribute('data-d'))})});
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;   // arrows only, no automatic change
+    box.addEventListener('mouseenter',function(){hold=true;stop()}); box.addEventListener('mouseleave',function(){hold=false;start()});
+    box.addEventListener('focusin',function(){hold=true;stop()}); box.addEventListener('focusout',function(){hold=false;start()});
+    d.addEventListener('visibilitychange',function(){if(d.hidden)stop();else start()});
+    start();
+  });
+
   // Copy account details
   $$('[data-copy]').forEach(function(b){
     b.addEventListener('click',function(){

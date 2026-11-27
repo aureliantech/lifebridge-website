@@ -461,3 +461,62 @@ h3{font-size:20px;line-height:1.25;letter-spacing:-.012em;font-stretch:94%}
 .ways3 h3{font-size:19px}
 .ways3 p{color:var(--ink-2);margin-top:6px;font-size:15.5px;line-height:1.45}
 @media (max-width:700px){.ways3{grid-template-columns:1fr;gap:26px}.ways3 li + li::before{left:0;width:100%;top:-13px}}
+
+/* home hero: headline, two photos and the sign */
+.hero.home2{padding:clamp(40px,5vw,72px) 0 clamp(48px,6vw,84px)}
+.hero.home2 .wrap{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);gap:clamp(28px,5vw,72px);align-items:center}
+.hero.home2 h1{font-size:clamp(38px,4.6vw,64px);line-height:.98;letter-spacing:-.03em;max-width:none}
+.hero.home2 .lede{margin-top:22px;color:var(--ink-2)}
+.collage{position:relative;padding-bottom:70px}
+.collage .p1 img{width:72%;margin-left:auto;aspect-ratio:4/5;object-fit:cover;object-position:50% 30%;border-radius:12px}
+.collage .p2{position:absolute;left:0;top:12%;width:36%}
+.collage .p2 img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:12px;border:6px solid #fff}
+.sign{position:absolute;left:6%;bottom:0;width:min(330px,74%);background:var(--canal);color:#fff;border-radius:16px;padding:22px 24px 22px;box-shadow:0 16px 40px rgba(11,39,51,.3)}
+.sign small{display:block;font-size:14px;color:rgba(255,255,255,.82)}
+.sign .t{display:block;font-weight:700;font-stretch:76%;font-size:52px;line-height:1;margin:2px 0 16px}
+.sign .row{display:flex;align-items:center;gap:14px;padding-top:16px;border-top:1px solid rgba(255,255,255,.25)}
+.sign .row b{display:block;font-weight:650;font-size:18px;line-height:1.2}
+.sign .lamp{width:46px;height:46px;font-size:25px;box-shadow:0 0 0 5px rgba(255,194,61,.25),0 0 22px rgba(255,194,61,.5)}
+.sign .lamp.off{box-shadow:inset 0 0 0 2px rgba(255,255,255,.4)}
+@media (max-width:860px){.hero.home2 .wrap{grid-template-columns:1fr}.collage{max-width:480px}}
+
+/* who we are: one line and the faces */
+.sec.who{padding-top:clamp(8px,2vw,24px)}
+.who-top{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);gap:18px clamp(28px,5vw,72px);align-items:end}
+.who-top h2{font-size:clamp(40px,5.4vw,76px);line-height:1;letter-spacing:-.03em}
+.who-top p{font-family:var(--serif);font-size:clamp(19px,1.8vw,23px);line-height:1.4;color:var(--ink-2)}
+.who-top .link{font-family:var(--sans);font-size:17px;color:var(--ink);margin-left:6px;white-space:nowrap}
+.sec.who .faces{margin-top:clamp(26px,3vw,40px)}
+@media (max-width:820px){.who-top{grid-template-columns:1fr}}
+
+/* reviews: one at a time beside a photo */
+.rev2{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);background:var(--mist)}
+.rev2-photo{min-height:400px;position:relative}
+.rev2-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+.rev2-text{display:flex;align-items:center;padding:clamp(40px,6vw,88px) clamp(20px,5vw,80px)}
+.rev2-text > div{width:100%;max-width:640px}
+.rev2 .stars{margin-bottom:16px;font-size:16px}
+.rev2-quotes{display:grid}
+.rev2-quotes blockquote{grid-area:1/1;visibility:hidden;opacity:0;transition:opacity .45s var(--ease),visibility 0s .45s}
+.rev2-quotes blockquote.on{visibility:visible;opacity:1;transition:opacity .45s var(--ease)}
+.rev2-quotes p{font-family:var(--serif);font-size:clamp(22px,2.3vw,31px);line-height:1.28;letter-spacing:-.012em;text-wrap:balance}
+.rev2-quotes footer{margin-top:14px;font-size:15px;color:var(--ink-2)}
+.rev2-nav{display:flex;align-items:center;gap:4px;margin-top:26px}
+.rev2-nav button{width:44px;height:44px;border-radius:50%;border:0;background:transparent;color:var(--ink-2);font-size:20px;cursor:pointer;margin-left:-12px}
+.rev2-nav button + button{margin-left:0}
+.rev2-nav button:hover{background:rgba(11,39,51,.08);color:var(--ink)}
+.rev2-nav .count{font-size:15px;color:var(--ink-2);min-width:3.6em;text-align:center}
+.rev2-nav .pause{width:auto;height:46px;border-radius:999px;padding:0 16px;font-size:15px;font-weight:600}
+.rev2-nav .link{margin-left:auto;font-size:15px;font-weight:500;color:var(--ink-2);text-decoration-thickness:1px;text-decoration-color:currentColor}
+@media (max-width:860px){.rev2{grid-template-columns:1fr}.rev2-photo{min-height:240px}}
+
+/* home page: one even gap between sections */
+.p-home{--gap:clamp(72px,9vw,128px)}
+.p-home main > .sec:not(.blue):not(#_){padding:var(--gap) 0}
+.p-home .hero.home2{padding:clamp(48px,6vw,88px) 0 var(--gap)}
+.p-home .sec.who:not(#_){padding-top:0}
+.p-home .sec.who .faces{margin-top:clamp(36px,4vw,56px)}
+.p-home .sec .wrap.stack > .sec-head{margin-bottom:clamp(32px,4vw,52px)}
+.p-home .sec.rule .wrap::before{display:none}
+.p-home .sec.rule:not(#_){padding-top:0}
+.p-home .sec.blue{padding:var(--gap) 0}
