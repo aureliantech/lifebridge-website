@@ -276,12 +276,4 @@
   if(bar&&first&&'IntersectionObserver' in window){
     new IntersectionObserver(function(en){bar.classList.toggle('show',!en[0].isIntersecting&&en[0].boundingClientRect.top<0)}).observe(first);
   }
-
-  // The one flourish: the elevator arrives at 2
-  var lamp=$('.lamp[data-arrive]');
-  if(lamp&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
-    var seq=['L','1','2'], i=0; lamp.classList.add('off'); lamp.textContent=seq[0];
-    var go=function(){i++; lamp.textContent=seq[i]; if(i<2) setTimeout(go,520); else lamp.classList.remove('off')};
-    setTimeout(go,700);
-  }
 })();

@@ -536,3 +536,14 @@ main > .sec.who:not(#_){padding-top:0}
 .rev3.plain{background:none;padding:var(--gap,96px) 0 0}
 .hero-photo.land.signed{padding-bottom:150px}
 @media (max-width:860px){.hero-photo.land.signed{padding-bottom:170px}}
+
+/* inner pages: one gap, not two, between the hero and the first section */
+main > .hero:not(.home2):not(#_):has(+ .sec:not(.tint):not(.blue)){padding-bottom:0}
+.sec-body > .weeks{margin-top:0}
+
+/* the garage note beside the route photos */
+.sec-head .gbox{margin-top:24px;border:1.5px solid var(--ink);border-radius:14px;padding:18px}
+.gbox .q{display:flex;align-items:center;gap:12px;margin:0;font-weight:650;font-stretch:92%;font-size:15.5px;color:var(--ink-2)}
+.gbox .pb{flex:none;width:34px;height:34px;border-radius:8px;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:700;font-stretch:80%;font-size:19px;line-height:1}
+.gbox h3{font-size:19px;margin-top:10px}
+.sec-head .gbox h3 + p{font-size:15.5px;margin-top:6px;color:var(--ink-2);max-width:none}
