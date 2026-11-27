@@ -276,4 +276,10 @@
   if(bar&&first&&'IntersectionObserver' in window){
     new IntersectionObserver(function(en){bar.classList.toggle('show',!en[0].isIntersecting&&en[0].boundingClientRect.top<0)}).observe(first);
   }
+  // pick-a-topic panels
+  $$('[data-tabs]').forEach(function(box){
+    var b=$$('[data-t]',box), p=$$('[data-p]',box);
+    var show=function(x){b.forEach(function(y){y.setAttribute('aria-selected',y===x)}); p.forEach(function(q){q.hidden=q.getAttribute('data-p')!==x.getAttribute('data-t')})};
+    b.forEach(function(x){x.addEventListener('click',function(){show(x)})}); if(b[0]) show(b[0]); box.classList.add('on');
+  });
 })();
