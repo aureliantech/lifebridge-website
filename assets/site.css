@@ -547,3 +547,13 @@ main > .hero:not(.home2):not(#_):has(+ .sec:not(.tint):not(.blue)){padding-botto
 .gbox .pb{flex:none;width:34px;height:34px;border-radius:8px;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:700;font-stretch:80%;font-size:19px;line-height:1}
 .gbox h3{font-size:19px;margin-top:10px}
 .sec-head .gbox h3 + p{font-size:15.5px;margin-top:6px;color:var(--ink-2);max-width:none}
+
+/* upcoming Sundays inside the blue closing */
+.close .weeks.flat{grid-column:1/-1;margin-top:0;background:none;padding:clamp(24px,3vw,36px) 0 0;border-radius:0;border-top:1px solid rgba(255,255,255,.22)}
+.weeks.flat h3{font-size:17px;font-weight:600;color:rgba(255,255,255,.86)}
+.weeks.flat ol{margin-top:16px}
+
+/* Visit: one even gap between every section */
+.p-visit main{--gap:clamp(60px,7.4vw,104px)}
+.p-visit main > .sec:not(.tint):not(.blue) + .sec:not(.tint):not(.blue):not(#_){padding-top:0}
+.p-visit main > .rev3{padding:var(--gap) 0}
