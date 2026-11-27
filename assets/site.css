@@ -458,27 +458,14 @@ h3{font-size:20px;line-height:1.25;letter-spacing:-.012em;font-stretch:94%}
 .rev2-quotes footer{margin-top:14px;font-size:15px;color:var(--ink-2)}
 @media (max-width:860px){.rev2{grid-template-columns:1fr}}
 
-/* home page: one even gap between sections */
-.p-home{--gap:clamp(72px,9vw,128px)}
-.p-home main > .sec:not(.blue):not(#_){padding:var(--gap) 0}
-.p-home .hero.home2{padding:clamp(48px,6vw,88px) 0 var(--gap)}
-.p-home .sec.who:not(#_){padding-top:0}
-.p-home .sec.who .faces{margin-top:clamp(36px,4vw,56px)}
-.p-home .sec .wrap.stack > .sec-head{margin-bottom:clamp(32px,4vw,52px)}
-.p-home .sec.rule .wrap::before{display:none}
-.p-home .sec.rule:not(#_){padding-top:0}
-.p-home .sec.blue{padding:var(--gap) 0}
-.route-note{margin-top:28px;max-width:44em;color:var(--ink-2)}
-.route-note b{color:var(--ink)}
-.close .tell{background:#fff;color:var(--ink);border-radius:18px;padding:clamp(24px,3vw,36px);box-shadow:0 18px 44px rgba(11,39,51,.28)}
-.close .tell > h3{font-size:clamp(24px,2.4vw,30px);font-stretch:88%}
-.close .tell > p{color:var(--ink-2);margin:8px 0 22px}
-.close .tell .form{max-width:none}
-.close .tell .send{margin-top:0}
-.close .tell .btn{width:100%}
-.close .tell .or{margin-top:14px;text-align:center;font-size:15px;color:var(--ink-2)}
-.close .tell .form-done{background:var(--mist);color:var(--ink);padding:24px}
-.close .tell .form-done p{color:var(--ink-2)}
+/* every page: one even gap between sections, no divider lines */
+main{--gap:clamp(72px,9vw,128px)}
+main > .sec:not(#_){padding:var(--gap) 0}
+main > .hero:not(#_){padding:clamp(48px,6vw,88px) 0 var(--gap)}
+main > .sec.who:not(#_){padding-top:0}
+.sec.who .faces{margin-top:clamp(36px,4vw,56px)}
+.sec .wrap.stack > .sec-head{margin-bottom:clamp(32px,4vw,52px)}
+.sec.rule .wrap::before{display:none}
 
 /* what a Sunday is like: four photo stops on a line */
 .day-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px 32px;flex-wrap:wrap;margin-bottom:clamp(36px,4.5vw,60px)}
@@ -528,3 +515,24 @@ h3{font-size:20px;line-height:1.25;letter-spacing:-.012em;font-stretch:94%}
 .faq-l .faq summary{padding:22px 0;font-size:21px}
 .faq-l .faq details p{font-size:18px;padding-bottom:24px}
 @media (max-width:860px){.faq-l .sec-head figure{max-width:none}.faq-l .sec-head img{aspect-ratio:16/9}}
+
+/* inner pages: hero in the home page's style, with the sign card on the photo */
+.hero h1{font-size:clamp(38px,4.6vw,64px);line-height:.98;letter-spacing:-.03em}
+.hero .lede{color:var(--ink-2)}
+.hero .hero-grid{grid-template-columns:minmax(0,6fr) minmax(0,5fr)}
+.hero-photo.signed{position:relative;padding-bottom:64px;margin-left:36px}
+.hero-photo.signed img{border-radius:12px}
+.hero-photo.signed .sign{left:-36px;width:min(320px,86%)}
+.sign .t.w{font-size:clamp(34px,3.4vw,42px);line-height:1.02}
+.sign .row + .row{margin-top:14px;padding-top:14px}
+.sign .row b{font-size:17px}
+@media (max-width:860px){.hero .hero-grid{grid-template-columns:1fr}.hero-photo.signed{margin-left:0;max-width:480px}.hero-photo.signed .sign{left:14px}}
+/* statements on inner pages share the centred review style */
+.rev3:not([aria-label]) .rev2-quotes p{font-size:clamp(26px,3.6vw,46px)}
+/* numbered photo walk-through, three or four across */
+@media (min-width:561px){.find3{grid-template-columns:repeat(var(--n,3),minmax(0,1fr))}}
+@media (min-width:561px) and (max-width:860px){.find3[style*="--n:4"]{grid-template-columns:1fr 1fr}}
+.faq-l .sec-head h2 + figure{margin-top:22px}
+.rev3.plain{background:none;padding:var(--gap,96px) 0 0}
+.hero-photo.land.signed{padding-bottom:150px}
+@media (max-width:860px){.hero-photo.land.signed{padding-bottom:170px}}
