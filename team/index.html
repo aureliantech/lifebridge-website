@@ -38,49 +38,84 @@ body{background:var(--mist);min-height:100vh;margin:0}
 @media (prefers-reduced-motion:reduce){.t-hub a{transition:none}}
 @media (max-width:860px){.t-hub a{min-height:0}}
 @media (max-width:560px){.a-head .brand span{display:none}}
+.a-head .me{font-size:14.5px;color:rgba(255,255,255,.8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}.a-head button.q{background:none;border:0;color:#fff;font:inherit;font-size:15.5px;text-decoration:underline;text-underline-offset:4px;cursor:pointer;white-space:nowrap;padding:8px 0}@media (max-width:640px){.a-head .me{display:none}}
+.t-card p.t-hint a.t-back{display:inline}
+.t-tasks{margin-top:20px}.t-link{max-width:560px}
+.t-task{display:grid;grid-template-columns:minmax(0,1fr) 190px 110px;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--rule)}#tlist{margin-top:20px}
+.t-task b{font-weight:650}.t-task small{display:block;color:var(--ink-2);font-size:14px}.t-task select{height:42px !important}.t-task.off b{color:var(--ink-2);text-decoration:line-through}
+.t-task .wk{font-size:14.5px;color:var(--ink-2)}
+@media (max-width:700px){.t-task{grid-template-columns:minmax(0,1fr) 110px}.t-task .freq{grid-column:1/-1;grid-row:2}.t-task .wk{display:none}}
 [hidden]{display:none !important}
 </style>
 </head>
 <body>
 <header class="a-head"><div class="wrap">
   <a class="brand" href="./" aria-label="LifeBridge team, home"><img src="../assets/img/logo.png" width="40" height="40" alt=""><span><b>LifeBridge</b><span>Team</span></span></a>
-  <a class="q" href="../" target="_blank" rel="noopener">View the site</a>
+  <span class="me" id="me" hidden></span>
+  <button class="q" type="button" id="out" hidden>Sign out</button>
 </div></header>
 <main class="a-main"><div class="wrap">
-<section id="v-hub"><h1>LifeBridge team</h1><p class="sub">For the pastor and volunteers. What do you want to do?</p>
+<section id="v-signin" hidden><h1>LifeBridge team</h1><p class="sub">For the pastor and volunteers. Enter your email and we&rsquo;ll send you a link to sign in.</p>
+  <form class="t-card t-narrow" id="f-in"><label for="em">Your email</label><input id="em" type="email" required autocomplete="email" placeholder="you@example.com"><button class="btn" type="submit">Email me a sign-in link</button><p class="t-hint">There is no password. Only people the pastor has approved can sign in.</p></form></section>
+<section id="v-sent" hidden><h1>Check your email</h1><p class="sub">We&rsquo;ve sent a sign-in link to <b id="sent-to"></b>. It works once and expires in 15 minutes.</p>
+  <div class="t-card t-narrow"><p style="font-weight:650">Opened the link?</p><button class="btn" type="button" id="magic">Continue</button><p class="t-err" id="in-err" hidden>That email isn&rsquo;t on the approved list. Ask the pastor to add you.</p><p class="t-hint"><a class="t-back" href="#" id="again" style="margin:0">Use a different email</a></p></div></section>
+<section id="v-hub" hidden><h1 id="hello">LifeBridge team</h1><p class="sub">What do you want to do?</p>
   <div class="t-hub">
     <a href="../volunteer/"><span class="vp-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg></span><b>Volunteer tasks</b><span class="d">What&rsquo;s due on Google, social, email and Linktree, and how to do it.</span><em>Open tasks</em></a>
     <a href="../admin/"><span class="vp-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-10.5a6.5 6.5 0 0 1 13 0C18.500 15.400 12 21 12 21z"/><circle cx="12" cy="10.500" r="2.300"/></svg></span><b>Update the website</b><span class="d">This Sunday, the latest message, events and site details.</span><em>Open updates</em></a>
-    <a href="#people"><span class="vp-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a7.500 7.500 0 0 1-11 6.600L4.500 20l1.300-4A7.500 7.500 0 1 1 20 12z"/></svg></span><b>Manage people</b><span class="d">Choose who can sign in, and who is an admin.</span><em id="hub-people">Open the list</em></a>
+    <a href="#people"><span class="vp-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a7.500 7.500 0 0 1-11 6.600L4.500 20l1.300-4A7.500 7.500 0 1 1 20 12z"/></svg></span><b>Manage volunteers</b><span class="d">Choose who can sign in, and what volunteers are asked to do.</span><em id="hub-people">Open the list</em></a>
   </div>
-  <p class="t-notice"><b>Sign-in isn&rsquo;t switched on yet.</b> For now anyone with this address can open these pages. Publishing changes to the website still needs the access token.</p>
 </section>
-<section id="v-people" hidden><a class="t-back" href="#">Back</a><h1>Manage people</h1><p class="sub">Once sign-in is switched on, only the people on this list will be able to get a sign-in link.</p>
-  <p class="t-flag"><b>Preview.</b> This list is saved on this device only and doesn&rsquo;t control access yet.</p>
-  <div class="t-people"><div class="t-card"><h2>Approved people</h2><div id="plist" style="margin-top:10px"></div></div>
-  <form class="t-card" id="f-add"><h2>Add someone</h2><p>They&rsquo;ll be able to sign in as soon as you add them.</p><div class="t-f"><label for="pn">Name</label><input id="pn" type="text" required maxlength="40" autocomplete="off"></div><div class="t-f"><label for="pe">Email</label><input id="pe" type="email" required autocomplete="off"></div><div class="t-f"><label for="pr">Can do</label><select id="pr"><option value="volunteer">Volunteer tasks</option><option value="admin">Everything (admin)</option></select></div><button class="btn" type="submit">Add</button><p class="t-err" id="perr" hidden></p></form></div></section>
+<section id="v-people" hidden><a class="t-back" href="#">Back</a><h1>Manage volunteers</h1><p class="sub">Who can sign in, and which tasks they see.</p>
+  <div class="t-people"><div class="t-card"><h2>Who can sign in</h2><p>Only the people on this list can get a sign-in link.</p><div id="plist" style="margin-top:10px"></div></div>
+  <form class="t-card" id="f-add"><h2>Add someone</h2><p>They can sign in as soon as you add them.</p><div class="t-f"><label for="pn">Name</label><input id="pn" type="text" required maxlength="40" autocomplete="off"></div><div class="t-f"><label for="pe">Email</label><input id="pe" type="email" required autocomplete="off"></div><div class="t-f"><label for="pr">Can do</label><select id="pr"><option value="volunteer">Volunteer tasks</option><option value="admin">Everything (admin)</option></select></div><button class="btn" type="submit">Add</button><p class="t-err" id="perr" hidden></p></form></div>
+  <div class="t-card t-tasks"><h2>Volunteer tasks</h2><p>Switch off anything the church doesn&rsquo;t do, and set how often the others come round. Weekly tasks stay weekly.</p>
+    <div class="t-f t-link"><label for="vr">Google review link, for the congregation</label><input id="vr" type="text" inputmode="url" maxlength="500" autocomplete="off" placeholder="https://"><p class="t-err" id="vr-err" hidden>A link starts with https:// and has no spaces.</p></div>
+    <div id="tlist"></div></div></section>
 </div></main>
+<script src="../assets/team.js"></script>
 <script>
 (function(){
   'use strict';
-  var d=document,$=function(i){return d.getElementById(i)},KEY='lifebridge-team-people';
-  var people=[{name:'Nate Korpi',email:'pastor@lifebridgeic.com',role:'admin'}];
-  try{var j=JSON.parse(localStorage.getItem(KEY)||'null'); if(Array.isArray(j)&&j.length&&j.every(function(p){return p&&typeof p.name==='string'&&typeof p.email==='string'})&&j.some(function(p){return p.role==='admin'})) people=j.slice(0,100)}catch(e){}
-  function save(){try{localStorage.setItem(KEY,JSON.stringify(people))}catch(e){}}
+  var d=document,$=function(i){return d.getElementById(i)},T=window.Team,people=T.people(),me=T.me(),pending='';
   function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
   function list(){
     var admins=people.filter(function(p){return p.role==='admin'}).length;
-    $('plist').innerHTML=people.map(function(p,i){var lastAdmin=p.role==='admin'&&admins===1;
-      return '<div class="t-row"><div><b>'+esc(p.name)+'</b><small>'+esc(p.email)+'</small></div><select data-role="'+i+'" aria-label="What '+esc(p.name)+' can do"'+(lastAdmin?' disabled':'')+'><option value="volunteer"'+(p.role!=='admin'?' selected':'')+'>Volunteer tasks</option><option value="admin"'+(p.role==='admin'?' selected':'')+'>Everything (admin)</option></select><button type="button" data-rm="'+i+'"'+(lastAdmin?' disabled title="There must always be one admin"':'')+'>'+(lastAdmin?'Only admin':'Remove')+'</button></div>'}).join('');
+    $('plist').innerHTML=people.map(function(p,i){var self=me&&p.email===me.email,lastAdmin=p.role==='admin'&&admins===1;
+      return '<div class="t-row"><div><b>'+esc(p.name)+(self?' (you)':'')+'</b><small>'+esc(p.email)+'</small></div><select data-role="'+i+'" aria-label="What '+esc(p.name)+' can do"'+(lastAdmin||self?' disabled':'')+'><option value="volunteer"'+(p.role!=='admin'?' selected':'')+'>Volunteer tasks</option><option value="admin"'+(p.role==='admin'?' selected':'')+'>Everything (admin)</option></select><button type="button" data-rm="'+i+'"'+(lastAdmin||self?' disabled':'')+'>'+(self||lastAdmin?'':'Remove')+'</button></div>'}).join('');
     $('hub-people').textContent=people.length+(people.length===1?' person':' people')+' on the list';
   }
-  function route(){var p=location.hash==='#people'; $('v-hub').hidden=p; $('v-people').hidden=!p; window.scrollTo(0,0)}
+  function show(v){['signin','sent','hub','people'].forEach(function(x){$('v-'+x).hidden=x!==v}); window.scrollTo(0,0)}
+  function route(){
+    me=T.me();
+    if(!me){show(pending?'sent':'signin');return}
+    if(me.role!=='admin'){location.replace('../volunteer/');return}
+    T.head(me,'./'); $('hello').textContent='Hello, '+T.first(me)+'.'; list(); show(location.hash==='#people'?'people':'hub');
+  }
+  $('f-in').addEventListener('submit',function(e){e.preventDefault();pending=$('em').value.trim();$('sent-to').textContent=pending;$('in-err').hidden=true;show('sent')});
+  $('magic').addEventListener('click',function(){if(!T.find(pending)){$('in-err').hidden=false;return} T.signIn(pending);pending='';route()});
+  $('again').addEventListener('click',function(e){e.preventDefault();pending='';show('signin');$('em').focus()});
   $('f-add').addEventListener('submit',function(e){e.preventDefault();var em=$('pe').value.trim().toLowerCase(),er=$('perr');
     if(people.some(function(p){return p.email===em})){er.textContent='That email is already on the list.';er.hidden=false;return}
-    er.hidden=true; people.push({name:$('pn').value.trim().slice(0,40),email:em.slice(0,120),role:$('pr').value==='admin'?'admin':'volunteer'}); $('pn').value=$('pe').value=''; save(); list()});
-  d.addEventListener('click',function(e){var x=e.target.closest('[data-rm]'); if(x&&!x.disabled){people.splice(+x.getAttribute('data-rm'),1);save();list()}});
-  d.addEventListener('change',function(e){var x=e.target.closest('[data-role]'); if(x){people[+x.getAttribute('data-role')].role=x.value==='admin'?'admin':'volunteer';save();list()}});
-  window.addEventListener('hashchange',route); list(); route();
+    er.hidden=true; people.push({name:$('pn').value.trim().slice(0,40),email:em.slice(0,120),role:$('pr').value==='admin'?'admin':'volunteer'}); $('pn').value=$('pe').value=''; T.save(people); list()});
+  d.addEventListener('click',function(e){var x=e.target.closest('[data-rm]'); if(x&&!x.disabled){people.splice(+x.getAttribute('data-rm'),1);T.save(people);list()}});
+  d.addEventListener('change',function(e){var x=e.target.closest('[data-role]'); if(x){people[+x.getAttribute('data-role')].role=x.value==='admin'?'admin':'volunteer';T.save(people);list()}});
+  // ---- volunteer tasks: on or off, and how often
+  var VT=[['g1','Reply to new Google reviews','Google'],['g2','Ask for Google reviews','Google',[['','Every 6 weeks'],['4','Every 4 weeks'],['8','Every 8 weeks'],['12','Every 12 weeks']]],
+    ['g3','Add new photos','Google',[['','Every 3 months'],['8','Every 2 months'],['26','Every 6 months']]],['g4','Check the hours','Google',[['','Every 4 weeks'],['8','Every 8 weeks'],['13','Every 3 months']]],
+    ['s1','This week\u2019s post','Instagram, Facebook, TikTok'],['s2','Reply to messages and comments','Instagram, Facebook, TikTok'],['e1','Send the weekly email','Weekly email'],['u1','Text first-time guests','Sunday guests'],
+    ['l1','Check the Linktree links','Linktree',[['','Every 4 weeks'],['8','Every 8 weeks'],['13','Every 3 months']]]], tk=T.tasks();
+  function tlist(){
+    $('tlist').innerHTML=VT.map(function(v){var off=tk['vol.'+v[0]+'.on']==='off', ev=tk['vol.'+v[0]+'.every']||'';
+      return '<div class="t-task'+(off?' off':'')+'"><div><b>'+esc(v[1])+'</b><small>'+v[2]+'</small></div>'+
+        (v[3]?'<select class="freq" data-every="'+v[0]+'" aria-label="How often: '+esc(v[1])+'"'+(off?' disabled':'')+'>'+v[3].map(function(o){return '<option value="'+o[0]+'"'+(o[0]===ev?' selected':'')+'>'+o[1]+'</option>'}).join('')+'</select>':'<span class="wk freq">Every week</span>')+
+        '<select data-on="'+v[0]+'" aria-label="On or off: '+esc(v[1])+'"><option value="">On</option><option value="off"'+(off?' selected':'')+'>Off</option></select></div>'}).join('');
+  }
+  $('vr').value=tk['vol.reviewlink']||'';
+  $('vr').addEventListener('input',function(){var v=$('vr').value.trim(), ok=!v||/^https?:\/\/\S+$/.test(v); $('vr-err').hidden=ok; if(ok){ if(v) tk['vol.reviewlink']=v; else delete tk['vol.reviewlink']; T.saveTasks(tk); }});
+  d.addEventListener('change',function(e){var x=e.target.closest('[data-on],[data-every]'); if(!x) return; var id=x.getAttribute('data-on')||x.getAttribute('data-every'), key='vol.'+id+(x.hasAttribute('data-on')?'.on':'.every'); if(x.value) tk[key]=x.value; else delete tk[key]; T.saveTasks(tk); tlist()});
+  tlist();
+  window.addEventListener('hashchange',route); route();
 })();
 </script>
 </body>

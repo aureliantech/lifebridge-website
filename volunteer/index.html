@@ -72,6 +72,7 @@ button.vp-tile{min-height:128px}
 
 .vp-frame .vp-focus ol{list-style:decimal;padding-left:24px;margin-top:16px}.vp-frame .vp-focus ol li{list-style:decimal;margin-top:6px}.vp-frame .vp-check{list-style:none}.vp-frame .vp-sub{margin-top:8px}
 .a-head{background:var(--ink);color:#fff}.a-head .wrap{display:flex;align-items:center;gap:20px;height:64px}.a-head .brand{margin-right:auto}.a-head .brand b{color:#fff}.a-head .brand span span{color:rgba(255,255,255,.7)}.a-head .brand img{background:#fff;border-radius:50%}
+.a-head .me{font-size:14.5px;color:rgba(255,255,255,.8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}.a-head button.q{background:none;border:0;color:#fff;font:inherit;font-size:15.5px;text-decoration:underline;text-underline-offset:4px;cursor:pointer;white-space:nowrap;padding:8px 0}@media (max-width:640px){.a-head .me{display:none}}
 .a-head a.q{color:#fff;font-size:15.5px;text-decoration:underline;text-underline-offset:4px;white-space:nowrap}
 .a-main{padding:clamp(28px,4vw,56px) 0 80px}.a-main h1{font-size:clamp(32px,4vw,52px)}.a-main .sub{margin-top:12px !important;color:var(--ink-2);max-width:40em}.a-main .sub b{color:var(--ink);font-weight:650}
 .vp-frame.vp-frame{background:none;border-radius:0;box-shadow:none;overflow:visible;margin-top:0}
@@ -92,24 +93,27 @@ a.vp-go{color:var(--ink);text-decoration:none}a.vp-go + a.vp-go{margin-top:10px}
 .vp-q{font-size:14.5px;font-weight:650;margin-top:18px !important}
 .vp-done.again{background:#fff;box-shadow:inset 0 0 0 1.5px var(--ink)}
 @media (max-width:420px){.vp-gos{grid-template-columns:1fr}}
+[hidden]{display:none !important}
 </style>
 </head>
 <body>
 <header class="a-head"><div class="wrap">
   <a class="brand" href="../" aria-label="LifeBridge International Church, home"><img src="../assets/img/logo.png" width="40" height="40" alt=""><span><b>LifeBridge</b><span>Volunteer tasks</span></span></a>
-  <a class="q" href="../team/">Team home</a>
-  <a class="q" href="../" target="_blank" rel="noopener">View the site</a>
+  <a class="q" href="../team/" data-admin hidden>Team home</a>
+  <span class="me" id="me" hidden></span>
+  <button class="q" type="button" id="out" hidden>Sign out</button>
 </div></header>
 <main class="a-main"><div class="wrap vp-frame" id="app">
   <h1>Volunteer tasks</h1>
   <p class="sub"><b id="count"></b> Pick a platform to see what to do.</p>
   <div class="vp-tiles" id="tiles" role="tablist" aria-label="Platforms"></div>
   <div class="vp-cols wide vp-panel"><div id="focus" aria-live="polite"></div><div class="vp-list" id="side"></div></div>
-  <p class="vp-foot">Ticks are saved on this device only.</p>
 </div></main>
+<script src="../assets/team.js"></script>
 <script>
 (function(){
   'use strict';
+  var ME=window.Team.guard('../team/'); if(!ME) return; window.Team.head(ME,'../team/'); var WHO=window.Team.first(ME);
   var d=document, IC={"pin": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 21s-6.5-5.6-6.5-10.5a6.5 6.5 0 0 1 13 0C18.500 15.400 12 21 12 21z\"/><circle cx=\"12\" cy=\"10.500\" r=\"2.300\"/></svg>", "cam": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"3.500\" y=\"6.500\" width=\"17\" height=\"12.500\" rx=\"3\"/><circle cx=\"12\" cy=\"12.800\" r=\"3.300\"/><path d=\"M8.500 6.500l1.200-2h4.600l1.200 2\"/></svg>", "mail": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"3.500\" y=\"5.500\" width=\"17\" height=\"13\" rx=\"2.500\"/><path d=\"M4.500 7.500l7.500 5.500 7.500-5.500\"/></svg>", "chat": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 12a7.500 7.500 0 0 1-11 6.600L4.500 20l1.300-4A7.500 7.500 0 1 1 20 12z\"/></svg>", "link": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M10 14a4 4 0 0 0 5.700 0l3-3a4 4 0 0 0-5.700-5.700l-1 1\"/><path d=\"M14 10a4 4 0 0 0-5.700 0l-3 3a4 4 0 0 0 5.700 5.700l1-1\"/></svg>", "star": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 4l2.400 5 5.400.700-4 3.800 1 5.400L12 16.300 7.200 18.900l1-5.400-4-3.800 5.400-.700z\"/></svg>", "check": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12.500l4.500 4.500L19 7.500\"/></svg>", "copy": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"8.500\" y=\"8.500\" width=\"11\" height=\"11\" rx=\"2.500\"/><path d=\"M15.500 8.500v-2a2 2 0 0 0-2-2h-7a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h2\"/></svg>"}, IMG='../assets/img/vol/';
   var INV='Join us Sundays at 10 AM, World Trade Center, Floor 2.';
   function ol(a){return '<ol>'+a.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ol>'}
@@ -153,7 +157,7 @@ a.vp-go{color:var(--ink);text-decoration:none}a.vp-go + a.vp-go{margin-top:10px}
     l1:{icon:'link',title:'Check the Linktree links',every:4,sub:'',
       body:ol(['Tap every link and check it opens.','Remove links to events that have passed.','Plan your visit stays first. Give stays last.']),open:[['Open Linktree','https://linktr.ee/admin']]}
   };
-  var KEY='lifebridge-volunteer', log=[], S={}, selP=null, selT={};
+  var KEY='lifebridge-volunteer', log=[], S=window.Team.tasks(), selP=null, selT={};
   try{var j=JSON.parse(localStorage.getItem(KEY)||'null'); if(j&&Array.isArray(j.log)) log=j.log.filter(function(x){return x&&T[x.t]&&typeof x.at==='number'})}catch(e){}
   function save(){try{localStorage.setItem(KEY,JSON.stringify({log:log.slice(-300)}))}catch(e){}}
   // ---- dates, in Panama time (UTC-5 all year)
@@ -195,22 +199,22 @@ a.vp-go{color:var(--ink);text-decoration:none}a.vp-go + a.vp-go{margin-top:10px}
       return '<button type="button" role="tab" aria-selected="'+(p.k===selP)+'" class="vp-tile '+cls+(p.k===selP?' sel':'')+'" data-p="'+p.k+'">'+logo(p)+'<b>'+p.name+'</b><small>'+st+'</small></button>';
     }).join('');
     var p=plats.filter(function(x){return x.k===selP})[0], F=d.getElementById('focus'), SD=d.getElementById('side');
-    if(!p){F.innerHTML='<div class="vp-focus rest"><h2>No tasks are switched on.</h2><p class="vp-sub">The pastor can switch tasks on in the admin page.</p></div>';SD.innerHTML='';return}
+    if(!p){F.innerHTML='<div class="vp-focus rest"><h2>No tasks are switched on.</h2><p class="vp-sub">The pastor can switch tasks on under Manage volunteers.</p></div>';SD.innerHTML='';return}
     var ids=tasks(p); if(ids.indexOf(selT[p.k])<0) selT[p.k]=p._due[0]||ids[0];
     var id=selT[p.k], t=T[id], st=status(id), L=last(id);
     SD.innerHTML='<h3>'+(ids.length>1?'In '+p.name:'The only task here')+'</h3>'+ids.map(function(x){
       var s=status(x); return '<button type="button" class="vp-row'+(s.due?' due':'')+(s.done?' done':'')+(x===id?' sel':'')+'" data-t="'+x+'" aria-pressed="'+(x===id)+'"><span class="vp-ic">'+IC[s.done?'check':T[x].icon]+'</span><div><b>'+T[x].title+'</b><small>'+freq(x)+'</small></div><em'+(s.done?' class="ok"':'')+'>'+(s.due?'Due':when(s.next))+'</em></button>';
     }).join('');
     var h=logo(p,true)+'<h2>'+t.title+'</h2><p class="vp-sub">'+freq(id)+'.'+(t.sub?' '+t.sub:'')+'</p>';
-    if(st.done&&L) h+='<p class="vp-state">'+IC.check+'<span>Done '+md(dn(L.at))+'. Due again '+when(st.next).replace(/^T/,'t')+'.</span>'+(Date.now()-L.at<DAYMS?'<button type="button" data-undo>Undo</button>':'')+'</p>';
+    if(st.done&&L) h+='<p class="vp-state">'+IC.check+'<span>Done '+(L.who?'by '+esc(L.who)+', ':'')+md(dn(L.at))+'. Due again '+when(st.next).replace(/^T/,'t')+'.</span>'+(Date.now()-L.at<DAYMS?'<button type="button" data-undo>Undo</button>':'')+'</p>';
     h+='<div class="vp-fbody">'+t.body+'</div>';
     if(t.soc) h+='<div class="vp-gos">'+SOC.map(function(s){return '<a class="vp-go" href="'+s[1]+'" target="_blank" rel="noopener noreferrer"><img src="'+IMG+s[2]+'" alt="">Open '+s[0]+'</a>'}).join('')+'</div>';
     (t.open||[]).forEach(function(o){h+='<a class="vp-go" href="'+o[1]+'" target="_blank" rel="noopener noreferrer">'+o[0]+'</a>'});
     h+='<button class="vp-done'+(st.done?' again':'')+'" type="button" data-done>'+IC.check+'<span>'+(st.done?'Mark as done again':'Mark as done')+'</span></button>';
-    h+='<p class="vp-last">'+(L?'Last done '+md(dn(L.at))+(L.note?', featuring '+esc(L.note).toLowerCase():'')+'.':'Not done yet on this device.')+'</p>';
+    h+='<p class="vp-last">'+(L?'Last done '+(L.who?'by '+esc(L.who)+', ':'')+md(dn(L.at))+(L.note?', featuring '+esc(L.note).toLowerCase():'')+'.':'Not done yet.')+'</p>';
     F.innerHTML='<div class="vp-focus">'+h+'</div>';
     var rv=F.querySelector('[data-review]');
-    if(rv){var u=String(S['vol.reviewlink']||'').trim(), ok=/^https?:\/\/\S+$/.test(u); rv.innerHTML=cp('Here&rsquo;s the link to leave LifeBridge a Google review. It takes two minutes. Thank you!'+(ok?' '+esc(u):''))+(ok?'':'<p>The review link isn&rsquo;t set yet. The pastor can add it in the admin page, under Volunteer panel.</p>')}
+    if(rv){var u=String(S['vol.reviewlink']||'').trim(), ok=/^https?:\/\/\S+$/.test(u); rv.innerHTML=cp('Here&rsquo;s the link to leave LifeBridge a Google review. It takes two minutes. Thank you!'+(ok?' '+esc(u):''))+(ok?'':'<p>The review link isn&rsquo;t set yet. The pastor can add it under Manage volunteers.</p>')}
     var ft=F.querySelector('[data-feat]');
     if(ft){var seen=[]; for(var i=log.length-1;i>=0&&seen.length<3;i--) if(log[i].t==='s1'&&log[i].note&&seen.indexOf(log[i].note)<0) seen.push(log[i].note);
       ft.innerHTML=seen.length?'Featured lately: '+seen.map(function(x){return '<span class="vp-tag">'+esc(x)+'</span>'}).join('')+' Pick a group that isn&rsquo;t here.':'Over time, feature all four groups equally: people new to the city, professionals, families and retirees.'}
@@ -225,11 +229,10 @@ a.vp-go{color:var(--ink);text-decoration:none}a.vp-go + a.vp-go{margin-top:10px}
       if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(tx).then(okk,function(){});
       else{var ta=d.createElement('textarea');ta.value=tx;d.body.appendChild(ta);ta.select();try{d.execCommand('copy');okk()}catch(er){}ta.remove()}
       return}
-    if((x=e.target.closest('[data-done]'))){var id=selT[selP], g=d.querySelector('[data-group] button.on'); log.push({t:id,at:Date.now(),note:g?g.textContent:''}); save(); render(); return}
+    if((x=e.target.closest('[data-done]'))){var id=selT[selP], g=d.querySelector('[data-group] button.on'); log.push({t:id,at:Date.now(),note:g?g.textContent:'',who:WHO}); save(); render(); return}
     if((x=e.target.closest('[data-undo]'))){var id2=selT[selP]; for(var k=log.length-1;k>=0;k--) if(log[k].t===id2){log.splice(k,1);break} save(); render(); return}
   });
   render();
-  if(window.fetch&&location.protocol!=='file:') fetch('../settings.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(j&&j.site&&typeof j.site==='object'){S=j.site;render()}}).catch(function(){});
   setInterval(render,10*60000);
 })();
 </script>

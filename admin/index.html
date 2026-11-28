@@ -115,8 +115,19 @@
   textarea:focus{outline:3px solid var(--bridge);outline-offset:1px;border-color:var(--ink)}
   .caution{margin-top:16px;font-size:14.5px;color:var(--ink-2)}
   .undo{margin-top:20px}
+  .a-head .me{font-size:14.5px;color:rgba(255,255,255,.8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+  @media (max-width:760px){.a-head .me{display:none}}
   .a-head a.q,.a-head button.q{white-space:nowrap}.a-head .brand{margin-right:auto}
   @media (max-width:560px){.a-head .wrap{gap:14px}.a-head a.q,.a-head button.q{font-size:14px}.a-head .brand span{display:none}}
+  .acol{display:grid;gap:20px;min-width:0}
+  .evs-ad .tag{margin-top:10px}.evs-ad .tag:not(.bad){display:none}
+  .evs-ad .now{display:block;font-size:15px;font-weight:600;color:var(--canal);margin-top:10px}
+  .evs-ad .seg button{font:inherit;border:0;background:none;cursor:pointer;min-width:58px;text-align:center;padding:7px 14px;border-radius:999px;font-size:14.5px;font-weight:600;color:var(--ink-2);white-space:nowrap}
+  .evs-ad .seg button[aria-expanded=true]{background:var(--lamp);color:var(--ink);box-shadow:0 1px 3px rgba(11,39,51,.25)}
+  .evs-ad .seg button:focus-visible{outline:3px solid var(--bridge);outline-offset:2px}
+  .evs-ad li.ev-live .sum{color:var(--canal);font-weight:600}.evs-ad li.ev-warn .sum{color:#A32A1B;font-weight:600}
+  .evs-ad .more .fields{margin-top:-8px}.evs-ad .more .fld label{margin-top:14px}.evs-ad .more input,.evs-ad .more select{background:#fff}
+  .evs-ad .more .rm{margin-top:16px}
   .dock-btns{display:flex;gap:10px;align-items:center;flex:none}.dock .btn.line{background:#fff}
   .row-btns{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
   @media (max-width:560px){.dock .wrap{flex-wrap:wrap}.dock-btns{width:100%;justify-content:flex-end}}
@@ -127,16 +138,17 @@
 <header class="a-head"><div class="wrap">
   <a class="brand" href="../" aria-label="LifeBridge International Church, home"><img src="../assets/img/logo.png" width="40" height="40" alt=""><span><b>LifeBridge</b><span>Website updates</span></span></a>
   <a class="q" href="../team/">Team home</a>
-  <a class="q" href="../" target="_blank" rel="noopener">View the site</a>
-  <button class="q" type="button" id="signout" hidden>Sign out</button>
+  <span class="me" id="me" hidden></span>
+  <button class="q" type="button" id="out" hidden>Sign out</button>
+  <button class="q" type="button" id="signout" hidden>Disconnect</button>
 </div></header>
 
 <main class="a-main"><div class="wrap">
 
   <!-- First visit on this device -->
   <section id="setup" hidden>
-    <h1>Sign in to update the site</h1>
-    <p class="sub">This connects the page to the place the website's files are kept. You do it once on each device; after that this page opens straight to the weekly update.</p>
+    <h1>Connect the website</h1>
+    <p class="sub">Publishing needs a connection to the place the website's files are kept. You do it once on each device.</p>
     <form class="acard setup" id="setup-form">
       <label class="f" for="owner" style="margin-top:0">GitHub account or organization</label>
       <input type="text" id="owner" autocomplete="off" required placeholder="for example: lifebridgeic">
@@ -147,7 +159,7 @@
       <label class="f" for="token">Access token</label>
       <input type="password" id="token" autocomplete="off" required placeholder="github_pat_…">
       <p class="state" id="setup-state" role="status"></p>
-      <div class="row-btns"><button class="btn" type="submit">Sign in</button><button class="txt" type="button" id="to-look">Look around without signing in</button></div>
+      <div class="row-btns"><button class="btn" type="submit">Connect</button><button class="txt" type="button" id="to-look">Back</button></div>
       <details>
         <summary>Where does the access token come from?</summary>
         <ol>
@@ -156,7 +168,7 @@
           <li>Under Repository permissions, set Contents to Read and write. Nothing else is needed.</li>
           <li>Copy the token and paste it above.</li>
         </ol>
-        <p style="margin-top:10px">The token is kept in this browser on this device only. Use Sign out to remove it.</p>
+        <p style="margin-top:10px">The token is kept in this browser on this device only. Use Disconnect to remove it.</p>
       </details>
     </form>
   </section>
@@ -179,6 +191,7 @@
     </div>
 
     <div class="agrid">
+      <div class="acol">
       <div class="acard">
         <h2>Latest message</h2>
         <p class="hint">Paste the YouTube link for the most recent Sunday message. It plays on the Visit and Watch pages.</p>
@@ -190,6 +203,8 @@
           <div><b>Visitors see this thumbnail on the player.</b><a class="txt" id="msg-open" target="_blank" rel="noopener">Check it on YouTube</a></div>
         </div>
         <div class="row-btns"><button class="txt" type="button" id="msg-clear">Clear the link</button></div>
+      </div>
+      <div id="events-slot"></div>
       </div>
 
       <div class="acard">
@@ -210,10 +225,11 @@
 
 <div class="dock" id="dock" hidden><div class="wrap">
   <p id="status" role="status">No changes yet.</p>
-  <span class="dock-btns"><button class="btn line" type="button" id="to-signin" hidden>Sign in to publish</button>
+  <span class="dock-btns"><button class="btn line" type="button" id="to-signin" hidden style="display:none">Connect</button>
   <button class="btn" type="button" id="publish" disabled>Publish</button></span>
 </div></div>
 
+<script src="../assets/team.js"></script>
 <script>
 (function(){
   var d=document, $=function(id){return d.getElementById(id)};
@@ -275,21 +291,6 @@
     });
     GROUPS.splice(1,0,{id:'events',title:'Upcoming events',fields:f,
       note:'An event shows on the home page and the Get involved page once it has a name and a date, and comes off by itself the day after. Leave all three empty and the section disappears. Your own picture should be wide, with nothing important near the edges and no words in it.'});
-  })();
-  (function(){
-    var VT=[['g1','Google: reply to new reviews'],['g2','Google: ask for reviews',[['','Every 6 weeks'],['4','Every 4 weeks'],['8','Every 8 weeks'],['12','Every 12 weeks']]],
-      ['g3','Google: add new photos',[['','Every 3 months'],['8','Every 2 months'],['26','Every 6 months']]],['g4','Google: check the hours',[['','Every 4 weeks'],['8','Every 8 weeks'],['13','Every 3 months']]],
-      ['s1','Instagram, Facebook, TikTok: weekly post'],['s2','Instagram, Facebook, TikTok: reply to messages'],['e1','Weekly email'],['u1','Text first-time guests'],
-      ['l1','Linktree: check the links',[['','Every 4 weeks'],['8','Every 8 weeks'],['13','Every 3 months']]]];
-    var f=[{k:'vol.reviewlink',label:'Google review link, for the congregation',type:'url',max:500,wide:1},{h:'Tasks'}];
-    DEF['vol.reviewlink']='';
-    VT.forEach(function(v){
-      DEF['vol.'+v[0]+'.on']=''; f.push({k:'vol.'+v[0]+'.on',label:v[1],type:'pick',opts:[['','On'],['off','Off']],max:5});
-      if(v[2]){ DEF['vol.'+v[0]+'.every']=''; f.push({k:'vol.'+v[0]+'.every',label:'How often',type:'pick',opts:v[2],max:3}); }
-      else f.push({spacer:1});
-    });
-    GROUPS.push({id:'vol',title:'Volunteer panel',fields:f,vt:VT,
-      note:'Volunteers open the page at /volunteer/ to see what is due and how to do it. Weekly tasks stay weekly. Switch off anything the church does not do.'});
   })();
   var FIELDS={}; GROUPS.forEach(function(g){g.fields.forEach(function(f){if(f.k)FIELDS[f.k]=f})});
   function eff(k){return (k in cur.site)?cur.site[k]:DEF[k]}
@@ -441,7 +442,7 @@
     $('pv-skip').hidden=!(first&&first.off); $('pv-skip').textContent=(first&&first.off)?'No service '+long(first.sun)+'.':'';
     $('pv-note').hidden=!(next&&next.note); $('pv-note').textContent=(next&&next.note)?long(next.t)+': '+next.note:'';
     // site details
-    var errs=siteErrors(), changed=Object.keys(cleanSite(cur.site)).length;
+    var errs=siteErrors(), changed=Object.keys(cleanSite(cur.site)).filter(function(k){return !/^ev\d\./.test(k)}).length;
     GROUPS.forEach(function(g){
       var box=$('g-'+g.id), nset=0, nbad=0;
       g.fields.forEach(function(f){
@@ -460,7 +461,6 @@
       if(g.id==='place') now2=clock(base())+', '+eff('place.name')+', '+eff('place.floor');
       if(g.id==='email') now2='Weekly email and partner agreement';
       if(g.id==='forms') now2=eff('forms.email');
-      if(g.id==='vol'){var _on=g.vt.filter(function(v){return eff('vol.'+v[0]+'.on')!=='off'}).length; now2=_on+' of '+g.vt.length+' tasks on'+(String(eff('vol.reviewlink')).trim()?'':', review link not set');}
       if(g.id==='events'){var _t=new Date(Date.now()-5*3600000).toISOString().slice(0,10),_s=0,_d=0,_p=0;
         [1,2,3].forEach(function(n){var ti=String(eff('ev'+n+'.title')).trim(),dd=String(eff('ev'+n+'.date')).trim(),ok=/^\d{4}-\d\d-\d\d$/.test(dd),any=['time','place','note','link','img'].some(function(x){return String(eff('ev'+n+'.'+x)).trim()});
           if(ti&&ok&&dd>=_t)_s++; else if(ti&&ok)_p++; else if(ti||ok||any)_d++;});
@@ -469,15 +469,16 @@
       if(g.id==='give') now2=eff('give.bank')+', '+eff('give.number');
       box.querySelector('.now').textContent=now2;
     });
+    renderEvents();
     var wv=videoId(eff('welcomeVideo')); $('wv-thumb').hidden=!wv;
     if(wv){ $('wv-img').src='https://i.ytimg.com/vi/'+wv+'/hqdefault.jpg'; $('wv-open').href='https://www.youtube.com/watch?v='+wv; }
     $('site-dot').hidden=!changed&&!errs;
     // publish
     var ch=dirty(), bad=(!!u&&!id)||errs>0;
     $('publish').disabled=!ch||bad;
-    if(preview){ $('publish').disabled=true; status(ch?'You are looking around. Sign in to publish these changes.':'You are looking around. Nothing changes on the website until you sign in and publish.'); return; }
+
     if(!$('status').classList.contains('busy')){
-      if(ch||errs) status(errs?'Fix the highlighted field in Site details before publishing.':(bad?'Fix the YouTube link before publishing.':'You have changes that are not on the site yet.'),bad?'bad':'');
+      if(ch||errs) status(errs?'Fix the highlighted field before publishing.':(bad?'Fix the YouTube link before publishing.':'You have changes that are not on the site yet.'),bad?'bad':'');
       else if(!$('status').classList.contains('ok')) status('No changes yet.');
     }
   }
@@ -490,9 +491,54 @@
     else h+='<input id="'+id+'" type="'+(f.type==='url'||f.type==='yt'?'url':(f.type==='email'?'email':'text'))+'" maxlength="'+(f.max||240)+'" autocomplete="off">';
     return h+(f.hint?'<p class="hint2">'+f.hint+'</p>':'')+'<p class="err" hidden></p></div>';
   }
+  // Upcoming events sit on the This week tab, laid out like Upcoming services: one line per event, opened to edit.
+  var evOpen={};
+  function wire(f,g){
+    var inp=$('f-'+f.k), on=function(){
+      var v=inp.value.replace(/[\r\n]+/g,' ');
+      if(v.trim()===''||v.trim()===DEF[f.k]) delete cur.site[f.k]; else cur.site[f.k]=v;
+      render();
+    };
+    inp.addEventListener(f.type==='pick'||f.type==='date'?'change':'input',on); if(f.type==='date') inp.addEventListener('input',on);
+    inp.addEventListener('blur',function(){render()});
+  }
+  function buildEvents(g){
+    var slot=$('events-slot'); slot.innerHTML='';
+    var el=d.createElement('div'); el.className='acard evs-ad'; el.id='g-events';
+    var h='<h2>Upcoming events</h2><p class="hint">Shown on the home page and Get involved. An event comes off by itself the day after.</p><span class="now"></span><span class="tag" hidden></span><ol class="sundays">';
+    [1,2,3].forEach(function(n){
+      h+='<li data-ev="'+n+'"><div class="line"><div class="top"><b></b><span class="sum"></span></div><div class="seg"><button type="button" data-eved="'+n+'" aria-expanded="false" aria-controls="evm'+n+'">Add</button></div></div><div class="more" id="evm'+n+'" hidden><div class="fields">';
+      g.fields.forEach(function(f){ if(f.k&&f.k.indexOf('ev'+n+'.')===0) h+=field(f); });
+      h+='</div><div class="rm"><button class="txt" type="button" data-evrm="'+n+'">Remove this event</button></div></div></li>';
+    });
+    h+='</ol><div class="undo" hidden><button class="txt" type="button">Remove all events</button></div>';
+    el.innerHTML=h; slot.appendChild(el);
+    g.fields.forEach(function(f){ if(f.k) wire(f,g); });
+    el.addEventListener('click',function(e){
+      var x=e.target.closest('[data-eved]'); if(x){ var n=x.getAttribute('data-eved'); evOpen[n]=!evOpen[n]; render(); if(evOpen[n]) $('f-ev'+n+'.title').focus(); return; }
+      x=e.target.closest('[data-evrm]'); if(x){ var m=x.getAttribute('data-evrm'); g.fields.forEach(function(f){ if(f.k&&f.k.indexOf('ev'+m+'.')===0) delete cur.site[f.k]; }); evOpen[m]=false; render(); }
+    });
+    el.querySelector('.undo button').addEventListener('click',function(){ g.fields.forEach(function(f){ if(f.k) delete cur.site[f.k]; }); evOpen={}; render(); });
+  }
+  function renderEvents(){
+    var box=$('g-events'); if(!box) return;
+    var today=new Date(Date.now()-5*3600000).toISOString().slice(0,10);
+    [1,2,3].forEach(function(n){
+      var li=box.querySelector('li[data-ev="'+n+'"]'), ti=String(eff('ev'+n+'.title')).trim(), dd=String(eff('ev'+n+'.date')).trim(), tm=String(eff('ev'+n+'.time')).trim(), ok=/^\d{4}-\d\d-\d\d$/.test(dd);
+      var any=ti||dd||['time','place','note','link','img'].some(function(x){return String(eff('ev'+n+'.'+x)).trim()});
+      var when=''; if(ok){var m=dd.split('-'),dt=new Date(Date.UTC(+m[0],+m[1]-1,+m[2])); when=dt.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',timeZone:'UTC'})+(tm?' at '+tm:'');}
+      li.querySelector('b').textContent=ti||'Event '+n;
+      var sum=!any?'Nothing set':(ti&&ok?(dd<today?'Passed. No longer showing.':when):'Needs a name and a date');
+      li.querySelector('.sum').textContent=sum;
+      li.className=(ti&&ok&&dd>=today)?'ev-live':(any&&!(ti&&ok)?'ev-warn':'');
+      var b=li.querySelector('[data-eved]'); b.textContent=evOpen[n]?'Close':(any?'Edit':'Add'); b.setAttribute('aria-expanded',!!evOpen[n]);
+      li.querySelector('.more').hidden=!evOpen[n];
+    });
+  }
   function buildGroups(){
     var box=$('groups'); box.innerHTML='';
     GROUPS.forEach(function(g){
+      if(g.id==='events'){ buildEvents(g); return; }
       var el=d.createElement('details'); el.className='acard grp'; el.id='g-'+g.id;
       var h='<summary><span class="t"><b>'+g.title+'</b><span class="now"></span></span><span class="tag" hidden></span></summary><div class="in">', open=false;
       g.fields.forEach(function(f){
@@ -555,9 +601,9 @@
     });
   }
   // Looking around: opens the page with what is on the site now, without the access token. Nothing can be published.
-  var preview=false;
+  var preview=false, stash=null;
   function look(){
-    preview=true; show('panel'); $('signout').hidden=true; $('to-signin').hidden=false;
+    preview=true; show('panel'); $('signout').hidden=true;
     var done=function(p){
       var data={latestMessage:'',weeks:{},site:{}};
       try{ if(p){
@@ -582,6 +628,7 @@
   $('msg').addEventListener('input',function(){cur.latestMessage=$('msg').value;render()});
   $('msg-clear').addEventListener('click',function(){cur.latestMessage='';render();$('msg').focus()});
   $('publish').addEventListener('click',function(){
+    if(preview){ stash={latestMessage:cur.latestMessage,weeks:JSON.parse(JSON.stringify(cur.weeks)),site:JSON.parse(JSON.stringify(cur.site))}; show('setup'); $('signout').hidden=true; return; }
     $('publish').disabled=true; status('Publishing…','busy');
     publish().then(function(){
       var n=new Date(); status('Published at '+n.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})+'. The website catches up within a few minutes.','ok'); ui={}; render();
@@ -595,16 +642,16 @@
     e.preventDefault();
     cfg={owner:$('owner').value.trim(),repo:$('repo').value.trim(),branch:$('branch').value.trim()||'main',token:$('token').value.trim()};
     var st=$('setup-state'); st.className='state'; st.textContent='Checking…';
-    load().then(function(){ preview=false; $('to-signin').hidden=true; localStorage.setItem(KEY,JSON.stringify(cfg)); st.textContent=''; show('panel'); setWeeks(); build(); buildGroups(); status('No changes yet.'); render(); })
+    load().then(function(){ preview=false; localStorage.setItem(KEY,JSON.stringify(cfg)); st.textContent=''; if(stash){cur=stash;stash=null;$('msg').value=cur.latestMessage} show('panel'); setWeeks(); build(); buildGroups(); status('No changes yet.'); render(); })
       .catch(function(err){ st.textContent=err.message; st.className='state bad'; });
   });
   window.addEventListener('beforeunload',function(e){ if(cfg&&!$('panel').hidden&&dirty()){e.preventDefault();e.returnValue='';} });
 
+  var ME=window.Team.guard('../team/',true); if(!ME) return; window.Team.head(ME,'../team/');
   if(cfg&&cfg.token){
     enter().catch(function(e){ show('setup'); $('owner').value=cfg.owner||''; $('repo').value=cfg.repo||''; $('branch').value=cfg.branch||'main'; var st=$('setup-state'); st.textContent=e.message; st.className='state bad'; });
   } else look();
-  $('to-signin').addEventListener('click',function(){ preview=false; $('to-signin').hidden=true; show('setup'); });
-  $('to-look').addEventListener('click',look);
+  $('to-look').addEventListener('click',function(){ var s=stash; stash=null; if(preview&&s){ show('panel'); $('signout').hidden=true; cur=s; $('msg').value=cur.latestMessage; setWeeks(); build(); buildGroups(); render(); } else look(); });
 })();
 </script>
 </body>
