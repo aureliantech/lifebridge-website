@@ -82,6 +82,61 @@ button.vp-tile{min-height:128px}
 .vp-frame .vp-focus h2{font-size:clamp(26px,2.8vw,34px)}
 .vp-foot.vp-foot{margin:22px 0 0;padding:0}
 @media (max-width:560px){.a-head .brand span{display:none}.a-head .wrap{gap:14px}.a-head a.q{font-size:14px}}
+.vp-why{background:#fff;border-radius:14px;box-shadow:0 1px 0 var(--rule);margin-top:clamp(24px,3vw,40px);--ink2:var(--ink-2)}
+.vp-why summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:20px;padding:clamp(20px,2.6vw,30px) clamp(20px,2.8vw,36px)}.vp-why summary::-webkit-details-marker{display:none}
+.vp-why summary span{flex:1;min-width:0}.vp-why summary b{display:block;font-size:clamp(22px,2.5vw,30px);font-stretch:86%;letter-spacing:-.02em;line-height:1.1;max-width:22em}
+.vp-why summary small{display:block;font-family:var(--serif);font-size:16.5px;color:var(--ink-2);margin-top:8px;max-width:38em}.vp-why:not([open]) summary small{display:none}.vp-why:not([open]) summary b{font-size:19px}
+.vp-why summary::after{content:"";flex:none;width:11px;height:11px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(45deg) translate(-3px,-3px)}.vp-why[open] summary::after{transform:rotate(225deg) translate(-3px,-3px)}
+.vp-why summary:focus-visible{outline:3px solid var(--bridge);outline-offset:2px;border-radius:14px}
+.vp-why-in{padding:clamp(8px,1.6vw,20px) clamp(20px,2.8vw,36px) clamp(26px,3.4vw,44px)}
+.vp-frame .vp-why + .vp-tiles{margin-top:20px}
+.fn{position:relative}
+.fn-h{font-size:14px;font-weight:650;color:var(--ink-2)}
+.fn-chip{display:flex;align-items:center;gap:12px;background:var(--mist);border-radius:14px;padding:11px 16px 11px 12px;position:relative;z-index:1}
+.fn-chip b{font-weight:650;font-size:16px;line-height:1.2}.fn-i{width:34px;height:34px;flex:none;display:grid;place-items:center}.fn-i img{width:32px;height:32px;object-fit:contain;display:block}
+.fn-g{width:34px;height:34px;border-radius:10px;background:#fff;color:var(--canal);display:grid;place-items:center}.fn-g svg{width:20px;height:20px}
+.fn-sun{position:relative;z-index:1;width:clamp(190px,20vw,236px);aspect-ratio:1;border-radius:50%;background:var(--lamp);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;box-shadow:0 14px 34px rgba(242,174,27,.45)}
+.fn-sun small{font-weight:650;font-size:15px}.fn-sun b{font-size:clamp(34px,3.6vw,46px);font-stretch:80%;letter-spacing:-.02em;line-height:1}.fn-sun span{font-size:13.5px;font-weight:600;margin-top:6px;max-width:11em}
+.fn-sun i{position:absolute;inset:-2px;border-radius:50%;border:2px solid var(--lamp);opacity:0}
+/* entrance: everything waits for .go */
+.fn.go .fn-sun i{animation:fnring 3.2s ease-out 2.4s infinite}
+@keyframes fnring{0%{opacity:.7;transform:scale(1)}70%,100%{opacity:0;transform:scale(1.28)}}
+
+.fx{position:relative}
+.fx-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.fx-svg path{fill:none;stroke:var(--bridge);stroke-width:2.5;opacity:.4;stroke-linecap:round}.fx-svg circle{fill:var(--lamp);stroke:#fff;stroke-width:1.500}
+.fx-who{position:relative;z-index:1;background:var(--ink);color:#fff;border-radius:16px;padding:14px 18px}.fx-who b{display:block;font-size:21px;font-stretch:86%;letter-spacing:-.015em;line-height:1.1}.fx-who span{display:block;font-family:Literata,Georgia,serif;font-size:14px;opacity:.82;margin-top:4px;line-height:1.3}
+.fx-st{position:relative;z-index:1;display:flex;align-items:center;gap:12px;background:var(--mist);border-radius:14px;padding:11px 16px 11px 12px}.fx-st b{display:block;font-weight:650;font-size:15.5px;line-height:1.2}.fx-st small{display:block;font-size:13px;color:var(--ink-2);margin-top:1px;line-height:1.25}
+.fx-st.web{background:var(--canal);color:#fff;padding:16px 18px 16px 14px}.fx-st.web b{font-size:18px}.fx-st.web small{color:rgba(255,255,255,.85)}
+.fx-trio{display:flex}.fx-trio img{width:22px !important;height:22px !important;margin:0 -3px}.fx-st.trio .fn-i{width:auto;padding:0 4px}
+.fx [data-d]{opacity:0;transform:translateY(10px);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1)}.fx.go [data-d]{opacity:1;transform:none}
+.fx .fn-sun[data-d]{transform:scale(.8)}.fx.go .fn-sun[data-d]{transform:none;transition-duration:.8s;transition-timing-function:cubic-bezier(.2,1.3,.3,1)}
+.fx.go .fn-sun i{animation-delay:3.4s}
+.fx-back{position:relative;z-index:1;background:var(--ink);color:#fff;border-radius:18px;padding:18px 20px 20px;text-align:center;width:min(100%,300px)}
+.fx-back b{display:block;font-size:22px;font-stretch:86%;letter-spacing:-.015em;line-height:1.1}.fx-back > span{display:block;font-family:Literata,Georgia,serif;font-size:14.5px;opacity:.85;margin-top:4px}
+.fx-bc{display:grid;gap:8px;margin-top:14px}.fx-pill{display:flex;align-items:center;gap:10px;background:#fff;color:var(--ink);border-radius:999px;padding:6px 14px 6px 7px;font-weight:650;font-size:14.5px}.fx-pill img{width:26px;height:26px;display:block}.fx-pill .fn-g{width:26px;height:26px;background:var(--mist)}.fx-pill .fn-g svg{width:15px;height:15px}
+.g1-end,.g3-end{display:grid;justify-items:center;gap:clamp(36px,4vw,52px)}
+.g3-end .fx-back{width:min(100%,460px)}.g3-end .fx-bc{grid-template-columns:1fr 1fr}
+.g2 .fx-back{grid-column:3/6;grid-row:5;justify-self:end;width:min(100%,520px);margin-top:clamp(30px,3.4vw,44px);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 20px;align-items:center;text-align:left}.g2 .fx-back b,.g2 .fx-back > span{grid-column:1}.g2 .fx-back .fx-bc{grid-column:2;grid-row:1/3;margin-top:0}
+/* G2 */
+.g2{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1.1fr) minmax(0,.9fr) minmax(0,1fr) auto;gap:16px clamp(26px,3.6vw,48px);align-items:center}
+.g2 .fn-h{grid-row:1;align-self:end}.g2 .h1{grid-column:1}.g2 .h2{grid-column:2}.g2 .h3{grid-column:3/5}.g2 .h4{grid-column:5}
+.g2 .fx-who{grid-column:1;grid-row:var(--r)}.g2 .fx-st{grid-column:2;grid-row:var(--r)}.g2 .fx-st.lt{grid-column:3;grid-row:3}.g2 .fx-st.web{grid-column:4;grid-row:2/5}.g2 .fn-sun{grid-column:5;grid-row:2/5;width:clamp(170px,17vw,210px)}
+@media (max-width:860px){.g2{grid-template-columns:1fr;gap:26px}.g2 .fn-h{display:none}.g2 > [id]{grid-column:1 !important;grid-row:auto !important}.g2 .fn-sun{justify-self:center}.g2 .fx-back{justify-self:center;display:block;text-align:center}.g2 .fx-back .fx-bc{margin-top:14px}}
+@media (prefers-reduced-motion:reduce){.fx [data-d]{opacity:1 !important;transform:none !important}.fn-sun i{animation:none !important}}
+.fx-svg path.lp{stroke:var(--ink);opacity:.34}
+.g2 .fx-st b{white-space:nowrap}.g2 .fx-st small{font-size:12.5px}
+@media (min-width:861px){
+ .g2{grid-template-columns:minmax(0,1.2fr) minmax(0,1.3fr) minmax(0,1fr) minmax(0,1.2fr) 240px;gap:44px clamp(22px,3vw,46px);margin-top:clamp(36px,5vw,60px)}
+ .g2 .fn-h{margin-bottom:-18px}
+ .g2 .fx-st.web{padding:15px 12px;gap:10px}.g2 .fx-st.web b{font-size:16px;white-space:normal}.g2 .fx-st.web .fn-i{width:30px}
+ .g2 .fx-who{padding:16px 18px}.g2 .fx-st{padding:13px 14px 13px 12px}
+ .g2 .fn-sun{grid-row:2/4;justify-self:center;align-self:start;width:clamp(180px,17vw,214px)}
+ .g2 .fx-back{grid-column:5;grid-row:4/6;justify-self:center;align-self:end;width:100%;display:block;text-align:center;margin-top:56px}.g2 .fx-back .fx-bc{margin-top:14px}
+}
+@media (max-width:860px){.g2 .fx-back{margin-top:44px;max-width:300px}}
+
+.vp-why .g2.g2{margin-top:0}.vp-why:not([open]) summary b{max-width:none}
 .vp-frame{margin-top:0}.vp-frame .vp-top small a{color:inherit}
 
 .vp-foot{max-width:1180px;margin:18px auto 0;padding:0 16px;font-size:14px;color:var(--ink-2)}.vp-foot a{color:inherit}
@@ -106,6 +161,7 @@ a.vp-go{color:var(--ink);text-decoration:none}a.vp-go + a.vp-go{margin-top:10px}
 <main class="a-main"><div class="wrap vp-frame" id="app">
   <h1>Volunteer tasks</h1>
   <p class="sub"><b id="count"></b> Pick a platform to see what to do.</p>
+  <details class="vp-why" id="why" open><summary><span><b>Every platform has one job: get someone through the door on Sunday.</b><small>People rarely decide to visit a church from one post. They find us, look closer, then walk in.</small></span></summary><div class="vp-why-in"><div class="fn fx g2" data-fx data-edges='[["g2a0", "g2a1"], ["g2b0", "g2b1"], ["g2c0", "g2c1"], ["g2a1", "g2web", "far"], ["g2b1", "g2lt"], ["g2lt", "g2web"], ["g2c1", "g2web", "far"], ["g2web", "g2sun", "sunlast"], ["g2sun", "g2back", "loopdown"], ["g2back", "g2sun", "loopup"]]'><svg class="fx-svg" aria-hidden="true"></svg><p class="fn-h h1" data-d="0">Who they are</p><p class="fn-h h2" data-d="1">What they see first</p><p class="fn-h h3" data-d="2">Where they look closer</p><p class="fn-h h4" data-d="4">Where it leads</p><div class="fx-who" id="g2a0" data-d="0" style="--r:2"><b>Searching</b><span>&ldquo;English-speaking church Panama City&rdquo;</span></div><div class="fx-st " id="g2a1" data-d="1" style="--r:2"><span class="fn-i"><img src="../assets/img/vol/google.png" alt=""></span><div><b>Google profile</b><small>Reviews, photos, hours</small></div></div><div class="fx-who" id="g2b0" data-d="0" style="--r:3"><b>Scrolling</b><span>A post that feels like them</span></div><div class="fx-st trio" id="g2b1" data-d="1" style="--r:3"><span class="fn-i"><span class="fx-trio"><img src="../assets/img/vol/instagram.svg" alt=""><img src="../assets/img/vol/facebook.png" alt=""><img src="../assets/img/vol/tiktok.png" alt=""></span></span><div><b>A post</b><small>Real people, real Sunday</small></div></div><div class="fx-st lt" id="g2lt" data-d="2"><span class="fn-i"><img src="../assets/img/vol/linktree.png" alt=""></span><div><b>Linktree</b><small>One link to everything</small></div></div><div class="fx-who" id="g2c0" data-d="0" style="--r:4"><b>Invited</b><span>A friend says &ldquo;come with me&rdquo;</span></div><div class="fx-st " id="g2c1" data-d="1" style="--r:4"><span class="fn-i"><span class="fn-g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a7.500 7.500 0 0 1-11 6.600L4.500 20l1.300-4A7.500 7.500 0 1 1 20 12z"/></svg></span></span><div><b>An invitation</b><small>In person or by text</small></div></div><div class="fx-st web" id="g2web" data-d="3"><span class="fn-i"><span class="fn-g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M3.500 12h17M12 3.500c2.800 3 2.800 14 0 17M12 3.500c-2.800 3-2.800 14 0 17"/></svg></span></span><div><b>The website</b><small>Plan your visit</small></div></div><div class="fn-sun" id="g2sun" data-d="4"><i></i><small>Sunday</small><b>10:00 AM</b><span>World Trade Center, Floor 2</span></div><div class="fx-back" id="g2back" data-d="5"><b>They come back</b><span>Because someone knew their name</span><div class="fx-bc"><div class="fx-pill"><span class="fn-g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a7.500 7.500 0 0 1-11 6.600L4.500 20l1.300-4A7.500 7.500 0 1 1 20 12z"/></svg></span>A personal text</div><div class="fx-pill"><img src="../assets/img/vol/mailchimp.svg" alt=""> The weekly email</div></div></div></div></div></details>
   <div class="vp-tiles" id="tiles" role="tablist" aria-label="Platforms"></div>
   <div class="vp-cols wide vp-panel"><div id="focus" aria-live="polite"></div><div class="vp-list" id="side"></div></div>
 </div></main>
@@ -236,5 +292,39 @@ a.vp-go{color:var(--ink);text-decoration:none}a.vp-go + a.vp-go{margin-top:10px}
   setInterval(render,10*60000);
 })();
 </script>
+<script>(function(){
+var d=document, reduce=matchMedia('(prefers-reduced-motion: reduce)').matches, NS='http://www.w3.org/2000/svg', STEP=.5;
+function draw(fn,animate){
+  var svg=fn.querySelector('svg'), R=fn.getBoundingClientRect(), narrow=innerWidth<=860, vert=narrow||fn.getAttribute('data-vert')==='1', E=JSON.parse(fn.getAttribute('data-edges'));
+  svg.innerHTML=''; svg.setAttribute('viewBox','0 0 '+R.width+' '+R.height);
+  E.forEach(function(e,i){
+    if(narrow&&(e[2]==='sun'||e[2]==='far')) return;
+    var LP=e[2]==='loopdown'||e[2]==='loopup';
+    var A=d.getElementById(e[0]),B=d.getElementById(e[1]),a=A.getBoundingClientRect(),b=B.getBoundingClientRect(),p, down=vert||e[2]==='back'||b.left<a.right-4;
+    if(LP){ var S=d.getElementById('g2sun').getBoundingClientRect(),K=d.getElementById('g2back').getBoundingClientRect(),cx=S.left+S.width/2-R.left,off=Math.min(34,S.width*.17),bow=Math.min(96,S.width*.46),ys=S.bottom-R.top-3,yk=K.top-R.top,mid=(ys+yk)/2;
+      p=e[2]==='loopdown'?'M'+(cx-off)+' '+ys+' C'+(cx-bow)+' '+mid+' '+(cx-bow)+' '+mid+' '+(cx-off)+' '+yk:'M'+(cx+off)+' '+yk+' C'+(cx+bow)+' '+mid+' '+(cx+bow)+' '+mid+' '+(cx+off)+' '+ys; }
+    else if(down){ var x1=a.left+a.width/2-R.left,y1=a.bottom-R.top,x2=b.left+b.width/2-R.left,y2=b.top-R.top,m=(y2-y1)/2; p='M'+x1+' '+y1+' C'+x1+' '+(y1+m)+' '+x2+' '+(y2-m)+' '+x2+' '+y2; }
+    else{ var X1=a.right-R.left,Y1=a.top+a.height/2-R.top,X2=b.left-R.left,Y2=b.top+b.height/2-R.top,M=(X2-X1)/2; p='M'+X1+' '+Y1+' C'+(X1+M)+' '+Y1+' '+(X2-M)+' '+Y2+' '+X2+' '+Y2; }
+    var path=d.createElementNS(NS,'path'); path.setAttribute('d',p); if(LP) path.setAttribute('class','lp'); svg.appendChild(path);
+    if(reduce) return;
+    var late=(e[2]==='loopup'?6.2:+B.getAttribute('data-d'))*STEP-.15, len=path.getTotalLength(), toSun=B.classList.contains('fn-sun');
+    path.style.strokeDasharray=len; path.style.strokeDashoffset=animate?len:0;
+    if(animate){ path.getBoundingClientRect(); path.style.transition='stroke-dashoffset .9s cubic-bezier(.4,0,.2,1) '+late+'s'; path.style.strokeDashoffset=0; }
+    var dur=LP?2.4:Math.max(1.6,Math.min(3.4,len/90)), beg=LP?(late+1+(e[2]==='loopup'?1.2:0)):late+1+(i%5)*.45, c=d.createElementNS(NS,'circle'); c.setAttribute('r',toSun?5.500:4.500); c.setAttribute('opacity','0');
+    c.innerHTML='<animateMotion dur="'+dur+'s" begin="'+beg+'s" repeatCount="indefinite" path="'+p+'" calcMode="spline" keyTimes="0;1" keySplines=".4 0 .6 1"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.85;1" dur="'+dur+'s" begin="'+beg+'s" repeatCount="indefinite"/>';
+    svg.appendChild(c);
+  });
+}
+function play(fn,again){
+  [].forEach.call(fn.querySelectorAll('[data-d]'),function(n){n.style.transitionDelay=(+n.getAttribute('data-d'))*STEP+'s'});
+  if(again){ fn.classList.remove('go'); fn.querySelector('svg').innerHTML=''; fn.getBoundingClientRect(); }
+  requestAnimationFrame(function(){requestAnimationFrame(function(){ fn.classList.add('go'); draw(fn,true); })});
+}
+var io=('IntersectionObserver' in window)?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){play(e.target);io.unobserve(e.target)}})},{threshold:.2}):null;
+[].forEach.call(d.querySelectorAll('[data-fx]'),function(fn){ if(io&&!reduce) io.observe(fn); else play(fn) });
+var why=d.getElementById('why'); if(why){ try{ if(localStorage.getItem('lifebridge-vol-why')==='closed') why.open=false }catch(e){} why.addEventListener('toggle',function(){ try{localStorage.setItem('lifebridge-vol-why',why.open?'open':'closed')}catch(e){} if(why.open) play(why.querySelector('[data-fx]'),true) }); }
+function redo(){[].forEach.call(d.querySelectorAll('[data-fx].go'),function(fn){draw(fn,false)})}
+var t; addEventListener('resize',function(){clearTimeout(t);t=setTimeout(redo,150)}); if(d.fonts&&d.fonts.ready) d.fonts.ready.then(redo);
+})();</script>
 </body>
 </html>
