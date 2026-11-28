@@ -96,11 +96,43 @@
   // Site details the pastor can change: usual time, address, links, giving details, welcome video.
   // Anything not set keeps the wording already on the page.
   function hm(h,m,bare){return ((h+11)%12+1)+':'+z(m)+(bare?'':' '+(h<12?'AM':'PM'))}
+  // Upcoming events on the home page: up to three, set in the admin page.
+  // An event shows through its own day (Panama time) and then drops off.
+  function events(V){
+    var box=d.querySelector('[data-events]'); if(!box) return;
+    var g=function(k,max){var v=V[k];return typeof v==='string'?v.replace(/\s+/g,' ').trim().slice(0,max||120):''};
+    var today=new Date(Date.now()-5*3600000).toISOString().slice(0,10), list=[], PICS={candle:1,picnic:1,lunch:1,lifebridge:1};
+    var imgBase=(d.querySelector('img[src*="assets/img/"]')||{getAttribute:function(){return 'assets/img/x'}}).getAttribute('src').replace(/assets\/img\/.*$/,'assets/img/events/');
+    for(var i=1;i<=3;i++){
+      var p='ev'+i+'.', title=g(p+'title',70), date=g(p+'date',10);
+      if(!title||!/^\d{4}-\d\d-\d\d$/.test(date)||date<today) continue;
+      var img=typeof V[p+'img']==='string'?V[p+'img'].trim():'', pic=g(p+'pic',20), link=g(p+'link',500);
+      list.push({title:title,date:date,time:g(p+'time',30),place:g(p+'place',70),note:g(p+'note',140),
+        link:/^https?:\/\/\S+$/.test(link)?link:'', src:(/^https?:\/\/\S+$/.test(img)&&img.length<=600)||/^data:image\/\S+$/.test(img)?img:imgBase+(PICS[pic]?pic:'lifebridge')+'.svg'});
+    }
+    list.sort(function(a,b){return a.date<b.date?-1:a.date>b.date?1:0});
+    var out=box.querySelector('.evs-list'); out.textContent='';
+    if(!list.length){ box.hidden=true; return; }
+    var el=function(tag,cls,text){var e=d.createElement(tag); if(cls) e.className=cls; if(text) e.textContent=text; return e};
+    var one=list.length===1, wrap=el('div',one?'ov':'evs-grid n'+list.length);
+    list.forEach(function(ev){
+      var m=ev.date.split('-'), dt=new Date(Date.UTC(+m[0],+m[1]-1,+m[2]));
+      var day=dt.toLocaleDateString('en-US',{weekday:'long',month:'short',day:'numeric',timeZone:'UTC'});
+      var im=el('img'); im.src=ev.src; im.alt=''; im.loading='lazy';
+      var c=el('div','c'); c.appendChild(el('p','evs-day',day)); c.appendChild(el('h3','',ev.title));
+      if(ev.time||ev.place){ var mt=el('p','evs-meta'); if(ev.time) mt.appendChild(el('b','',ev.time)); if(ev.time&&ev.place) mt.appendChild(d.createElement('br')); if(ev.place) mt.appendChild(d.createTextNode(ev.place)); c.appendChild(mt); }
+      if(one&&ev.note) c.appendChild(el('p','evs-meta',ev.note));
+      if(ev.link){ var a=el('a',one?'btn':'link','Details'); a.href=ev.link; a.target='_blank'; a.rel='noopener noreferrer'; a.setAttribute('aria-label','Details: '+ev.title); c.appendChild(a); }
+      if(one){ wrap.appendChild(im); wrap.appendChild(c); } else { var ar=el('article'); ar.appendChild(im); ar.appendChild(c); wrap.appendChild(ar); }
+    });
+    out.appendChild(wrap); box.hidden=false;
+  }
   function apply(){
     var V=S.site||{}, get=function(k,max){var v=V[k];return typeof v==='string'?v.replace(/\s+/g,' ').trim().slice(0,max||240):''};
     var T=/^(\d\d):(\d\d)$/.exec(get('time')), X={};
     if(T){ BASE=[+T[1],+T[2]]; var a=BASE[0]*60+BASE[1]-15; X.time=hm(BASE[0],BASE[1]); X['time-short']=hm(BASE[0],BASE[1],1); X.arrive=hm(Math.floor(a/60),a%60); }
     $$('[data-s]').forEach(function(e){var k=e.getAttribute('data-s'),v=X[k]||(k in X?'':get(k)); if(v) e.textContent=v});
+    events(V);
     $$('[data-copy-s]').forEach(function(e){var v=get(e.getAttribute('data-copy-s')); if(v) e.setAttribute('data-copy',v)});
     $$('[data-link]').forEach(function(e){var v=get(e.getAttribute('data-link'),500); if(/^https?:\/\/\S+$/.test(v)) e.setAttribute('href',v)});
     $$('[data-mail]').forEach(function(e){var v=get(e.getAttribute('data-mail'),120); if(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){e.setAttribute('href','mailto:'+v);e.textContent=v}});
@@ -149,6 +181,7 @@
     $$('[data-link=welcome]').forEach(function(e){e.setAttribute('href','https://www.youtube.com/watch?v='+w)});
   }
   tick(); setInterval(tick,30000);
+  if(window.__lbSite){ S.site=window.__lbSite; apply(); }
   var me=d.currentScript&&d.currentScript.src;
   if(me&&window.fetch&&location.protocol!=='file:'){
     fetch(me.replace(/assets\/site\.js.*$/,'settings.json'),{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){

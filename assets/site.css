@@ -899,3 +899,31 @@ main > .rev3.quiet:not(#_){padding:0}
 .p-community.airy .formsplit > .side{padding:clamp(28px,4vw,56px)}
 .p-community.airy .form .fi{margin-top:22px}
 .p-community.airy .form .ticks{gap:14px}
+
+/* FAQ note sits under the questions on phones; maps buttons stay side by side */
+.faq-more{display:none}
+@media (max-width:860px){.faq-l .sec-head .find-park{display:none}.faq-l .sec-body .faq-more{display:block;margin-top:24px}}
+@media (max-width:560px){.actions:has(> [data-link="maps.apple"]){display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+.actions:has(> [data-link="maps.apple"]) .btn{padding-left:6px;padding-right:6px;font-size:14.5px;white-space:nowrap;text-align:center;justify-content:center;min-width:0}}
+@media (max-width:360px){.actions:has(> [data-link="maps.apple"]){gap:8px}.actions:has(> [data-link="maps.apple"]) .btn{font-size:12.5px;padding-left:2px;padding-right:2px;letter-spacing:-.01em}}
+@media (max-width:350px){.head .wrap{gap:8px}.head .btn{padding-left:12px;padding-right:12px;font-size:14px}.brand img{width:34px;height:34px}}
+
+/* Upcoming events (home). Filled in from settings; hidden when there are none. */
+.evs[hidden]{display:none !important}
+main > .sec.evs:not(#_){padding-top:0}
+.evs h2{font-size:clamp(26px,3vw,38px);margin-bottom:clamp(20px,2.4vw,30px)}
+.evs img{display:block;width:100%;object-fit:cover;background:var(--ink)}
+.evs-day{font-weight:650;color:var(--canal);font-size:15.5px}
+.evs h3{font-size:clamp(21px,2vw,27px);font-stretch:88%;letter-spacing:-.018em;line-height:1.1;margin-top:4px}
+.evs-meta{margin-top:8px;color:var(--ink-2);line-height:1.45}.evs-meta b{color:var(--ink);font-weight:650}
+.evs .link{display:inline-block;margin-top:14px}
+.evs-grid{display:grid;gap:22px}.evs-grid.n2{grid-template-columns:repeat(2,minmax(0,1fr))}.evs-grid.n3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.evs-grid article{display:flex;flex-direction:column}.evs-grid img{border-radius:18px;aspect-ratio:16/10}.evs-grid.n3 img{aspect-ratio:4/3}
+.evs-grid .c{position:relative;flex:1;background:#fff;border-radius:16px;box-shadow:0 18px 44px rgba(11,39,51,.16);margin:-64px 18px 0;padding:22px 24px 24px}
+.evs-grid.n3 .c{margin:-52px 12px 0;padding:20px}
+.evs .ov .c h3{font-size:clamp(26px,2.8vw,36px);line-height:1.08;margin-top:6px}
+.evs .ov .c .btn{margin-top:20px}
+@media (max-width:820px){.evs-grid.n2,.evs-grid.n3{grid-template-columns:1fr}.evs-grid img,.evs-grid.n3 img{aspect-ratio:16/10}.evs-grid .c,.evs-grid.n3 .c{margin:-48px 14px 0}}
+.p-community main > .sec.evs:not(#_){padding-top:clamp(48px,5.6vw,80px);padding-bottom:0}
+.p-community.airy main > .sec.evs:not(#_){padding-top:var(--air)}
+.p-community.airy .evs .ov > .c{padding:clamp(22px,3vw,40px)}

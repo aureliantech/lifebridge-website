@@ -24,7 +24,7 @@
   .card h2{font-size:26px}
   .card .hint{color:var(--ink-2);margin-top:8px;font-size:15.5px}
   label.f{display:block;font-weight:600;font-size:15.5px;margin:22px 0 8px}
-  input[type=text],input[type=url],input[type=email],input[type=password]{width:100%;height:52px;border-radius:10px;border:1.5px solid rgba(11,39,51,.3);padding:0 14px;font:inherit;color:var(--ink);background:#fff}
+  input[type=text],input[type=date],input[type=url],input[type=email],input[type=password]{width:100%;height:52px;border-radius:10px;border:1.5px solid rgba(11,39,51,.3);padding:0 14px;font:inherit;color:var(--ink);background:#fff}
   input:focus{outline:3px solid var(--bridge);outline-offset:1px;border-color:var(--ink)}
   .state{margin-top:14px;font-size:15.5px;color:var(--ink-2)}
   .state.bad{color:#A32A1B;font-weight:600}
@@ -227,6 +227,7 @@
     'give.billpay':'Pay IBCM through your bank, with LifeBridge as the account number.','give.email':'karen@ibcmworld.org',
     'forms.email':'pastor@lifebridgeic.com'
   };
+  [1,2,3].forEach(function(n){['title','date','time','place','note','link','pic','img'].forEach(function(x){DEF['ev'+n+'.'+x]=''})});
   var GROUPS=[
     {id:'welcome',title:'Welcome video',fields:[
       {k:'welcomeVideo',label:'YouTube link',type:'yt',max:300,wide:1}]},
@@ -252,6 +253,21 @@
       {k:'give.check',label:'By check',max:200,wide:1,area:1},{k:'give.billpay',label:'Bank bill pay',max:160,wide:1,area:1},
       {k:'give.email',label:'Questions email',type:'email',max:120,wide:1}]}
   ];
+  var PICS=[['','LifeBridge bridge (standard)'],['candle','Candles'],['picnic','Picnic in the park'],['lunch','Lunch table']];
+  (function(){
+    var f=[];
+    [1,2,3].forEach(function(n){
+      var p='ev'+n+'.';
+      f.push({h:'Event '+n},
+        {k:p+'title',label:'Name of the event',max:70},{k:p+'date',label:'Date',type:'date',max:10},
+        {k:p+'time',label:'Time, for example 6:00 PM',max:30},{k:p+'place',label:'Place',max:70},
+        {k:p+'note',label:'One short line (shown when it is the only event)',max:140,wide:1},
+        {k:p+'link',label:'Details link (optional)',type:'url',max:500,wide:1},
+        {k:p+'pic',label:'Picture',type:'pick',opts:PICS,max:20},{k:p+'img',label:'Or a link to your own picture',type:'url',max:600});
+    });
+    GROUPS.splice(1,0,{id:'events',title:'Upcoming events',fields:f,
+      note:'An event shows on the home page and the Get involved page once it has a name and a date, and comes off by itself the day after. Leave all three empty and the section disappears. Your own picture should be wide, with nothing important near the edges and no words in it.'});
+  })();
   var FIELDS={}; GROUPS.forEach(function(g){g.fields.forEach(function(f){if(f.k)FIELDS[f.k]=f})});
   function eff(k){return (k in cur.site)?cur.site[k]:DEF[k]}
   function base(){var t=eff('time');return /^\d\d:\d\d$/.test(t)?t:'10:00'}
@@ -259,6 +275,7 @@
     var f=FIELDS[k]; v=String(v).trim();
     if(f.type==='yt'&&!videoId(v)) return 'That does not look like a YouTube video link.';
     if(f.type==='url'&&!/^https?:\/\/\S+$/.test(v)) return 'A link starts with https:// and has no spaces.';
+    if(f.type==='date'&&!/^\d{4}-\d\d-\d\d$/.test(v)) return 'Pick a date from the calendar.';
     if(f.type==='email'&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return 'That does not look like an email address.';
     return '';
   }
@@ -420,6 +437,11 @@
       if(g.id==='place') now2=clock(base())+', '+eff('place.name')+', '+eff('place.floor');
       if(g.id==='email') now2='Weekly email and partner agreement';
       if(g.id==='forms') now2=eff('forms.email');
+      if(g.id==='events'){var _t=new Date(Date.now()-5*3600000).toISOString().slice(0,10),_s=0,_d=0,_p=0;
+        [1,2,3].forEach(function(n){var ti=String(eff('ev'+n+'.title')).trim(),dd=String(eff('ev'+n+'.date')).trim(),ok=/^\d{4}-\d\d-\d\d$/.test(dd),any=['time','place','note','link','img'].some(function(x){return String(eff('ev'+n+'.'+x)).trim()});
+          if(ti&&ok&&dd>=_t)_s++; else if(ti&&ok)_p++; else if(ti||ok||any)_d++;});
+        var _a=[]; _a.push(_s?(_s+(_s===1?' event':' events')+' showing'):'None showing'); if(_d)_a.push(_d+(_d===1?' needs':' need')+' a name and a date'); if(_p)_a.push(_p+(_p===1?' has':' have')+' passed');
+        now2=_a.join(', ');}
       if(g.id==='give') now2=eff('give.bank')+', '+eff('give.number');
       box.querySelector('.now').textContent=now2;
     });
@@ -437,6 +459,8 @@
   function field(f){
     var id='f-'+f.k, h='<div class="fld'+(f.wide?' wide':'')+'"><label for="'+id+'">'+f.label+'</label>';
     if(f.type==='time'){h+='<select id="'+id+'">';TIMES.forEach(function(hm){h+='<option value="'+hm+'">'+clock(hm)+'</option>'});h+='</select>'}
+    else if(f.type==='pick'){h+='<select id="'+id+'">';f.opts.forEach(function(o){h+='<option value="'+o[0]+'">'+o[1]+'</option>'});h+='</select>'}
+    else if(f.type==='date') h+='<input id="'+id+'" type="date">';
     else if(f.area) h+='<textarea id="'+id+'" maxlength="'+f.max+'" rows="2"></textarea>';
     else h+='<input id="'+id+'" type="'+(f.type==='url'||f.type==='yt'?'url':(f.type==='email'?'email':'text'))+'" maxlength="'+(f.max||240)+'" autocomplete="off">';
     return h+(f.hint?'<p class="hint2">'+f.hint+'</p>':'')+'<p class="err" hidden></p></div>';
@@ -464,7 +488,7 @@
           if(f.k==='time'){ setWeeks(); build(); }
           render();
         };
-        inp.addEventListener(f.type==='time'?'change':'input',on);
+        inp.addEventListener((f.type==='time'||f.type==='pick')?'change':'input',on);
         inp.addEventListener('blur',function(){render()});
       });
       el.querySelector('.undo button').addEventListener('click',function(){
