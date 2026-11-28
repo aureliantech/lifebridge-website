@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LifeBridge team</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/jpeg" href="../favicon.jpg">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+body{background:var(--mist);min-height:100vh;margin:0}
+.a-head{background:var(--ink);color:#fff}.a-head .wrap{display:flex;align-items:center;gap:20px;height:64px}.a-head .brand{margin-right:auto}.a-head .brand b{color:#fff}.a-head .brand span span{color:rgba(255,255,255,.7)}.a-head .brand img{background:#fff;border-radius:50%}
+.a-head a.q{color:#fff;font-size:15.5px;text-decoration:underline;text-underline-offset:4px;white-space:nowrap}
+.a-main{padding:clamp(28px,4vw,56px) 0 80px}.a-main h1{font-size:clamp(32px,4vw,52px)}.a-main .sub{margin-top:12px;color:var(--ink-2);max-width:40em}
+.vp-ic{width:44px;height:44px;border-radius:12px;background:var(--mist);color:var(--canal);display:grid;place-items:center;flex:none}.vp-ic svg{width:22px;height:22px}
+.t-card{background:#fff;border-radius:14px;padding:clamp(20px,2.6vw,32px);box-shadow:0 1px 0 var(--rule)}
+.t-narrow{max-width:520px;margin-top:clamp(24px,3vw,40px)}
+.t-card label{display:block;font-weight:600;font-size:15.5px;margin:0 0 8px}
+.t-card input[type=email],.t-card input[type=text],.t-card select{width:100%;height:52px;border-radius:10px;border:1.5px solid rgba(11,39,51,.3);padding:0 14px;font:inherit;color:var(--ink);background:#fff}
+.t-card .btn{margin-top:18px;border:0;cursor:pointer;font:inherit;font-weight:700}
+.t-hint{color:var(--ink-2);font-size:15px;margin-top:14px}
+.t-mail{margin-top:22px;border:1.5px dashed rgba(11,39,51,.35);border-radius:14px;padding:20px;background:#fff}.t-mail small{display:block;color:var(--ink-2);font-size:13.5px}.t-mail h3{font-size:19px;margin-top:10px}.t-mail p{margin-top:8px;color:var(--ink-2);font-size:15px}
+.t-hub{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:clamp(24px,3vw,40px)}
+.t-back{display:inline-block;font:inherit;font-weight:600;font-size:15px;background:none;border:0;color:var(--ink);text-decoration:underline;text-underline-offset:4px;cursor:pointer;padding:0;margin-bottom:14px}
+.t-people{margin-top:clamp(24px,3vw,40px);display:grid;gap:20px;grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-items:start}
+.t-row{display:grid;grid-template-columns:minmax(0,1fr) 200px auto;gap:12px;align-items:center;padding:14px 0;border-top:1px solid var(--rule)}.t-row:first-of-type{border-top:0}
+.t-row b{display:block;font-weight:650}.t-row small{display:block;color:var(--ink-2);font-size:14px;overflow:hidden;text-overflow:ellipsis}
+.t-row select{height:42px !important}.t-row button{font:inherit;font-size:14.5px;font-weight:600;background:none;border:0;color:#A32A1B;text-decoration:underline;text-underline-offset:3px;cursor:pointer}.t-row button[disabled]{color:var(--ink-2);text-decoration:none;cursor:default}
+.t-card h2{font-size:24px;font-stretch:90%}.t-card h2 + p{color:var(--ink-2);font-size:15px;margin-top:6px}
+.t-f{margin-top:16px}.t-err{color:#A32A1B;font-weight:600;font-size:14.5px;margin-top:10px}
+.t-prev{margin-top:clamp(24px,3vw,40px)}.t-prev img{width:100%;border-radius:14px;display:block;box-shadow:0 1px 0 var(--rule)}
+@media (max-width:860px){.t-hub,.t-people{grid-template-columns:1fr}.t-row{grid-template-columns:minmax(0,1fr) auto}.t-row select{grid-column:1/-1;grid-row:2}}
+.t-hub a{color:inherit;text-decoration:none;background:#fff;border-radius:14px;padding:clamp(20px,2.4vw,28px);box-shadow:0 1px 0 var(--rule);display:flex;flex-direction:column;min-height:200px;transition:transform .12s}
+.t-hub a:hover{transform:translateY(-2px)}.t-hub a:focus-visible{outline:3px solid var(--bridge);outline-offset:2px}
+.t-hub a b{font-size:23px;font-stretch:88%;letter-spacing:-.015em;line-height:1.15;margin-top:16px}.t-hub a span.d{color:var(--ink-2);font-size:15px;margin-top:6px}.t-hub a em{font-style:normal;margin-top:auto;padding-top:16px;font-weight:650;font-size:14.5px;text-decoration:underline;text-decoration-color:var(--lamp-deep);text-decoration-thickness:2px;text-underline-offset:5px}
+.t-notice{margin-top:22px;font-size:14.5px;color:var(--ink-2);max-width:46em}.t-notice b{color:var(--ink);font-weight:650}
+.t-flag{display:inline-block;background:#FFF4D6;border-radius:10px;padding:10px 14px;font-size:14.5px;margin-top:16px;max-width:46em}
+@media (prefers-reduced-motion:reduce){.t-hub a{transition:none}}
+@media (max-width:860px){.t-hub a{min-height:0}}
+@media (max-width:560px){.a-head .brand span{display:none}}
+[hidden]{display:none !important}
+</style>
+</head>
+<body>
+<header class="a-head"><div class="wrap">
+  <a class="brand" href="./" aria-label="LifeBridge team, home"><img src="../assets/img/logo.png" width="40" height="40" alt=""><span><b>LifeBridge</b><span>Team</span></span></a>
+  <a class="q" href="../" target="_blank" rel="noopener">View the site</a>
+</div></header>
+<main class="a-main"><div class="wrap">
+<section id="v-hub"><h1>LifeBridge team</h1><p class="sub">For the pastor and volunteers. What do you want to do?</p>
+  <div class="t-hub">
+    <a href="../volunteer/"><span class="vp-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg></span><b>Volunteer tasks</b><span class="d">What&rsquo;s due on Google, social, email and Linktree, and how to do it.</span><em>Open tasks</em></a>
+    <a href="../admin/"><span class="vp-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-10.5a6.5 6.5 0 0 1 13 0C18.500 15.400 12 21 12 21z"/><circle cx="12" cy="10.500" r="2.300"/></svg></span><b>Update the website</b><span class="d">This Sunday, the latest message, events and site details.</span><em>Open updates</em></a>
+    <a href="#people"><span class="vp-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a7.500 7.500 0 0 1-11 6.600L4.500 20l1.300-4A7.500 7.500 0 1 1 20 12z"/></svg></span><b>Manage people</b><span class="d">Choose who can sign in, and who is an admin.</span><em id="hub-people">Open the list</em></a>
+  </div>
+  <p class="t-notice"><b>Sign-in isn&rsquo;t switched on yet.</b> For now anyone with this address can open these pages. Publishing changes to the website still needs the access token.</p>
+</section>
+<section id="v-people" hidden><a class="t-back" href="#">Back</a><h1>Manage people</h1><p class="sub">Once sign-in is switched on, only the people on this list will be able to get a sign-in link.</p>
+  <p class="t-flag"><b>Preview.</b> This list is saved on this device only and doesn&rsquo;t control access yet.</p>
+  <div class="t-people"><div class="t-card"><h2>Approved people</h2><div id="plist" style="margin-top:10px"></div></div>
+  <form class="t-card" id="f-add"><h2>Add someone</h2><p>They&rsquo;ll be able to sign in as soon as you add them.</p><div class="t-f"><label for="pn">Name</label><input id="pn" type="text" required maxlength="40" autocomplete="off"></div><div class="t-f"><label for="pe">Email</label><input id="pe" type="email" required autocomplete="off"></div><div class="t-f"><label for="pr">Can do</label><select id="pr"><option value="volunteer">Volunteer tasks</option><option value="admin">Everything (admin)</option></select></div><button class="btn" type="submit">Add</button><p class="t-err" id="perr" hidden></p></form></div></section>
+</div></main>
+<script>
+(function(){
+  'use strict';
+  var d=document,$=function(i){return d.getElementById(i)},KEY='lifebridge-team-people';
+  var people=[{name:'Nate Korpi',email:'pastor@lifebridgeic.com',role:'admin'}];
+  try{var j=JSON.parse(localStorage.getItem(KEY)||'null'); if(Array.isArray(j)&&j.length&&j.every(function(p){return p&&typeof p.name==='string'&&typeof p.email==='string'})&&j.some(function(p){return p.role==='admin'})) people=j.slice(0,100)}catch(e){}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(people))}catch(e){}}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function list(){
+    var admins=people.filter(function(p){return p.role==='admin'}).length;
+    $('plist').innerHTML=people.map(function(p,i){var lastAdmin=p.role==='admin'&&admins===1;
+      return '<div class="t-row"><div><b>'+esc(p.name)+'</b><small>'+esc(p.email)+'</small></div><select data-role="'+i+'" aria-label="What '+esc(p.name)+' can do"'+(lastAdmin?' disabled':'')+'><option value="volunteer"'+(p.role!=='admin'?' selected':'')+'>Volunteer tasks</option><option value="admin"'+(p.role==='admin'?' selected':'')+'>Everything (admin)</option></select><button type="button" data-rm="'+i+'"'+(lastAdmin?' disabled title="There must always be one admin"':'')+'>'+(lastAdmin?'Only admin':'Remove')+'</button></div>'}).join('');
+    $('hub-people').textContent=people.length+(people.length===1?' person':' people')+' on the list';
+  }
+  function route(){var p=location.hash==='#people'; $('v-hub').hidden=p; $('v-people').hidden=!p; window.scrollTo(0,0)}
+  $('f-add').addEventListener('submit',function(e){e.preventDefault();var em=$('pe').value.trim().toLowerCase(),er=$('perr');
+    if(people.some(function(p){return p.email===em})){er.textContent='That email is already on the list.';er.hidden=false;return}
+    er.hidden=true; people.push({name:$('pn').value.trim().slice(0,40),email:em.slice(0,120),role:$('pr').value==='admin'?'admin':'volunteer'}); $('pn').value=$('pe').value=''; save(); list()});
+  d.addEventListener('click',function(e){var x=e.target.closest('[data-rm]'); if(x&&!x.disabled){people.splice(+x.getAttribute('data-rm'),1);save();list()}});
+  d.addEventListener('change',function(e){var x=e.target.closest('[data-role]'); if(x){people[+x.getAttribute('data-role')].role=x.value==='admin'?'admin':'volunteer';save();list()}});
+  window.addEventListener('hashchange',route); list(); route();
+})();
+</script>
+</body>
+</html>

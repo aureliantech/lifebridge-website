@@ -8,7 +8,7 @@
 <link rel="icon" type="image/jpeg" href="../favicon.jpg">
 <link rel="stylesheet" href="../assets/site.css">
 <style>
-body{background:#DCE6EB;min-height:100vh;font-family:Archivo,system-ui,sans-serif;line-height:1.45;margin:0}
+body{background:var(--mist);min-height:100vh;font-family:Archivo,system-ui,sans-serif;line-height:1.45;margin:0}
 .vp-wrap{max-width:1180px;margin:0 auto;padding:clamp(0px,2.4vw,32px) clamp(0px,2vw,24px) 60px}
 .vp-frame h2,.vp-frame h3,.vp-frame p,.vp-frame ol,.vp-frame ul{margin:0}.vp-frame *{box-sizing:border-box}
 .vp-top{background:var(--ink);color:#fff;padding:22px 18px 18px;display:flex;gap:10px;align-items:center}.vp-top div{flex:1;min-width:0}.vp-top small{display:block;font-size:12.5px;opacity:.7;font-weight:500}.vp-top b{display:block;font-size:23px;font-stretch:86%;letter-spacing:-.015em;line-height:1.15}.vp-top i{font-style:normal;font-size:13.5px;color:var(--lamp);font-weight:600}
@@ -71,8 +71,18 @@ button.vp-tile{min-height:128px}
 @media (max-width:900px){.vp-panel .vp-list{order:-1}}
 
 .vp-frame .vp-focus ol{list-style:decimal;padding-left:24px;margin-top:16px}.vp-frame .vp-focus ol li{list-style:decimal;margin-top:6px}.vp-frame .vp-check{list-style:none}.vp-frame .vp-sub{margin-top:8px}
+.a-head{background:var(--ink);color:#fff}.a-head .wrap{display:flex;align-items:center;gap:20px;height:64px}.a-head .brand{margin-right:auto}.a-head .brand b{color:#fff}.a-head .brand span span{color:rgba(255,255,255,.7)}.a-head .brand img{background:#fff;border-radius:50%}
+.a-head a.q{color:#fff;font-size:15.5px;text-decoration:underline;text-underline-offset:4px;white-space:nowrap}
+.a-main{padding:clamp(28px,4vw,56px) 0 80px}.a-main h1{font-size:clamp(32px,4vw,52px)}.a-main .sub{margin-top:12px !important;color:var(--ink-2);max-width:40em}.a-main .sub b{color:var(--ink);font-weight:650}
+.vp-frame.vp-frame{background:none;border-radius:0;box-shadow:none;overflow:visible;margin-top:0}
+.vp-frame .vp-tiles{margin-top:clamp(24px,3vw,40px);gap:12px}.vp-frame .vp-cols{padding:0;margin-top:20px;gap:20px}
+.vp-tile,.vp-row,.vp-focus,.vp-step{border-radius:14px}.vp-tile,.vp-row,.vp-focus{box-shadow:0 1px 0 var(--rule)}.vp-row.due{box-shadow:inset 4px 0 0 var(--lamp),0 1px 0 var(--rule)}
+.vp-frame .vp-focus{border-radius:14px;padding:clamp(20px,2.6vw,32px)}.vp-ic{border-radius:10px}.vp-copy,.vp-state,.vp-same,.vp-ex{border-radius:10px}
+.vp-frame .vp-focus h2{font-size:clamp(26px,2.8vw,34px)}
+.vp-foot.vp-foot{margin:22px 0 0;padding:0}
+@media (max-width:560px){.a-head .brand span{display:none}.a-head .wrap{gap:14px}.a-head a.q{font-size:14px}}
 .vp-frame{margin-top:0}.vp-frame .vp-top small a{color:inherit}
-@media (max-width:640px){.vp-frame{border-radius:0;box-shadow:none}}
+
 .vp-foot{max-width:1180px;margin:18px auto 0;padding:0 16px;font-size:14px;color:var(--ink-2)}.vp-foot a{color:inherit}
 button.vp-tile:focus-visible,button.vp-row:focus-visible,.vp-done:focus-visible,.vp-chips button:focus-visible,.vp-copy button:focus-visible,a.vp-go:focus-visible{outline:3px solid var(--bridge);outline-offset:2px}
 a.vp-go{color:var(--ink);text-decoration:none}a.vp-go + a.vp-go{margin-top:10px}
@@ -85,8 +95,18 @@ a.vp-go{color:var(--ink);text-decoration:none}a.vp-go + a.vp-go{margin-top:10px}
 </style>
 </head>
 <body>
-<div class="vp-wrap"><div class="vp-frame" id="app"><header class="vp-top"><div><small>LifeBridge volunteers</small><b>Volunteer tasks</b><i id="count"></i></div></header><div class="vp-pad"><div class="vp-tiles" id="tiles" role="tablist" aria-label="Platforms"></div></div><div class="vp-cols wide vp-panel"><div id="focus" aria-live="polite"></div><div class="vp-list" id="side"></div></div></div>
-<p class="vp-foot">Ticks are saved on this device only. <a href="../">View the website</a></p></div>
+<header class="a-head"><div class="wrap">
+  <a class="brand" href="../" aria-label="LifeBridge International Church, home"><img src="../assets/img/logo.png" width="40" height="40" alt=""><span><b>LifeBridge</b><span>Volunteer tasks</span></span></a>
+  <a class="q" href="../team/">Team home</a>
+  <a class="q" href="../" target="_blank" rel="noopener">View the site</a>
+</div></header>
+<main class="a-main"><div class="wrap vp-frame" id="app">
+  <h1>Volunteer tasks</h1>
+  <p class="sub"><b id="count"></b> Pick a platform to see what to do.</p>
+  <div class="vp-tiles" id="tiles" role="tablist" aria-label="Platforms"></div>
+  <div class="vp-cols wide vp-panel"><div id="focus" aria-live="polite"></div><div class="vp-list" id="side"></div></div>
+  <p class="vp-foot">Ticks are saved on this device only.</p>
+</div></main>
 <script>
 (function(){
   'use strict';
@@ -167,7 +187,7 @@ a.vp-go{color:var(--ink);text-decoration:none}a.vp-go + a.vp-go{margin-top:10px}
     var plats=P.filter(function(p){return tasks(p).length}), total=0;
     plats.forEach(function(p){p._due=tasks(p).filter(function(id){return status(id).due}); total+=p._due.length});
     if(!selP||!plats.some(function(p){return p.k===selP})){var f=plats.filter(function(p){return p._due.length})[0]||plats[0]; selP=f?f.k:null}
-    d.getElementById('count').textContent=total?(total+(total===1?' thing':' things')+' due'):'All caught up';
+    d.getElementById('count').textContent=total?(total+(total===1?' thing is':' things are')+' due.'):'All caught up.';
     d.getElementById('tiles').innerHTML=plats.map(function(p){
       var ids=tasks(p), nd=p._due.length, st, cls='';
       if(nd){st=nd+(nd===1?' thing':' things')+' due';cls='due'}

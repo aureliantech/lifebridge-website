@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /admin/
+Disallow: /team/
+Disallow: /volunteer/
 
 Sitemap: https://lifebridgeic.com/sitemap.xml
