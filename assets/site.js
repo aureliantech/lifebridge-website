@@ -206,7 +206,7 @@
       if(!f.checkValidity()){f.reportValidity();return}
       var data={_subject:f.getAttribute('data-subject'),_template:'table',_captcha:'false'}, bot=false;
       [].forEach.call(f.elements,function(el){
-        if(!el.name||((el.type==='radio')&&!el.checked)) return;
+        if(!el.name||((el.type==='radio'||el.type==='checkbox')&&!el.checked)) return;
         var v=String(el.value).trim(); if(el.name==='_honey'){bot=!!v;return}
         if(v) data[el.name]=v.slice(0,1000);
       });
@@ -282,4 +282,20 @@
     var show=function(x){b.forEach(function(y){y.setAttribute('aria-selected',y===x)}); p.forEach(function(q){q.hidden=q.getAttribute('data-p')!==x.getAttribute('data-t')})};
     b.forEach(function(x){x.addEventListener('click',function(){show(x)})}); if(b[0]) show(b[0]); box.classList.add('on');
   });
+  // the sign-up form asks only for what the ticked interests need
+  $$('form[data-form]').forEach(function(f){
+    var boxes=$$('.checks input',f); if(!boxes.length) return;
+    var sync=function(){
+      var on={}, any=false; boxes.forEach(function(b){on[b.getAttribute('data-pick')]=b.checked; if(b.checked) any=true});
+      boxes[0].setCustomValidity(any?'':'Tick at least one.');
+      $$('[data-if]',f).forEach(function(w){var show=!!on[w.getAttribute('data-if')]; w.hidden=!show; $$('input,textarea',w).forEach(function(i){i.disabled=!show})});
+      $$('[data-req-if]',f).forEach(function(i){i.required=!!on[i.getAttribute('data-req-if')]});
+      $$('[data-opt-unless]',f).forEach(function(o){o.hidden=!!on[o.getAttribute('data-opt-unless')]});
+    };
+    boxes.forEach(function(b){b.addEventListener('change',sync)}); f._sync=sync; sync();
+  });
+  // a button that jumps to the form ticks its own box on the way
+  $$('a[data-pick]').forEach(function(a){a.addEventListener('click',function(){
+    var c=$('input[data-pick="'+a.getAttribute('data-pick')+'"]'); if(c){c.checked=true; if(c.form&&c.form._sync) c.form._sync()}
+  })});
 })();

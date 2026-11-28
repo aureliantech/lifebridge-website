@@ -219,6 +219,7 @@
     'maps.google':'https://maps.app.goo.gl/PTKHtnqcWMbLNssR7',
     'maps.apple':'https://maps.apple.com/?q=World+Trade+Center+Panama&address=Calle+53+Este,+Marbella,+Panama+City,+Panama',
     'links.email':'http://eepurl.com/djqE1j',
+    'links.partner':'https://docs.google.com/forms/d/e/1FAIpQLSfW2BKaimNd6AJNrk-uCkCaw01vOY69QnP9O4kyQXNoPS-Gaw/viewform',
     'give.bank':'Banco General','give.name':'Asociacion LifeBridge International Church','give.type':'Savings (Cuenta de Ahorros)','give.number':'04-10-00-000442-3',
     'give.yappy':'Banco General, St. Georges Bank, Davivienda, Credicorp Bank, Banisi',
     'give.online':'https://ibcmworld.com/donate','give.church':'LifeBridge International Church Panama City, Panama',
@@ -234,8 +235,10 @@
       {k:'place.floor',label:'Floor or room',max:30},{k:'place.street',label:'Street',max:80},
       {k:'maps.google',label:'Google Maps link',type:'url',max:500},{k:'maps.apple',label:'Apple Maps link',type:'url',max:500}],
       note:'Photos and walking directions on the site do not change.'},
-    {id:'email',title:'Weekly email',fields:[
-      {k:'links.email',label:'Sign-up link',type:'url',max:500,wide:1}]},
+    {id:'email',title:'Sign-up links',fields:[
+      {k:'links.email',label:'Weekly email sign-up link',type:'url',max:500,wide:1},
+      {k:'links.partner',label:'Ministry Partner Agreement link',type:'url',max:500,wide:1}],
+      note:'The partner agreement is a new form each year. Paste the new link here.'},
     {id:'forms',title:'Form messages',fields:[
       {k:'forms.email',label:'Email address',type:'email',max:120,wide:1}],
       note:'A new address must confirm by email before messages arrive.'},
@@ -415,7 +418,7 @@
       var now2='';
       if(g.id==='welcome') now2=('welcomeVideo' in cleanSite(cur.site))?'Your video':'Original video';
       if(g.id==='place') now2=clock(base())+', '+eff('place.name')+', '+eff('place.floor');
-      if(g.id==='email') now2=eff('links.email').replace(/^https?:\/\//,'');
+      if(g.id==='email') now2='Weekly email and partner agreement';
       if(g.id==='forms') now2=eff('forms.email');
       if(g.id==='give') now2=eff('give.bank')+', '+eff('give.number');
       box.querySelector('.now').textContent=now2;

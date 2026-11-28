@@ -673,8 +673,8 @@ main > .sec.nopt:not(#_){padding-top:0}
 .people li{display:flex;align-items:center;gap:16px;padding:14px 18px;border-radius:12px;background:var(--mist)}
 .ava{flex:none;width:52px;height:52px;border-radius:50%;background:var(--canal);color:#fff;display:grid;place-items:center;font-weight:700;font-stretch:80%;font-size:20px}
 .people b{display:block;font-weight:650;font-size:19px;font-stretch:92%}.people div span{color:var(--ink-2);font-size:15.5px}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,1.6vw,20px)}
-@media (max-width:640px){.two{grid-template-columns:1fr}}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,1.6vw,20px)}
+@media (max-width:640px){.pair{grid-template-columns:1fr}}
 @media (max-width:860px){.split2.p5{grid-template-columns:1fr}.photo.tall img{aspect-ratio:4/3;object-position:50% 20%}}
 
 /* watch */
@@ -720,3 +720,182 @@ main > .sec.nopt:not(#_){padding-top:0}
 .hero-note b{color:var(--ink);font-weight:650}
 .notebar{display:flex;align-items:center;gap:16px 22px;background:var(--mist);border-radius:14px;padding:clamp(18px,2.2vw,26px) clamp(20px,2.6vw,32px)}
 .notebar h3{font-size:clamp(20px,2vw,25px)}.notebar p{color:var(--ink-2);margin-top:3px}
+
+/* get involved: hub hero */
+.hero.hub .wrap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(28px,5vw,72px);align-items:center}
+.hero.hub h1{font-size:clamp(40px,5.4vw,76px);line-height:.96;letter-spacing:-.03em}
+.hublist p{font-size:15px;font-weight:600;color:var(--ink-2);margin:0 0 8px}
+.hublist a + p{margin-top:22px}
+.hublist a{position:relative;display:block;text-decoration:none;background:var(--mist);border-radius:12px;padding:15px 56px 16px 20px}
+.hublist a + a{margin-top:8px}
+.hublist a b{display:block;font-weight:650;font-stretch:90%;font-size:clamp(20px,2vw,24px);letter-spacing:-.015em;line-height:1.2}
+.hublist a span{display:block;color:var(--ink-2);font-size:15.5px;margin-top:2px}
+.hublist a::after{content:"";position:absolute;right:22px;top:50%;width:11px;height:11px;border-right:2.5px solid var(--ink);border-bottom:2.5px solid var(--ink);transform:translateY(-70%) rotate(45deg)}
+.hublist a:hover{background:#DCEAF1}
+.hublist a:focus-visible{outline:3px solid var(--bridge);outline-offset:3px}
+@media (max-width:860px){.hero.hub .wrap{grid-template-columns:1fr}}
+.statement.after-h{margin-top:18px}
+.sec-body > .actions,.card > .actions{margin-top:24px}
+.notebar.spread{justify-content:space-between;flex-wrap:wrap}
+.lab-s{font-size:15px;font-weight:600;color:var(--ink-2);margin:26px 0 12px}
+.short{display:flex;flex-wrap:wrap;gap:8px}
+.short li{font-size:15.5px;font-weight:600;padding:8px 16px;border-radius:999px;background:var(--mist)}
+.after-st a{color:var(--ink);text-underline-offset:3px}
+/* tick boxes in a form */
+.form .checks{display:flex;flex-wrap:wrap;gap:8px}
+.form .checks label{position:relative;margin:0;cursor:pointer}
+.form .checks input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer}
+.form .checks span{display:flex;align-items:center;gap:10px;padding:11px 18px 11px 14px;border-radius:999px;font-weight:600;font-size:16px;box-shadow:inset 0 0 0 1.5px rgba(11,39,51,.32)}
+.form .checks span::before{content:"";width:18px;height:18px;border-radius:5px;box-shadow:inset 0 0 0 2px var(--ink);background:#fff center/12px no-repeat}
+.form .checks input:checked + span{background:var(--ink);color:#fff;box-shadow:none}
+.form .checks input:checked + span::before{background-color:var(--lamp);box-shadow:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230B2733' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.500'/%3E%3C/svg%3E")}
+.form .checks input:focus-visible + span{outline:3px solid var(--bridge);outline-offset:2px}
+
+/* get involved: photo-led rows */
+.jump{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.jump a{font-size:15.5px;font-weight:600;padding:9px 16px;border-radius:999px;background:var(--mist);text-decoration:none}
+.jump a.f{background:var(--canal);color:#fff}
+.jump a:hover{box-shadow:inset 0 0 0 1.5px var(--ink)}
+.jump a:focus-visible{outline:3px solid var(--bridge);outline-offset:3px}
+.collage.nosign{padding-bottom:0}
+main > .sec.nopb:not(#_){padding-bottom:0}
+.prow{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(28px,5vw,72px);align-items:center}
+.prow.flip > figure{order:2}
+.prow figure img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:16px}
+.prow .statement{margin-top:14px}
+.prow .short{margin-top:16px}
+.prow .actions{margin-top:24px}
+@media (max-width:860px){.prow{grid-template-columns:1fr}.prow.flip > figure{order:0}}
+.faith{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,64px)}
+.faith > div{display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 clamp(16px,2vw,26px);align-items:start;scroll-margin-top:140px}
+.faith > div + div{border-left:1px solid rgba(255,255,255,.25);padding-left:clamp(20px,4vw,64px)}
+.faith figure{width:104px;height:104px;border-radius:50%;overflow:hidden;box-shadow:0 0 0 6px var(--canal),0 0 0 8px #fff}
+.faith figure img{width:100%;height:100%;object-fit:cover}
+.faith small{display:block;font-size:15px;font-weight:600;color:rgba(255,255,255,.8);margin-bottom:8px}
+.faith .statement{text-wrap:pretty}
+.faith p.s{color:rgba(255,255,255,.88);margin-top:10px}
+.faith .btn{margin-top:20px}
+@media (max-width:860px){.faith{grid-template-columns:1fr}.faith > div + div{border-left:0;padding-left:0;border-top:1px solid rgba(255,255,255,.25);padding-top:28px}}
+@media (max-width:560px){.faith > div{grid-template-columns:1fr}.faith figure{margin-bottom:18px}}
+
+/* get involved hero: six tiles and a row of faces */
+.hero.six6 .grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(28px,5vw,72px);align-items:center}
+.hero.six6 h1{font-size:clamp(36px,4.6vw,64px);line-height:.98;letter-spacing:-.03em}
+.six{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.six a{display:block;text-decoration:none;border-radius:14px;background:var(--mist);padding:16px 18px 17px}
+.six a.f{background:var(--canal);color:#fff}
+.six b{display:block;font-weight:650;font-stretch:90%;font-size:clamp(19px,1.9vw,23px);letter-spacing:-.015em;line-height:1.15}
+.six span{display:block;font-size:15px;color:var(--ink-2);margin-top:3px}.six a.f span{color:rgba(255,255,255,.84)}
+.six a:hover{box-shadow:inset 0 0 0 1.5px var(--ink)}.six a.f:hover{box-shadow:inset 0 0 0 2px var(--lamp)}
+.six a:focus-visible{outline:3px solid var(--bridge);outline-offset:3px}
+.facerow{display:grid;grid-template-columns:repeat(6,1fr);gap:clamp(10px,2vw,28px);margin-top:clamp(32px,4vw,52px)}
+.facerow img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:50% 25%;border-radius:12px}
+@media (max-width:860px){.hero.six6 .grid{grid-template-columns:1fr}}
+@media (max-width:640px){.facerow{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:420px){.six{grid-template-columns:1fr}}
+
+.mailbar{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:16px 24px;align-items:center;border-radius:18px;padding:clamp(22px,3vw,36px);background:var(--ink);color:#fff}
+.mailbar .env{width:64px;height:64px;border-radius:50%;background:var(--lamp);display:grid;place-items:center}
+.mailbar h2{font-size:clamp(24px,2.6vw,32px);font-stretch:88%;letter-spacing:-.02em}
+.mailbar p{color:rgba(255,255,255,.84);margin-top:4px}
+@media (max-width:760px){.mailbar{grid-template-columns:1fr;justify-items:start}}
+
+/* large photo with a card laid over its edge */
+.ov{position:relative;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));align-items:center}
+.ov > img{grid-column:1/9;grid-row:1;width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:18px}
+.ov > .c{grid-column:7/13;grid-row:1;position:relative;background:#fff;border-radius:18px;padding:clamp(22px,3vw,40px);box-shadow:0 20px 50px rgba(11,39,51,.18)}
+.ov.flip > img{grid-column:5/13}.ov.flip > .c{grid-column:1/7}
+.ov .c .statement{font-size:clamp(20px,2.1vw,26px);margin-top:12px}
+.ov .c .after-st{margin-top:10px}
+.ov .c .short{margin-top:14px}
+.ov .c .actions{margin-top:22px}
+@media (max-width:860px){.ov{display:block}.ov > .c{margin:-36px 12px 0}}
+@media (max-width:560px){.ov .c .btn{white-space:normal;text-align:center;line-height:1.25;padding-top:12px;padding-bottom:12px}}
+
+/* trusting Jesus and baptism: two colour cards */
+.fcards{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,1.6vw,20px)}
+.fcards > div{border-radius:18px;padding:clamp(24px,3.2vw,44px);display:flex;flex-direction:column;color:#fff;scroll-margin-top:120px}
+.fcards .a{background:var(--canal)}.fcards .b{background:var(--ink)}
+.fcards h2{font-size:clamp(28px,3.2vw,42px)}
+.fcards .statement{font-size:clamp(20px,2.1vw,26px);margin-top:14px}
+.fcards p.s{margin-top:12px;color:rgba(255,255,255,.86)}
+.fcards .actions{margin-top:auto;padding-top:26px}
+@media (max-width:860px){.fcards{grid-template-columns:1fr}}
+
+/* a member's words */
+.rev3.quiet{background:none}
+main > .rev3.quiet:not(#_){padding:0}
+.qmark{display:block;font-family:var(--serif);font-size:96px;line-height:.6;color:var(--lamp-deep);height:44px}
+.qbig{font-family:var(--serif);font-size:clamp(28px,3.8vw,50px);line-height:1.14;letter-spacing:-.02em;text-wrap:balance;max-width:18em;margin:0 auto}
+.qwho{margin-top:18px;font-weight:600}
+.formsplit .side .qside p{font-family:var(--serif);font-size:clamp(20px,2.1vw,26px);line-height:1.3;color:#fff;margin:0}
+.formsplit .side .qside footer{font-size:15px;margin-top:12px;color:rgba(255,255,255,.86)}
+
+/* form: large tick tiles, and the dark version */
+.form .ticks{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.form .ticks label{display:block}
+.form .ticks span{display:block;border-radius:14px;padding:14px 16px 15px 48px;background:#fff;position:relative;font-size:inherit;font-weight:400}
+.form .ticks span::before{position:absolute;left:16px;top:17px;width:20px;height:20px;border-radius:6px}
+.form .ticks b{display:block;font-weight:650;font-size:18px;font-stretch:92%}
+.form .ticks small{display:block;font-size:14.5px;color:var(--ink-2);margin-top:1px}
+.form .ticks input:checked + span small{color:rgba(255,255,255,.8)}
+@media (max-width:480px){.form .ticks{grid-template-columns:1fr}}
+.sec.fdark{background:var(--ink);color:#fff}
+.fdark .g{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:clamp(28px,5vw,72px);align-items:start}
+.fdark .lead{color:rgba(255,255,255,.84);margin-top:14px;max-width:24em}
+.fdark .form{max-width:none}
+.fdark .form label,.fdark .form legend,.fdark details.more summary{color:#fff}
+.fdark .form input,.fdark .form textarea{background:#fff;border-color:transparent}
+.fdark .form .ticks span{box-shadow:none;color:var(--ink)}
+.fdark .form .ticks input:checked + span{background:var(--lamp);color:var(--ink)}
+.fdark .form .ticks input:checked + span small{color:var(--ink)}
+.fdark .form .ticks input:checked + span::before{background-color:var(--ink);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FFC23D' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E")}
+.fdark .opt{color:rgba(255,255,255,.7)}
+.fdark details.more{border-color:rgba(255,255,255,.22)}
+.fdark .form .pick{box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.5)}
+.fdark .form .pick input:checked + span{background:var(--lamp);color:var(--ink)}
+.fdark .form-done{background:var(--canal)}
+.fdark .form-err{color:#fff}
+@media (max-width:860px){.fdark .g{grid-template-columns:1fr}}
+.formcard.wide .form{max-width:none}
+.formcard .form-done{max-width:none}
+
+/* get involved: page rhythm */
+.p-community main > #email:not(#_){padding-top:clamp(48px,5.6vw,80px)}
+.p-community main > #lifegroups:not(#_){padding-top:clamp(64px,7.8vw,112px);padding-bottom:clamp(56px,6.7vw,96px)}
+.p-community main > #serve:not(#_){padding-bottom:clamp(56px,6.7vw,96px)}
+.p-community main > #join:not(#_){padding-top:clamp(64px,7.8vw,112px)}
+.p-community main > .rev3.quiet:not(#_){padding-top:0;padding-bottom:0;margin-top:calc(-1 * clamp(8px,1.1vw,16px))}
+.p-community .bar{display:none}
+.p-community .formsplit{grid-template-columns:minmax(0,4fr) minmax(0,8fr)}
+.formsplit > .side .sidenote{margin:0;padding-top:16px;border-top:1px solid rgba(255,255,255,.25);font-size:15.5px}
+@media (max-width:860px){.p-community .formsplit{grid-template-columns:1fr}.formsplit > .side{gap:16px}}
+@media (min-width:701px) and (max-width:860px){.fcards{grid-template-columns:1fr 1fr}}
+
+/* get involved: the roomier version */
+.p-community.airy main{--air:clamp(96px,11.5vw,176px)}
+.p-community.airy main > .hero:not(#_){padding-top:clamp(64px,8vw,120px)}
+.p-community.airy .hero.six6 .grid{gap:clamp(36px,6vw,96px)}
+.p-community.airy .six{gap:14px}
+.p-community.airy .six a{padding:20px 22px 21px}
+.p-community.airy .facerow{margin-top:clamp(48px,6vw,88px)}
+.p-community.airy main > #email:not(#_){padding-top:var(--air)}
+.p-community.airy .mailbar{padding:clamp(28px,3.6vw,48px)}
+.p-community.airy main > #lifegroups:not(#_){padding-top:var(--air);padding-bottom:var(--air)}
+.p-community.airy main > #serve:not(#_),.p-community.airy main > #partner:not(#_){padding-bottom:var(--air)}
+.p-community.airy main > .sec.nopt:not([id]):not(#_){padding-bottom:var(--air)}
+.p-community.airy main > .rev3.quiet:not(#_){margin-top:0}
+.p-community.airy main > #join:not(#_){padding-top:var(--air);padding-bottom:var(--air)}
+.p-community.airy .ov > .c{padding:clamp(28px,3.8vw,56px)}
+.p-community.airy .ov .c .statement{margin-top:16px}
+.p-community.airy .ov .c .short{margin-top:20px}
+.p-community.airy .ov .c .after-st{margin-top:14px}
+.p-community.airy .ov .c .actions{margin-top:30px}
+.p-community.airy .fcards{gap:clamp(16px,2.2vw,28px)}
+.p-community.airy .fcards > div{padding:clamp(28px,4vw,60px)}
+.p-community.airy .fcards .statement{margin-top:18px}
+.p-community.airy .fcards .actions{padding-top:34px}
+.p-community.airy .formsplit > .main{padding:clamp(26px,4vw,56px)}
+.p-community.airy .formsplit > .side{padding:clamp(28px,4vw,56px)}
+.p-community.airy .form .fi{margin-top:22px}
+.p-community.airy .form .ticks{gap:14px}
