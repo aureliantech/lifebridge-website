@@ -105,6 +105,7 @@
   .grp .in > .fields:first-child{margin-top:-2px}
   .fields{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
   .fields .fld.wide{grid-column:1/-1}
+  @media (max-width:700px){.fld.spacer{display:none}}
   @media (max-width:640px){.fields{grid-template-columns:1fr}}
   .fld label{display:block;font-weight:600;font-size:15px;margin:18px 0 7px}
   .fld .hint2{font-size:14.5px;color:var(--ink-2);margin-top:6px}
@@ -120,6 +121,7 @@
 <body>
 <header class="a-head"><div class="wrap">
   <a class="brand" href="../" aria-label="LifeBridge International Church, home"><img src="../assets/img/logo.png" width="40" height="40" alt=""><span><b>LifeBridge</b><span>Website updates</span></span></a>
+  <a class="q" href="../volunteer/" target="_blank" rel="noopener">Volunteer page</a>
   <a class="q" href="../" target="_blank" rel="noopener">View the site</a>
   <button class="q" type="button" id="signout" hidden>Sign out</button>
 </div></header>
@@ -267,6 +269,21 @@
     });
     GROUPS.splice(1,0,{id:'events',title:'Upcoming events',fields:f,
       note:'An event shows on the home page and the Get involved page once it has a name and a date, and comes off by itself the day after. Leave all three empty and the section disappears. Your own picture should be wide, with nothing important near the edges and no words in it.'});
+  })();
+  (function(){
+    var VT=[['g1','Google: reply to new reviews'],['g2','Google: ask for reviews',[['','Every 6 weeks'],['4','Every 4 weeks'],['8','Every 8 weeks'],['12','Every 12 weeks']]],
+      ['g3','Google: add new photos',[['','Every 3 months'],['8','Every 2 months'],['26','Every 6 months']]],['g4','Google: check the hours',[['','Every 4 weeks'],['8','Every 8 weeks'],['13','Every 3 months']]],
+      ['s1','Instagram, Facebook, TikTok: weekly post'],['s2','Instagram, Facebook, TikTok: reply to messages'],['e1','Weekly email'],['u1','Text first-time guests'],
+      ['l1','Linktree: check the links',[['','Every 4 weeks'],['8','Every 8 weeks'],['13','Every 3 months']]]];
+    var f=[{k:'vol.reviewlink',label:'Google review link, for the congregation',type:'url',max:500,wide:1},{h:'Tasks'}];
+    DEF['vol.reviewlink']='';
+    VT.forEach(function(v){
+      DEF['vol.'+v[0]+'.on']=''; f.push({k:'vol.'+v[0]+'.on',label:v[1],type:'pick',opts:[['','On'],['off','Off']],max:5});
+      if(v[2]){ DEF['vol.'+v[0]+'.every']=''; f.push({k:'vol.'+v[0]+'.every',label:'How often',type:'pick',opts:v[2],max:3}); }
+      else f.push({spacer:1});
+    });
+    GROUPS.push({id:'vol',title:'Volunteer panel',fields:f,vt:VT,
+      note:'Volunteers open the page at /volunteer/ to see what is due and how to do it. Weekly tasks stay weekly. Switch off anything the church does not do.'});
   })();
   var FIELDS={}; GROUPS.forEach(function(g){g.fields.forEach(function(f){if(f.k)FIELDS[f.k]=f})});
   function eff(k){return (k in cur.site)?cur.site[k]:DEF[k]}
@@ -437,6 +454,7 @@
       if(g.id==='place') now2=clock(base())+', '+eff('place.name')+', '+eff('place.floor');
       if(g.id==='email') now2='Weekly email and partner agreement';
       if(g.id==='forms') now2=eff('forms.email');
+      if(g.id==='vol'){var _on=g.vt.filter(function(v){return eff('vol.'+v[0]+'.on')!=='off'}).length; now2=_on+' of '+g.vt.length+' tasks on'+(String(eff('vol.reviewlink')).trim()?'':', review link not set');}
       if(g.id==='events'){var _t=new Date(Date.now()-5*3600000).toISOString().slice(0,10),_s=0,_d=0,_p=0;
         [1,2,3].forEach(function(n){var ti=String(eff('ev'+n+'.title')).trim(),dd=String(eff('ev'+n+'.date')).trim(),ok=/^\d{4}-\d\d-\d\d$/.test(dd),any=['time','place','note','link','img'].some(function(x){return String(eff('ev'+n+'.'+x)).trim()});
           if(ti&&ok&&dd>=_t)_s++; else if(ti&&ok)_p++; else if(ti||ok||any)_d++;});
@@ -472,6 +490,7 @@
       var h='<summary><span class="t"><b>'+g.title+'</b><span class="now"></span></span><span class="tag" hidden></span></summary><div class="in">', open=false;
       g.fields.forEach(function(f){
         if(f.h){ h+=(open?'</div>':'')+'<h3>'+f.h+'</h3>'; open=false; return; }
+        if(f.spacer){ h+='<div class="fld spacer"></div>'; return; }
         if(!open){ h+='<div class="fields">'; open=true; }
         h+=field(f);
       });

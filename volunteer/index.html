@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Volunteer tasks — LifeBridge</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/jpeg" href="../favicon.jpg">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+body{background:#DCE6EB;min-height:100vh;font-family:Archivo,system-ui,sans-serif;line-height:1.45;margin:0}
+.vp-wrap{max-width:1180px;margin:0 auto;padding:clamp(0px,2.4vw,32px) clamp(0px,2vw,24px) 60px}
+.vp-frame h2,.vp-frame h3,.vp-frame p,.vp-frame ol,.vp-frame ul{margin:0}.vp-frame *{box-sizing:border-box}
+.vp-top{background:var(--ink);color:#fff;padding:22px 18px 18px;display:flex;gap:10px;align-items:center}.vp-top div{flex:1;min-width:0}.vp-top small{display:block;font-size:12.5px;opacity:.7;font-weight:500}.vp-top b{display:block;font-size:23px;font-stretch:86%;letter-spacing:-.015em;line-height:1.15}.vp-top i{font-style:normal;font-size:13.5px;color:var(--lamp);font-weight:600}
+.vp-who{background:rgba(255,255,255,.14);border-radius:999px;padding:6px 12px;font-size:13.5px;font-weight:600}.vp-back{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.14);display:grid;place-items:center}.vp-back svg{width:18px;height:18px}
+.vp-body{padding:6px 14px 20px}.vp-body h3{font-size:14px;font-weight:650;color:var(--ink-2);margin:18px 4px 8px;display:flex;gap:8px;align-items:center}.vp-body h3 i{font-style:normal;background:var(--ink);color:#fff;border-radius:999px;min-width:22px;height:22px;display:grid;place-items:center;font-size:12.5px}
+.vp-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;background:#fff;border-radius:16px;padding:13px 14px;margin-top:8px}
+.vp-row b{display:block;font-size:16px;font-weight:650;line-height:1.2}.vp-row small{display:block;font-size:13.5px;color:var(--ink-2);margin-top:2px}.vp-row em{font-style:normal;font-size:13px;font-weight:650;color:var(--ink-2);white-space:nowrap}
+.vp-row.due{box-shadow:inset 4px 0 0 var(--lamp)}.vp-row.due em{background:var(--lamp);color:var(--ink);border-radius:999px;padding:4px 10px}.vp-row.due em:empty{display:none}
+.vp-ic{width:38px;height:38px;border-radius:12px;background:var(--mist);color:var(--canal);display:grid;place-items:center;flex:none}.vp-ic svg{width:20px;height:20px}.vp-ic.big{width:56px;height:56px;border-radius:18px}.vp-ic.big svg{width:28px;height:28px}.vp-ic.ok{background:#DDF3E6;color:#1F7A4D}
+.vp-donebar{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;color:var(--ink-2);margin:18px 4px 0}.vp-donebar svg{width:16px;height:16px;flex:none;margin-top:2px;color:#1F7A4D}
+.vp-same{background:var(--ink);color:#fff;border-radius:12px;padding:10px 14px;font-size:14px;font-weight:600;margin-top:12px}
+.vp-step{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;background:#fff;border-radius:16px;padding:14px;margin-top:10px}.vp-step > span{width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:13.5px;font-weight:700}
+.vp-step b{font-size:16px;font-weight:650}.vp-step p{font-size:14.5px;color:var(--ink-2);margin-top:4px}
+.vp-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.vp-chips button{font:inherit;font-size:13.5px;font-weight:600;border:1.500px solid rgba(11,39,51,.25);background:#fff;color:var(--ink);border-radius:999px;padding:6px 12px;cursor:pointer}.vp-chips button.on{background:var(--canal);border-color:var(--canal);color:#fff}
+.vp-type{margin-top:8px}.vp-ex{font-family:Literata,Georgia,serif;font-size:14.5px !important;color:var(--ink) !important;background:var(--mist);border-radius:10px;padding:10px 12px;margin-top:8px !important}
+.vp-copy{background:var(--mist);border-radius:12px;padding:12px;margin-top:10px}.vp-copy p{font-family:Literata,Georgia,serif;color:var(--ink);font-size:14.5px;margin:0}.vp-copy button{font:inherit;font-size:13.5px;font-weight:650;display:inline-flex;gap:6px;align-items:center;margin-top:10px;border:0;background:#fff;border-radius:999px;padding:6px 12px;cursor:pointer;color:var(--ink)}.vp-copy svg{width:15px;height:15px}
+.vp-tag{display:inline-block;background:var(--mist);border-radius:999px;padding:1px 9px;font-size:13px;font-weight:600;color:var(--ink);margin-right:4px}
+.vp-check{list-style:none;padding:0;margin:12px 4px 0;font-size:14px;color:var(--ink-2)}.vp-check li{padding-left:22px;position:relative;margin-top:6px}.vp-check li::before{content:"";position:absolute;left:2px;top:5px;width:10px;height:10px;border-radius:3px;border:1.500px solid var(--ink-2)}
+.vp-done{font:inherit;width:100%;margin-top:16px;border:0;border-radius:999px;background:var(--lamp);color:var(--ink);font-weight:700;font-size:16.5px;padding:15px;display:flex;gap:8px;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 0 #F2AE1B}.vp-done svg{width:20px;height:20px}.vp-done.sm{width:auto;margin:0;padding:10px 18px;font-size:15px}.vp-done.is{background:#DDF3E6;color:#1F7A4D;box-shadow:none}
+.vp-last{font-size:13.5px;color:var(--ink-2);margin:14px 4px 0}
+.vp-week{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;background:var(--ink);padding:0 12px 16px}.vp-week span{color:#fff;text-align:center;border-radius:12px;padding:7px 0 9px;position:relative}.vp-week small{display:block;font-size:11.5px;opacity:.65}.vp-week b{font-size:17px;font-stretch:86%}.vp-week span.on{background:var(--lamp);color:var(--ink)}.vp-week i{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--lamp);margin:0 1px;position:relative;top:-1px}.vp-week span.on i{background:var(--ink)}.vp-week span b{display:block}
+.vp-tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.vp-tile{background:#fff;border-radius:18px;padding:16px 14px;min-height:138px;display:flex;flex-direction:column}.vp-tile b{font-size:16px;font-weight:650;line-height:1.2;margin-top:12px}.vp-tile small{font-size:13.5px;color:var(--ink-2);margin-top:auto;padding-top:8px}
+.vp-tile.due{background:var(--lamp)}.vp-tile.due .vp-ic{background:#fff;color:var(--ink)}.vp-tile.due small{color:var(--ink);font-weight:650}.vp-tile.ok small{color:#1F7A4D;font-weight:600}
+.vp-open{background:var(--ink);color:#fff;border-radius:18px;padding:16px;margin-top:12px}.vp-open b{font-size:16.5px}.vp-open ol,.vp-focus ol{margin:10px 0 0;padding-left:20px;font-size:15px}.vp-open li,.vp-focus li{margin-top:5px}
+.vp-btns{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-top:14px}.vp-btns a{color:#fff;font-weight:650;font-size:14.5px;text-decoration:underline;text-underline-offset:3px}
+.vp-focus{background:#fff;border-radius:22px;padding:22px 18px 18px;margin-top:14px}.vp-focus h2{font-size:25px;font-stretch:86%;letter-spacing:-.02em;line-height:1.1;margin-top:14px}.vp-sub{color:var(--ink-2);font-size:14.5px;margin-top:6px}.vp-focus ol{font-size:16px;margin-top:14px}
+.vp-go{display:block;text-align:center;border:1.500px solid var(--ink);border-radius:999px;padding:13px;font-weight:650;margin-top:18px}.vp-skip{display:block;text-align:center;font-size:14.5px;color:var(--ink-2);text-decoration:underline;text-underline-offset:3px;margin-top:14px}
+.vp-focus.rest{text-align:center;padding:34px 18px}.vp-focus.rest .vp-ic{margin:0 auto}
+
+.vp-frame{background:var(--mist);border-radius:24px;overflow:hidden;box-shadow:0 30px 60px rgba(11,39,51,.18);margin-top:26px}
+.vp-frame .vp-top{padding:22px clamp(18px,3vw,36px)}.vp-frame .vp-top b{font-size:clamp(23px,2.4vw,30px)}
+.vp-cols{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(18px,2.6vw,36px);padding:clamp(14px,2.4vw,32px) clamp(14px,3vw,36px) clamp(22px,3vw,40px);align-items:start}
+.vp-cols.wide{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}.vp-cols.in{padding:0;margin-top:6px}
+.vp-pad{padding:clamp(14px,2.4vw,32px) clamp(14px,3vw,36px) clamp(22px,3vw,40px)}
+.vp-frame h3{font-size:14px;font-weight:650;color:var(--ink-2);margin:18px 4px 8px;display:flex;gap:8px;align-items:center}.vp-frame h3 i{font-style:normal;background:var(--ink);color:#fff;border-radius:999px;min-width:22px;height:22px;display:grid;place-items:center;font-size:12.5px}
+.vp-list h3:first-child{margin-top:8px}
+.vp-row.sel{outline:2.500px solid var(--ink)}.vp-tile.sel{outline:2.500px solid var(--ink);outline-offset:2px}
+.vp-pane{background:rgba(255,255,255,.55);border-radius:20px;padding:clamp(14px,1.8vw,22px)}.vp-pad > .vp-pane{margin-top:18px}
+.vp-pane-h{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;margin:2px 4px 4px}.vp-pane-h b{font-size:clamp(21px,2vw,26px);font-stretch:86%;letter-spacing:-.015em}.vp-pane-h i{font-style:normal;font-size:14px;font-weight:650;background:var(--lamp);border-radius:999px;padding:3px 11px}
+.vp-pane .vp-done{max-width:340px}.vp-frame .vp-focus .vp-done,.vp-frame .vp-go{max-width:none}
+.vp-two{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}.vp-two .vp-last,.vp-two .vp-done{grid-column:1/-1}
+.vp-frame .vp-tiles{grid-template-columns:repeat(5,minmax(0,1fr));margin-top:0}
+.vp-wk{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}
+.vp-day{background:rgba(255,255,255,.55);border-radius:16px;padding:10px;min-height:150px}.vp-day.on{background:#fff;outline:2.500px solid var(--ink)}
+.vp-day-h{display:flex;justify-content:space-between;align-items:baseline;margin:2px 4px 8px}.vp-day-h small{font-size:13px;font-weight:650;color:var(--ink-2)}.vp-day-h b{font-size:19px;font-stretch:86%}
+.vp-mini{display:flex;gap:8px;align-items:center;background:var(--mist);border-radius:12px;padding:8px;margin-top:6px}.vp-mini b{font-size:13.5px;font-weight:650;line-height:1.2}.vp-mini .vp-ic{width:28px;height:28px;border-radius:9px;background:#fff}.vp-mini .vp-ic svg{width:16px;height:16px}.vp-mini.due{background:var(--lamp)}
+.vp-none{font-size:13px;color:var(--ink-2);margin:6px 4px;opacity:.7}
+.vp-frame .vp-focus{margin-top:0;padding:clamp(22px,3vw,40px)}.vp-frame .vp-focus h2{font-size:clamp(25px,3vw,38px)}.vp-frame .vp-focus ol{font-size:17.5px}
+@media (max-width:900px){.vp-cols,.vp-cols.wide,.vp-two{grid-template-columns:1fr}.vp-frame .vp-tiles{grid-template-columns:1fr 1fr}.vp-wk{grid-template-columns:1fr}.vp-day{min-height:0}.vp-day:not(.on):has(.vp-none){display:none}}
+
+button.vp-tile,button.vp-row{font:inherit;color:inherit;text-align:left;border:0;cursor:pointer;width:100%}
+button.vp-tile{min-height:128px}
+.vp-frame .vp-pad{padding-bottom:0}.vp-panel{padding-top:clamp(14px,2vw,24px)}
+.vp-focus .vp-step{background:var(--mist);padding:16px}.vp-focus .vp-copy{background:var(--mist)}.vp-focus .vp-step .vp-copy,.vp-focus .vp-step .vp-ex{background:#fff}
+.vp-focus .vp-same{margin-top:16px}.vp-focus .vp-fbody > ol{font-size:17.5px;margin-top:16px}.vp-focus .vp-fbody > .vp-copy{margin-top:16px;max-width:520px}
+.vp-focus .vp-last{margin:14px 0 0;text-align:center}.vp-focus .vp-tag{background:#fff}
+.vp-panel .vp-list h3{margin-top:4px}
+[hidden]{display:none !important}
+.vp-lg{display:flex;gap:6px;align-items:center;height:38px}.vp-lg img{width:34px;height:34px;object-fit:contain;display:block}.vp-lg.big{height:56px;gap:10px}.vp-lg.big img{width:52px;height:52px}
+@media (max-width:900px){.vp-panel .vp-list{order:-1}}
+
+.vp-frame .vp-focus ol{list-style:decimal;padding-left:24px;margin-top:16px}.vp-frame .vp-focus ol li{list-style:decimal;margin-top:6px}.vp-frame .vp-check{list-style:none}.vp-frame .vp-sub{margin-top:8px}
+.vp-frame{margin-top:0}.vp-frame .vp-top small a{color:inherit}
+@media (max-width:640px){.vp-frame{border-radius:0;box-shadow:none}}
+.vp-foot{max-width:1180px;margin:18px auto 0;padding:0 16px;font-size:14px;color:var(--ink-2)}.vp-foot a{color:inherit}
+button.vp-tile:focus-visible,button.vp-row:focus-visible,.vp-done:focus-visible,.vp-chips button:focus-visible,.vp-copy button:focus-visible,a.vp-go:focus-visible{outline:3px solid var(--bridge);outline-offset:2px}
+a.vp-go{color:var(--ink);text-decoration:none}a.vp-go + a.vp-go{margin-top:10px}
+.vp-gos{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}.vp-gos a.vp-go{margin-top:0;display:flex;gap:8px;align-items:center;justify-content:center;padding:11px 8px;font-size:14.5px}.vp-gos img{width:22px;height:22px}
+.vp-state{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:#DDF3E6;color:#1F7A4D;border-radius:12px;padding:10px 14px;font-weight:650;font-size:15px;margin-top:16px}.vp-state svg{width:18px;height:18px}.vp-state button{font:inherit;font-weight:600;background:none;border:0;color:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer;margin-left:auto;padding:0}
+.vp-row em.ok{color:#1F7A4D}.vp-row.done .vp-ic{background:#DDF3E6;color:#1F7A4D}
+.vp-q{font-size:14.5px;font-weight:650;margin-top:18px !important}
+.vp-done.again{background:#fff;box-shadow:inset 0 0 0 1.5px var(--ink)}
+@media (max-width:420px){.vp-gos{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="vp-wrap"><div class="vp-frame" id="app"><header class="vp-top"><div><small>LifeBridge volunteers</small><b>Volunteer tasks</b><i id="count"></i></div></header><div class="vp-pad"><div class="vp-tiles" id="tiles" role="tablist" aria-label="Platforms"></div></div><div class="vp-cols wide vp-panel"><div id="focus" aria-live="polite"></div><div class="vp-list" id="side"></div></div></div>
+<p class="vp-foot">Ticks are saved on this device only. <a href="../">View the website</a></p></div>
+<script>
+(function(){
+  'use strict';
+  var d=document, IC={"pin": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 21s-6.5-5.6-6.5-10.5a6.5 6.5 0 0 1 13 0C18.500 15.400 12 21 12 21z\"/><circle cx=\"12\" cy=\"10.500\" r=\"2.300\"/></svg>", "cam": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"3.500\" y=\"6.500\" width=\"17\" height=\"12.500\" rx=\"3\"/><circle cx=\"12\" cy=\"12.800\" r=\"3.300\"/><path d=\"M8.500 6.500l1.200-2h4.600l1.200 2\"/></svg>", "mail": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"3.500\" y=\"5.500\" width=\"17\" height=\"13\" rx=\"2.500\"/><path d=\"M4.500 7.500l7.500 5.500 7.500-5.500\"/></svg>", "chat": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 12a7.500 7.500 0 0 1-11 6.600L4.500 20l1.300-4A7.500 7.500 0 1 1 20 12z\"/></svg>", "link": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M10 14a4 4 0 0 0 5.700 0l3-3a4 4 0 0 0-5.700-5.700l-1 1\"/><path d=\"M14 10a4 4 0 0 0-5.700 0l-3 3a4 4 0 0 0 5.700 5.700l1-1\"/></svg>", "star": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 4l2.400 5 5.400.700-4 3.800 1 5.400L12 16.300 7.200 18.900l1-5.400-4-3.800 5.400-.700z\"/></svg>", "check": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12.500l4.500 4.500L19 7.500\"/></svg>", "copy": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"8.500\" y=\"8.500\" width=\"11\" height=\"11\" rx=\"2.500\"/><path d=\"M15.500 8.500v-2a2 2 0 0 0-2-2h-7a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h2\"/></svg>"}, IMG='../assets/img/vol/';
+  var INV='Join us Sundays at 10 AM, World Trade Center, Floor 2.';
+  function ol(a){return '<ol>'+a.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ol>'}
+  function cp(t){return '<div class="vp-copy"><p>'+t+'</p><button type="button" data-copy>'+IC.copy+'<span>Copy</span></button></div>'}
+  function step(n,t,b){return '<div class="vp-step"><span>'+n+'</span><div><b>'+t+'</b>'+b+'</div></div>'}
+  var P=[
+    {k:'google',name:'Google',logos:[['google.png','Google Business Profile']],tasks:['g1','g2','g3','g4']},
+    {k:'social',name:'Instagram, Facebook, TikTok',logos:[['instagram.svg','Instagram'],['facebook.png','Facebook'],['tiktok.png','TikTok']],tasks:['s1','s2']},
+    {k:'email',name:'Weekly email',logos:[['mailchimp.svg','Mailchimp']],tasks:['e1']},
+    {k:'guests',name:'Sunday guests',icon:'chat',tasks:['u1']},
+    {k:'linktree',name:'Linktree',logos:[['linktree.png','Linktree']],tasks:['l1']}
+  ];
+  var SOC=[['Instagram','https://www.instagram.com/','instagram.svg'],['Facebook','https://www.facebook.com/','facebook.png'],['TikTok','https://www.tiktok.com/','tiktok.png']];
+  var T={
+    g1:{icon:'pin',title:'Reply to new Google reviews',every:1,sub:'About five minutes.',
+      body:ol(['Thank them by name.','Mention one thing they said.','Two sentences. Never copy and paste.']),open:[['Open Google reviews','https://business.google.com/reviews']]},
+    g2:{icon:'star',title:'Ask for Google reviews',every:6,sub:'On a Sunday.',
+      body:step(1,'Ask on Sunday, from the front','<p>Thirty seconds during announcements.</p>'+cp('If LifeBridge has meant something to you, would you leave us an honest Google review this week? Say what you&rsquo;d tell a friend, for example that we&rsquo;re an English-speaking church in Panama City.'))+
+           step(2,'Send the link the same day','<p>Post it in the church WhatsApp group.</p><div data-review></div>')},
+    g3:{icon:'cam',title:'Add 5 new photos',every:13,sub:'',
+      body:ol(['Pick five recent photos of real people and the room.','Check everyone pictured is happy to be shown.','Upload them to the Google profile.']),open:[['Open the Google profile','https://business.google.com/']]},
+    g4:{icon:'check',title:'Check the hours',every:4,sub:'Also before a holiday or a Sunday off.',
+      body:ol(['Open the profile and read the hours.','Add special hours for any Sunday that changes.']),open:[['Open the Google profile','https://business.google.com/']]},
+    s1:{icon:'cam',title:'This week&rsquo;s post',every:1,sub:'One post, all three platforms.',post:1,
+      body:'<p class="vp-same">The same post goes on Instagram, Facebook and TikTok.</p>'+
+        step(1,'Pick one type','<div class="vp-chips" data-types><button class="on" type="button" aria-pressed="true">Who you&rsquo;ll meet</button><button type="button" aria-pressed="false">What Sunday looks like</button><button type="button" aria-pressed="false">In their own words</button></div>'+
+          '<div class="vp-type"><p>A photo of a real person, couple or family. Faces clearly visible.</p><p>Caption: their name, where they&rsquo;re from, one detail about life in Panama.</p><p class="vp-ex">&ldquo;This is Mark and Linda. They retired to Panama from Ohio three years ago and made their first friends here at LifeBridge.&rdquo;</p></div>'+
+          '<div class="vp-type" hidden><p>Photos from a real Sunday: the entrance, the Floor 2 doors, coffee, people talking, the room.</p><p>Caption: one sentence that answers a first-timer&rsquo;s question.</p><p class="vp-ex">&ldquo;Bringing the kids on your first Sunday? BridgeKids runs during the service.&rdquo;</p></div>'+
+          '<div class="vp-type" hidden><p>A member&rsquo;s quote with their photo, or a phone video under 60 seconds.</p><p>Caption: their quote, their name and where they&rsquo;re from.</p><p class="vp-ex">&ldquo;I moved here for work and didn&rsquo;t know a single person. My first Sunday, three people asked me to lunch.&rdquo; Priya, from London.</p></div>')+
+        step(2,'Write two or three short sentences','<p>Write the way you&rsquo;d talk to a friend who just moved here. End with the invitation.</p>'+cp(INV))+
+        step(3,'Send it to the pastor, then post','<p data-feat></p>')+
+        '<ul class="vp-check"><li>Real people or our real space. No flyers, text graphics or stock photos.</li><li>Everyone pictured said yes. Parents said yes for kids.</li><li>No announcements meant for members.</li></ul>'+
+        '<p class="vp-q">Who does this post feature?</p><div class="vp-chips" data-group><button type="button" aria-pressed="false">New to the city</button><button type="button" aria-pressed="false">Professionals</button><button type="button" aria-pressed="false">Families</button><button type="button" aria-pressed="false">Retirees</button></div>',
+      soc:1},
+    s2:{icon:'chat',title:'Reply to messages and comments',every:1,sub:'',
+      body:ol(['Open the inbox on each of the three.','Reply like a person. Ask where they&rsquo;re from.','No links in a first reply.']),soc:1},
+    e1:{icon:'mail',title:'Send the weekly email',every:1,day:4,sub:'Thursday morning.',
+      body:ol(['Open with one honest sentence, the way you&rsquo;d write to a friend.','This Sunday in three lines or fewer.','One ask only. Sign it with your own name.']),open:[['Open Mailchimp','https://login.mailchimp.com/']]},
+    u1:{icon:'chat',title:'Text first-time guests',every:1,day:0,sub:'Sunday evening or Monday, from your own phone.',
+      body:ol(['Mention one thing you talked about.','No links and no forms.'])+cp('Hey, it was really good to meet you on Sunday. Hope the rest of your weekend was good.')},
+    l1:{icon:'link',title:'Check the Linktree links',every:4,sub:'',
+      body:ol(['Tap every link and check it opens.','Remove links to events that have passed.','Plan your visit stays first. Give stays last.']),open:[['Open Linktree','https://linktr.ee/admin']]}
+  };
+  var KEY='lifebridge-volunteer', log=[], S={}, selP=null, selT={};
+  try{var j=JSON.parse(localStorage.getItem(KEY)||'null'); if(j&&Array.isArray(j.log)) log=j.log.filter(function(x){return x&&T[x.t]&&typeof x.at==='number'})}catch(e){}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify({log:log.slice(-300)}))}catch(e){}}
+  // ---- dates, in Panama time (UTC-5 all year)
+  var DAYMS=86400000, DOW=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'], MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function dn(ts){return Math.floor((ts-5*3600000)/DAYMS)}
+  function wd(n){return ((n+4)%7+7)%7}
+  function md(n){var x=new Date(n*DAYMS);return MON[x.getUTCMonth()]+' '+x.getUTCDate()}
+  function when(n){var t=dn(Date.now()),k=n-t;return k<=0?'Today':k===1?'Tomorrow':k<7?DOW[wd(n)]:md(n)}
+  function every(id){var v=parseInt(S['vol.'+id+'.every'],10);return v>=1&&v<=52?v:T[id].every}
+  function on(id){return S['vol.'+id+'.on']!=='off'}
+  function last(id){for(var i=log.length-1;i>=0;i--) if(log[i].t===id) return log[i]; return null}
+  function status(id){
+    var t=T[id], L=last(id), today=dn(Date.now()), ws=today-wd(today), ev=every(id);
+    if(ev===1){
+      var day=t.day||0;
+      if(L&&dn(L.at)>=ws) return {due:false,done:true,next:ws+7+day};
+      if(t.day!=null&&wd(today)<t.day) return {due:false,next:ws+t.day};
+      return {due:true,next:today};
+    }
+    if(!L) return {due:true,next:today};
+    var nx=dn(L.at)+ev*7; return {due:today>=nx,done:today<nx,next:nx};
+  }
+  function freq(id){var e=every(id),t=T[id];return e===1?(t.day!=null?'Every '+DOW[t.day]:'Every week'):e===13?'Every 3 months':e===26?'Every 6 months':e===52?'Every year':'Every '+e+' weeks'}
+  function tasks(p){return p.tasks.filter(on)}
+  function logo(p,big){
+    if(p.logos) return '<span class="vp-lg'+(big?' big':'')+'">'+p.logos.map(function(l){return '<img src="'+IMG+l[0]+'" alt="'+l[1]+'">'}).join('')+'</span>';
+    return '<span class="vp-ic'+(big?' big':'')+'">'+IC[p.icon]+'</span>';
+  }
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function render(){
+    var plats=P.filter(function(p){return tasks(p).length}), total=0;
+    plats.forEach(function(p){p._due=tasks(p).filter(function(id){return status(id).due}); total+=p._due.length});
+    if(!selP||!plats.some(function(p){return p.k===selP})){var f=plats.filter(function(p){return p._due.length})[0]||plats[0]; selP=f?f.k:null}
+    d.getElementById('count').textContent=total?(total+(total===1?' thing':' things')+' due'):'All caught up';
+    d.getElementById('tiles').innerHTML=plats.map(function(p){
+      var ids=tasks(p), nd=p._due.length, st, cls='';
+      if(nd){st=nd+(nd===1?' thing':' things')+' due';cls='due'}
+      else{var nx=Math.min.apply(null,ids.map(function(id){return status(id).next})), any=ids.some(function(id){return status(id).done}); st=(any?'Done. ':'')+'Next '+when(nx).replace(/^T/,'t'); cls=any?'ok':''}
+      return '<button type="button" role="tab" aria-selected="'+(p.k===selP)+'" class="vp-tile '+cls+(p.k===selP?' sel':'')+'" data-p="'+p.k+'">'+logo(p)+'<b>'+p.name+'</b><small>'+st+'</small></button>';
+    }).join('');
+    var p=plats.filter(function(x){return x.k===selP})[0], F=d.getElementById('focus'), SD=d.getElementById('side');
+    if(!p){F.innerHTML='<div class="vp-focus rest"><h2>No tasks are switched on.</h2><p class="vp-sub">The pastor can switch tasks on in the admin page.</p></div>';SD.innerHTML='';return}
+    var ids=tasks(p); if(ids.indexOf(selT[p.k])<0) selT[p.k]=p._due[0]||ids[0];
+    var id=selT[p.k], t=T[id], st=status(id), L=last(id);
+    SD.innerHTML='<h3>'+(ids.length>1?'In '+p.name:'The only task here')+'</h3>'+ids.map(function(x){
+      var s=status(x); return '<button type="button" class="vp-row'+(s.due?' due':'')+(s.done?' done':'')+(x===id?' sel':'')+'" data-t="'+x+'" aria-pressed="'+(x===id)+'"><span class="vp-ic">'+IC[s.done?'check':T[x].icon]+'</span><div><b>'+T[x].title+'</b><small>'+freq(x)+'</small></div><em'+(s.done?' class="ok"':'')+'>'+(s.due?'Due':when(s.next))+'</em></button>';
+    }).join('');
+    var h=logo(p,true)+'<h2>'+t.title+'</h2><p class="vp-sub">'+freq(id)+'.'+(t.sub?' '+t.sub:'')+'</p>';
+    if(st.done&&L) h+='<p class="vp-state">'+IC.check+'<span>Done '+md(dn(L.at))+'. Due again '+when(st.next).replace(/^T/,'t')+'.</span>'+(Date.now()-L.at<DAYMS?'<button type="button" data-undo>Undo</button>':'')+'</p>';
+    h+='<div class="vp-fbody">'+t.body+'</div>';
+    if(t.soc) h+='<div class="vp-gos">'+SOC.map(function(s){return '<a class="vp-go" href="'+s[1]+'" target="_blank" rel="noopener noreferrer"><img src="'+IMG+s[2]+'" alt="">Open '+s[0]+'</a>'}).join('')+'</div>';
+    (t.open||[]).forEach(function(o){h+='<a class="vp-go" href="'+o[1]+'" target="_blank" rel="noopener noreferrer">'+o[0]+'</a>'});
+    h+='<button class="vp-done'+(st.done?' again':'')+'" type="button" data-done>'+IC.check+'<span>'+(st.done?'Mark as done again':'Mark as done')+'</span></button>';
+    h+='<p class="vp-last">'+(L?'Last done '+md(dn(L.at))+(L.note?', featuring '+esc(L.note).toLowerCase():'')+'.':'Not done yet on this device.')+'</p>';
+    F.innerHTML='<div class="vp-focus">'+h+'</div>';
+    var rv=F.querySelector('[data-review]');
+    if(rv){var u=String(S['vol.reviewlink']||'').trim(), ok=/^https?:\/\/\S+$/.test(u); rv.innerHTML=cp('Here&rsquo;s the link to leave LifeBridge a Google review. It takes two minutes. Thank you!'+(ok?' '+esc(u):''))+(ok?'':'<p>The review link isn&rsquo;t set yet. The pastor can add it in the admin page, under Volunteer panel.</p>')}
+    var ft=F.querySelector('[data-feat]');
+    if(ft){var seen=[]; for(var i=log.length-1;i>=0&&seen.length<3;i--) if(log[i].t==='s1'&&log[i].note&&seen.indexOf(log[i].note)<0) seen.push(log[i].note);
+      ft.innerHTML=seen.length?'Featured lately: '+seen.map(function(x){return '<span class="vp-tag">'+esc(x)+'</span>'}).join('')+' Pick a group that isn&rsquo;t here.':'Over time, feature all four groups equally: people new to the city, professionals, families and retirees.'}
+  }
+  d.addEventListener('click',function(e){
+    var x;
+    if((x=e.target.closest('[data-p]'))){selP=x.getAttribute('data-p');render();return}
+    if((x=e.target.closest('[data-t]'))){selT[selP]=x.getAttribute('data-t');render();return}
+    if((x=e.target.closest('[data-types] button'))){var all=[].slice.call(x.parentNode.children),i=all.indexOf(x);all.forEach(function(b){b.classList.toggle('on',b===x);b.setAttribute('aria-pressed',b===x)});[].forEach.call(x.closest('.vp-step').querySelectorAll('.vp-type'),function(pn,k){pn.hidden=k!==i});return}
+    if((x=e.target.closest('[data-group] button'))){[].forEach.call(x.parentNode.children,function(b){var o=b===x&&!x.classList.contains('on');b.classList.toggle('on',o);b.setAttribute('aria-pressed',o)});return}
+    if((x=e.target.closest('[data-copy]'))){var tx=x.parentNode.querySelector('p').textContent, sp=x.querySelector('span'), okk=function(){sp.textContent='Copied';setTimeout(function(){sp.textContent='Copy'},1800)};
+      if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(tx).then(okk,function(){});
+      else{var ta=d.createElement('textarea');ta.value=tx;d.body.appendChild(ta);ta.select();try{d.execCommand('copy');okk()}catch(er){}ta.remove()}
+      return}
+    if((x=e.target.closest('[data-done]'))){var id=selT[selP], g=d.querySelector('[data-group] button.on'); log.push({t:id,at:Date.now(),note:g?g.textContent:''}); save(); render(); return}
+    if((x=e.target.closest('[data-undo]'))){var id2=selT[selP]; for(var k=log.length-1;k>=0;k--) if(log[k].t===id2){log.splice(k,1);break} save(); render(); return}
+  });
+  render();
+  if(window.fetch&&location.protocol!=='file:') fetch('../settings.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(j&&j.site&&typeof j.site==='object'){S=j.site;render()}}).catch(function(){});
+  setInterval(render,10*60000);
+})();
+</script>
+</body>
+</html>
